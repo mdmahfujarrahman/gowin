@@ -13,7 +13,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": ["yarn lint-prettier"]
+    "**/*.{js,jsx}": [
+      "yarn lint-prettier"
+    ]
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
