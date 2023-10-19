@@ -13,10 +13,14 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.+(js|jsx)": "yarn lint-prettier"
+    "**/*.{js,jsx}": [
+      "yarn lint-prettier"
+    ]
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "antd": "^5.10.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.1",
