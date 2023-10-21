@@ -4,11 +4,10 @@ import { Reader } from '@maxmind/geoip2-node';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GET = async (req, res) => {
   try {
-    const ip = req.headers.get('x-forwarded-for');
-    console.log(ip);
+    const url = new URL(req.url);
+    const ip = url.searchParams.get('ip');
     const reader = await Reader.open('./public/GeoIP2-Country.mmdb');
     const response = reader.country(ip);
-    console.log(response);
     return NextResponse.json(
       {
         data: response.country.isoCode,
