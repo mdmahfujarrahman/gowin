@@ -3,8 +3,10 @@ import { envConfig } from './lib/config';
 
 export async function middleware(request) {
   const url = `${envConfig.serverUrl}/api/ipconfig`;
+  console.log(url);
   try {
     const ipInfo = await fetch(url);
+    console.log(ipInfo);
     if (ipInfo.status === 200) {
       const ipData = await ipInfo.json();
       if (ipData?.data === 'BD') {
