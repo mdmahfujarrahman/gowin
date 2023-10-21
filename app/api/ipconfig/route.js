@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { Reader } from '@maxmind/geoip2-node';
+import { headers } from 'next/headers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GET = async (req, res) => {
   try {
-    const url = new URL(req.url);
-    const ip = url.searchParams.get('ip');
+    const ip = headers().get('x-forwarded-for');
     const reader = await Reader.open('./public/GeoIP2-Country.mmdb');
     const response = reader.country(ip);
     return NextResponse.json(
