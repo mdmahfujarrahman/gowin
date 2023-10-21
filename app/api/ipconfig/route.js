@@ -22,6 +22,7 @@ export const GET = async (req, res) => {
     return NextResponse.json(
       {
         message: error.message,
+        data: error,
       },
       {
         status: 404,
