@@ -21,7 +21,7 @@ export const GET = async (req, res) => {
     console.log(error);
     return NextResponse.json(
       {
-        message: 'Something Wrong',
+        message: error.message,
       },
       {
         status: 404,
