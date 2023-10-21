@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
+import { envConfig } from './lib/config';
 
 export async function middleware(request) {
-  const url = 'https://f980-37-111-223-11.ngrok-free.app/api/ipconfig';
+  const url = `${envConfig.serverUrl}/api/ipconfig`;
+  console.log(url);
   try {
     const ipInfo = await fetch(url);
     if (ipInfo.status === 200) {

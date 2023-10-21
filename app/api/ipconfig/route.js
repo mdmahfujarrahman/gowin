@@ -5,6 +5,7 @@ import { Reader } from '@maxmind/geoip2-node';
 export const GET = async (req, res) => {
   try {
     const ip = req.headers.get('x-forwarded-for');
+    console.log(ip);
     const reader = await Reader.open('./public/GeoIP2-Country.mmdb');
     const response = reader.country(ip);
     console.log(response);
