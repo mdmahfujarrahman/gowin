@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { envConfig } from './lib/config';
+import { headers } from 'next/headers';
 
 export async function middleware(request) {
-  const ip = request.headers.get('x-forwarded-for');
+  const ip = headers().get('x-forwarded-for');
   const url = `${envConfig.serverUrl}/api/ipconfig?ip=${ip}`;
   try {
     const ipInfo = await fetch(url);
