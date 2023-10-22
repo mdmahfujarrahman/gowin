@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  publicRuntimeConfig: {
-    countrymmdb: './public/GeoIP2-Country.mmdb',
-  },
+  middleware: [
+    {
+      handler: './middleware.js',
+      config: {
+        matcher: ['/'],
+      },
+    },
+  ],
 };
 
 module.exports = nextConfig;
