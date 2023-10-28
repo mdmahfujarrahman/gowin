@@ -1,9 +1,7 @@
-import { Inter } from 'next/font/google';
+// global styles
+import AntdRegistry from '../lib/Antd/AntdRegistry';
 import './globals.css';
-import AntdRegistry from '@/lib/Antd/AntdRegistry';
-
-const inter = Inter({ subsets: ['latin'] });
-
+import dbConnect from '../lib/db/db.connect';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
@@ -12,10 +10,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  dbConnect();
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AntdRegistry>{children}</AntdRegistry>
+      <body>
+        <main>
+          <AntdRegistry>{children}</AntdRegistry>
+        </main>
       </body>
     </html>
   );

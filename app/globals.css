@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+  --primary-blue: "#042A3F";
+  --primary-red: '#F92B3B';
+  --box-shadow: "0 15px 25px rgba(0, 0, 0, 0.1)";
+}
 
 * {
   margin: 0;
@@ -9,8 +17,12 @@
 }
 
 body {
-  font-family: Inter;
+  font-family: Lato, sans-serif;
 }
+
+.fontLeto {
+  font-family: Lato, sans-serif;
+} 
 
 .flexCenter {
   @apply flex justify-center items-center;
@@ -38,12 +50,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--primary-blue);
   border-radius: 10px;
 }
 
+/* Navbar */
+.navbar {
+  @apply py-5 px-8 bg-primary-red gap-4;
+}
 
-
+/* antd modal */
+.ant-modal-content{
+  border-radius: 2px !important;
+}
 
 
 

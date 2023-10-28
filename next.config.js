@@ -1,13 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  middleware: [
-    {
-      handler: './middleware.js',
-      config: {
-        matcher: ['/'],
-      },
-    },
-  ],
-};
+const nextConfig = {};
 
 module.exports = nextConfig;
