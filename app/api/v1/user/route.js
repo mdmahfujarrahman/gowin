@@ -1,7 +1,7 @@
-import sendResponse from '../../../../helper/sendResponse/SendResponse.js';
+import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 import errorHandler from '../../../../errorHandler.js';
 import dbConnect from '../../../../lib/db/db.connect.js';
-import { User } from '../../../../model/user/User.model.js';
+import { User } from '../../../../model/user/user.model.js';
 import { UserValidation } from '../../../../helper/zodValidation/user/Api/user.validation.js';
 
 export async function POST(req) {
