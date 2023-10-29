@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function middleware(request) {
-  console.log('come');
   return NextResponse.next();
   // const ip = request.headers.get('x-forwarded-for');
   // const url = envConfig.ipconfig + ip + envConfig.ipkey;

@@ -1,7 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import ApiError from '../../helper/customError/ApiError';
+import httpStatus from 'http-status';
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
     name: {
       type: String,
@@ -11,6 +12,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Email is required'],
       unique: true,
+    },
+    countryCode: {
+      type: String,
+      required: [true, 'Country code is required'],
     },
     password: {
       type: String,
@@ -32,12 +37,24 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
+UserSchema.statics.isUserExist = async function (phoneNumber, countryCode) {
+  const user = await this.findOne({
+    phoneNumber: phoneNumber,
+    countryCode: countryCode,
+  });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  return user;
+};
+
 UserSchema.pre('save', async function (next) {
   const isExist = await User.findOne({ phoneNumber: this.phoneNumber });
   if (isExist) {
-    throw new ApiError(400, 'Phone number already exist.');
+    throw new ApiError(httpStatus.CONFLICT, 'Phone number already exist.');
   }
   next();
 });
 
-export const User = mongoose.models.User || mongoose.model('User', UserSchema);
+export const User = mongoose.models.User || model('User', UserSchema);

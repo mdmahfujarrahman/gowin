@@ -1,8 +1,13 @@
 import React from 'react';
 
-const CustomButton = ({ btnClass, handleClick, children }) => {
+const CustomButton = ({
+  btnClass,
+  handleClick,
+  children,
+  isDisabled = false,
+}) => {
   return (
-    <button className={btnClass} onClick={handleClick}>
+    <button disabled={isDisabled} className={btnClass} onClick={handleClick}>
       {children}
     </button>
   );

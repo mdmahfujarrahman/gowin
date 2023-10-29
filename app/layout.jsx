@@ -1,7 +1,13 @@
 // global styles
-import AntdRegistry from '../lib/Antd/AntdRegistry';
+import 'react-phone-input-2/lib/style.css';
 import './globals.css';
+//
+import AntdRegistry from '../lib/Antd/AntdRegistry';
+// db connection
 import dbConnect from '../lib/db/db.connect';
+// toast
+import Toast from '../ui/Toast/Toast.jsx';
+
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
@@ -15,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <main>
+          <Toast />
           <AntdRegistry>{children}</AntdRegistry>
         </main>
       </body>

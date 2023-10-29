@@ -7,6 +7,7 @@
 :root{
   --primary-blue: "#042A3F";
   --primary-red: '#F92B3B';
+  --border-thin: rgba(128, 128, 128, 0.221);
   --box-shadow: "0 15px 25px rgba(0, 0, 0, 0.1)";
 }
 
@@ -65,6 +66,33 @@ body {
 }
 
 
+/* React Phone Input */
 
-
+.react-tel-input input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 2px !important;
+  width: 100% !important;
+  height: 2.5rem !important;
+}
+.react-tel-input .flag-dropdown  {
+  border: 1px solid var(--border-thin) !important;
+}
+.react-tel-input .selected-flag {
+  width: 40px !important;
+}
+.react-tel-input .selected-flag .flag {
+  left: 25% !important;
+}
+.react-tel-input .country-list .search {
+  display: flex !important;
+  align-items: center !important;
+  padding: 5px 0 5px 5px;
+}
+.react-tel-input .country-list .search-box {
+  border: 1px solid var(--border-thin) !important;
+  height: 2rem !important;
+  font-family: Lato, sans-serif;
+}
 

@@ -13,7 +13,7 @@ const CustomInput = ({
       type={type ? type : 'text'}
       name={name ? name : ''}
       placeholder={placeholder ? placeholder : ''}
-      className={`px-3 py-1 rounded-md h-12 fontLeto outline-none border-0  ${className}`}
+      className={`px-3 py-1  fontLeto outline-none border-0  ${className}`}
       onChange={handleChange ? handleChange : null}
       defaultValue={value ? value : ''}
     />

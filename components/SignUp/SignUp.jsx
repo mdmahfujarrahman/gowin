@@ -3,23 +3,27 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-import { gowinImages } from '../../public/assets';
+import { formValidation } from '../../helper/formValidation/formValidation';
 
 import PhoneInputs from '../PhoneInputs/PhoneInputs';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
-import CustomButton from '../../ui/CustomButton/CustomButton';
 import CustomInput from '../../ui/CustomInput/CustomInput';
-import notification from '../../helper/nottification/nottification';
+import CustomButton from '../../ui/CustomButton/CustomButton';
+import { gowinImages } from '../../public/assets';
 
-const Login = ({ setAuthType }) => {
+const SignUp = ({ setAuthType }) => {
   const router = useRouter();
   const [passShow, setPassShow] = useState(false);
   const [inputData, setInputData] = useState({
+    name: '',
     phoneNumber: '',
     countryCode: '',
     password: '',
+    profilePicture: '',
   });
 
+  console.log(inputData);
   const handleChange = e => {
     const { name, value, code } = e.target;
     if (code) {
@@ -29,20 +33,33 @@ const Login = ({ setAuthType }) => {
     setInputData({ ...inputData, [name]: value });
   };
 
-  const handleLogin = () => {
-    if (!inputData.email || !inputData.password) {
-      notification('error', 'Please enter email and password');
-      return;
+  const handleLogin = async () => {
+    const valid = formValidation.Signup(inputData);
+    if (!valid) return;
+    try {
+      router.push('/fillup');
+    } catch (error) {
+      console.log(error);
     }
-    router.push('/fillup');
   };
 
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
       <div className="flex items-center w-full flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
-          Sign in your Go win
+          Sign Up New Go win
         </h2>
+        <div className="w-full md:w-5/6 flex flex-col relative">
+          <label className="text-white" htmlFor="name">
+            Name
+          </label>
+          <CustomInput
+            handleChange={handleChange}
+            name="name"
+            placeholder="Please Enter your name"
+            className="my-2 h-10 w-full px-3 py-1 rounded-sm focus:outline-none"
+          />
+        </div>
         <div className="w-full md:w-5/6 flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Phone Number
@@ -76,26 +93,34 @@ const Login = ({ setAuthType }) => {
           </div>
         </div>
       </div>
+      <div className="flex  w-full flex-col">
+        <div className="flex flex-col gap-2 pl-0 md:pl-[32px]">
+          <label className="text-white" htmlFor="name">
+            Profile Image
+          </label>
+          <ImageUpload setInputData={setInputData} inputData={inputData} />
+        </div>
+      </div>
       <div className="flex items-center justify-center">
         <CustomButton
           handleClick={handleLogin}
-          isDisabled={false}
+          // isDisabled={true}
           btnClass={
-            ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md cursor-pointer'
+            ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md'
           }
         >
-          Sign In
+          Sign Up
         </CustomButton>
       </div>
       <div className="flex items-center justify-center">
         <p className="text-white">
-          Don&rsquo;t Have an Account?
+          Already have a Account?{' '}
           <span
-            onClick={() => setAuthType('register')}
+            onClick={() => setAuthType('login')}
             className="text-primary-blue cursor-pointer"
           >
             {' '}
-            Sign Up Here!
+            Login Here!
           </span>{' '}
         </p>
       </div>
@@ -103,4 +128,4 @@ const Login = ({ setAuthType }) => {
   );
 };
 
-export default Login;
+export default SignUp;
