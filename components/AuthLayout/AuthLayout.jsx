@@ -7,13 +7,15 @@ import { gowinImages } from '../../public/assets';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import ForgetPassword from '../ForgetPassword/ForgetPassword';
+import OtpVarification from '../OtpVarification/OtpVarification';
 
 const AuthLayout = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [authType, setAuthType] = useState('register');
+  const [authType, setAuthType] = useState('otp');
+
   return (
     <section className="flexCenter bg-primary-blue h-screen  lg:p-12">
-      <div className="bg-primary-red w-5/6 md:w-1/3  h-auto rounded-xl p-4">
+      <div className="bg-primary-red w-[85%] md:w-1/3  h-auto rounded-xl p-4">
         <div className="flexCenter">
           <Image
             src={gowinImages.Logo}
@@ -25,6 +27,11 @@ const AuthLayout = () => {
         </div>
         {authType === 'login' ? <Login setAuthType={setAuthType} /> : ''}
         {authType === 'register' ? <SignUp setAuthType={setAuthType} /> : ''}
+        {authType === 'otp' ? (
+          <OtpVarification setAuthType={setAuthType} />
+        ) : (
+          ''
+        )}
         {authType === 'forget' ? <ForgetPassword /> : ''}
       </div>
     </section>

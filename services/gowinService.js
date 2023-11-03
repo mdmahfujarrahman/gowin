@@ -9,7 +9,7 @@ const signUpReq = payload => {
 };
 
 const isUserExistReq = payload => {
-  return API.post(
+  return API.get(
     `/auth/user?phoneNumber=${payload.phoneNumber}&countryCode=${payload.countryCode}`,
   );
 };

@@ -8,19 +8,26 @@ export async function GET(req) {
   const countryCode = req.nextUrl.searchParams.get('countryCode');
   try {
     await dbConnect();
-    console.log(phoneNumber);
-    console.log(countryCode);
-    // const user = new User();
     const isExist = await User.isUserExist(phoneNumber, countryCode);
 
-    console.log(isExist);
+    if (!isExist) {
+      return sendResponse(
+        {
+          sucess: true,
+          statusCode: 200,
+          message: 'User Retrived Suceesfully',
+          data: "User doesn't exist",
+        },
+        200,
+      );
+    }
 
     // Send the response
     return sendResponse(
       {
         sucess: true,
         statusCode: 200,
-        message: 'User Created Suceesfully',
+        message: 'User Retrived Suceesfully',
         data: isExist,
       },
       200,

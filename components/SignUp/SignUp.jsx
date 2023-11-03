@@ -1,6 +1,8 @@
 'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import Image from 'next/image';
 
 import { formValidation } from '../../helper/formValidation/formValidation';
@@ -11,40 +13,50 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import CustomInput from '../../ui/CustomInput/CustomInput';
 import CustomButton from '../../ui/CustomButton/CustomButton';
 import { gowinImages } from '../../public/assets';
+import { isUserExistThunk } from '../../store/actions/authAction/authAction';
 
 const SignUp = ({ setAuthType }) => {
-  const router = useRouter();
+  const dispatch = useDispatch();
+  const { auth } = useSelector(state => state);
   const [passShow, setPassShow] = useState(false);
-  const [inputData, setInputData] = useState({
-    name: '',
-    phoneNumber: '',
-    countryCode: '',
-    password: '',
-    profilePicture: '',
-  });
+  const [inputData, setInputData] = useState({});
 
-  console.log(inputData);
   const handleChange = e => {
     const { name, value, code } = e.target;
     if (code) {
       setInputData({ ...inputData, [name]: value, countryCode: code });
       return;
+    } else {
+      setInputData({ ...inputData, [name]: value });
     }
-    setInputData({ ...inputData, [name]: value });
   };
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     const valid = formValidation.Signup(inputData);
     if (!valid) return;
-    try {
-      router.push('/fillup');
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(
+      isUserExistThunk({
+        phoneNumber: inputData.phoneNumber,
+        countryCode: inputData.countryCode,
+      }),
+    );
   };
+
+  useEffect(() => {
+    if (auth.isOtpSent) {
+      setAuthType('otp');
+    }
+    if (auth.isUserExist === false) {
+      setAuthType('register');
+    }
+    if (auth.isUserExist === null) {
+      setAuthType('register');
+    }
+  }, [auth.isUserExist, auth.error, auth.isOtpSent]);
 
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
+      <div id="recaptcha-container" className="justify-center flex"></div>
       <div className="flex items-center w-full flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
           Sign Up New Go win
@@ -103,13 +115,13 @@ const SignUp = ({ setAuthType }) => {
       </div>
       <div className="flex items-center justify-center">
         <CustomButton
-          handleClick={handleLogin}
+          handleClick={handleSignup}
           // isDisabled={true}
           btnClass={
             ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md'
           }
         >
-          Sign Up
+          {auth.isLoading ? 'Loading...' : 'Sign Up'}
         </CustomButton>
       </div>
       <div className="flex items-center justify-center">

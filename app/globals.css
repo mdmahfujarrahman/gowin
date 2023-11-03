@@ -7,6 +7,7 @@
 :root{
   --primary-blue: "#042A3F";
   --primary-red: '#F92B3B';
+  --white: #fff;
   --border-thin: rgba(128, 128, 128, 0.221);
   --box-shadow: "0 15px 25px rgba(0, 0, 0, 0.1)";
 }
@@ -96,3 +97,16 @@ body {
   font-family: Lato, sans-serif;
 }
 
+/* OTP form */
+.otp-form input {
+  background: var(--border-thin) !important;
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 5px;
+  text-align: center;
+  margin-right: 8px !important;
+  outline: none !important;
+  border: 2px solid var(--border-thin);
+  color: var(--white);
+  font-size: 20px;
+}

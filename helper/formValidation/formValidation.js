@@ -6,7 +6,7 @@ const Signup = form => {
     return false;
   } else if (form.phoneNumber === '') {
     if (form.countryCode.length > 5) {
-      notification('error', 'Phone number is required');
+      notification('error', 'Phone number must be at least 10 characters');
       return false;
     }
     notification('error', 'Phone number is required');
@@ -20,9 +20,9 @@ const Signup = form => {
     }
     notification('error', 'Password is required');
     return false;
-  } else if (form.profilePicture === '') {
-    notification('error', 'Please upload profile picture');
-    return false;
+    // } else if (form.profilePicture === '') {
+    //   notification('error', 'Please upload profile picture');
+    //   return false;
   } else {
     return true;
   }

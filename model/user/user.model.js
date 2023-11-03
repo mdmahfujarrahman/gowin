@@ -42,10 +42,6 @@ UserSchema.statics.isUserExist = async function (phoneNumber, countryCode) {
     phoneNumber: phoneNumber,
     countryCode: countryCode,
   });
-
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  }
   return user;
 };
 
