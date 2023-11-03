@@ -11,7 +11,7 @@ import OtpVarification from '../OtpVarification/OtpVarification';
 
 const AuthLayout = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [authType, setAuthType] = useState('otp');
+  const [authType, setAuthType] = useState('register');
 
   return (
     <section className="flexCenter bg-primary-blue h-screen  lg:p-12">
