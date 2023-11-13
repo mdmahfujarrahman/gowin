@@ -1,21 +1,34 @@
-'use client';
-import { useState } from 'react';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 // assets
 import { gowinImages } from '../../public/assets';
 // components
 import Login from '../Login/Login';
-import SignUp from '../SignUp/SignUp';
-import ForgetPassword from '../ForgetPassword/ForgetPassword';
-import OtpVarification from '../OtpVarification/OtpVarification';
+// import ForgetPassword from '../ForgetPassword/ForgetPassword';
+// store
+import { store } from '../../store/store';
+import { manageAuthRoute } from '../../store/slices/authSlice/authSlice';
+import { getCurrentUser } from '../../lib/authOptions/authOptions';
 
-const AuthLayout = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [authType, setAuthType] = useState('register');
+const AuthLayout = async () => {
+  const session = await getCurrentUser();
+  if (session) {
+    if (session.user.status === 'pending') {
+      store.dispatch(manageAuthRoute('pending'));
+      redirect('/signup');
+    } else {
+      if (session.user.role === 'admin') {
+        redirect('/dasboard');
+      } else {
+        redirect('/profile');
+      }
+    }
+  }
 
   return (
-    <section className="flexCenter bg-primary-blue h-screen  lg:p-12">
-      <div className="bg-primary-red w-[85%] md:w-1/3  h-auto rounded-xl p-4">
+    <section className="flexCenter bg-primary-blue h-screen sm:h-auto lg:p-12">
+      <div className="bg-primary-red w-[85%]  md:w-[380px]  h-auto rounded-xl p-6">
+        <div id="recaptcha-container" className="justify-center flex"></div>
         <div className="flexCenter">
           <Image
             src={gowinImages.Logo}
@@ -25,14 +38,7 @@ const AuthLayout = () => {
             alt="go win logo"
           />
         </div>
-        {authType === 'login' ? <Login setAuthType={setAuthType} /> : ''}
-        {authType === 'register' ? <SignUp setAuthType={setAuthType} /> : ''}
-        {authType === 'otp' ? (
-          <OtpVarification setAuthType={setAuthType} />
-        ) : (
-          ''
-        )}
-        {authType === 'forget' ? <ForgetPassword /> : ''}
+        <Login />
       </div>
     </section>
   );

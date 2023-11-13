@@ -53,7 +53,7 @@ export default async function errorHandler(error) {
       ? [{ path: '', message: error?.message }]
       : [];
   } else if (error instanceof Error) {
-    console.log(error);
+    
     statusCode = 500;
     message = error?.message;
     errorMessages = [{ path: '', message: error.message }];

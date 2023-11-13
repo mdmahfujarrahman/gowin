@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,14 +12,27 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 
 import CustomInput from '../../ui/CustomInput/CustomInput';
 import CustomButton from '../../ui/CustomButton/CustomButton';
-import { gowinImages } from '../../public/assets';
-import { isUserExistThunk } from '../../store/actions/authAction/authAction';
 
-const SignUp = ({ setAuthType }) => {
+import { gowinImages } from '../../public/assets';
+
+import Clock from '../Clock/Clock';
+
+import { isUserExistThunk } from '../../store/actions/authAction/authAction';
+import { useRouter } from 'next/navigation';
+import { LoadingOutlined } from '@ant-design/icons';
+
+const SignUp = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { auth } = useSelector(state => state);
   const [passShow, setPassShow] = useState(false);
-  const [inputData, setInputData] = useState({});
+  const [inputData, setInputData] = useState({
+    name: '',
+    phone: '',
+    countryCode: '',
+    password: '',
+    profilePicture: '',
+  });
 
   const handleChange = e => {
     const { name, value, code } = e.target;
@@ -34,51 +47,35 @@ const SignUp = ({ setAuthType }) => {
   const handleSignup = async () => {
     const valid = formValidation.Signup(inputData);
     if (!valid) return;
-    dispatch(
-      isUserExistThunk({
-        phoneNumber: inputData.phoneNumber,
-        countryCode: inputData.countryCode,
-      }),
-    );
+    dispatch(isUserExistThunk(inputData));
   };
-
-  useEffect(() => {
-    if (auth.isOtpSent) {
-      setAuthType('otp');
-    }
-    if (auth.isUserExist === false) {
-      setAuthType('register');
-    }
-    if (auth.isUserExist === null) {
-      setAuthType('register');
-    }
-  }, [auth.isUserExist, auth.error, auth.isOtpSent]);
 
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
-      <div id="recaptcha-container" className="justify-center flex"></div>
-      <div className="flex items-center w-full flex-col">
+      <Clock />
+      <div className="flex items-center w-[320px] flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
           Sign Up New Go win
         </h2>
-        <div className="w-full md:w-5/6 flex flex-col relative">
+        <div className="w-full flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Name
           </label>
           <CustomInput
             handleChange={handleChange}
             name="name"
+            value={inputData.name}
             placeholder="Please Enter your name"
             className="my-2 h-10 w-full px-3 py-1 rounded-sm focus:outline-none"
           />
         </div>
-        <div className="w-full md:w-5/6 flex flex-col relative">
+        <div className="w-full  flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Phone Number
           </label>
           <PhoneInputs handleChange={handleChange} inputData={inputData} />
         </div>
-        <div className="w-full md:w-5/6 flex flex-col relative">
+        <div className="w-full flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Password
           </label>
@@ -87,6 +84,7 @@ const SignUp = ({ setAuthType }) => {
             name="password"
             type={passShow ? 'text' : 'password'}
             placeholder="Please Enter your password"
+            value={inputData.password}
             className="my-2 h-10 w-full px-3 py-1 rounded-sm focus:outline-none"
           />
           <div>
@@ -105,8 +103,8 @@ const SignUp = ({ setAuthType }) => {
           </div>
         </div>
       </div>
-      <div className="flex  w-full flex-col">
-        <div className="flex flex-col gap-2 pl-0 md:pl-[32px]">
+      <div className="flex  w-[320px] flex-col">
+        <div className="flex flex-col gap-2 ">
           <label className="text-white" htmlFor="name">
             Profile Image
           </label>
@@ -118,17 +116,17 @@ const SignUp = ({ setAuthType }) => {
           handleClick={handleSignup}
           // isDisabled={true}
           btnClass={
-            ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md'
+            ' my-2 h-10 bg-primary-blue w-32 border-none flexCenter text-white rounded-md'
           }
         >
-          {auth.isLoading ? 'Loading...' : 'Sign Up'}
+          {auth.isLoading ? <LoadingOutlined /> : 'Sign Up'}
         </CustomButton>
       </div>
       <div className="flex items-center justify-center">
         <p className="text-white">
           Already have a Account?{' '}
           <span
-            onClick={() => setAuthType('login')}
+            onClick={() => router.push('/')}
             className="text-primary-blue cursor-pointer"
           >
             {' '}

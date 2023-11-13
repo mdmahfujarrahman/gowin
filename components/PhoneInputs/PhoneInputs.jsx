@@ -1,6 +1,8 @@
 import PhoneInput from 'react-phone-input-2';
 
+
 const PhoneInputs = ({ handleChange, inputData }) => {
+
   return (
     <PhoneInput
       country={'bd'}

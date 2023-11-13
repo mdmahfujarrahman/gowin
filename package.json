@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
+    "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.7",
     "antd": "^5.10.1",
     "axios": "^1.5.1",
+    "bcrypt": "^5.1.1",
     "firebase": "^10.5.2",
     "http-status": "^1.7.3",
     "jsonwebtoken": "^9.0.2",

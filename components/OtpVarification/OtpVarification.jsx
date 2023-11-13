@@ -1,25 +1,54 @@
+'use client';
 import OTPInput from 'otp-input-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
+
 import CustomButton from '../../ui/CustomButton/CustomButton';
+import {
+  requestOtpThunk,
+  verifyOtpThunk,
+} from '../../store/actions/authAction/authAction';
+import notification from '../../helper/nottification/nottification';
+import {
+  manageAuthRoute,
+  resendOtpThunk,
+} from '../../store/slices/authSlice/authSlice';
 
 const OtpVarification = () => {
+  const [counter, setCounter] = useState(30);
+  const dispatch = useDispatch();
   const { auth } = useSelector(state => state);
   const [otpValue, setOtpValue] = useState('');
 
   const varifyOtp = () => {
-    console.log(otpValue);
+    if (otpValue.length < 6)
+      return notification('error', 'Please enter valid OTP');
+    dispatch(verifyOtpThunk({ otp: otpValue }));
   };
+
+  const handleResendOtp = () => {
+    dispatch(resendOtpThunk());
+    dispatch(
+      requestOtpThunk({
+        phoneNumber: auth.newUserData.phoneNumber,
+        isResend: true,
+      }),
+    );
+    setInterval(() => {
+      setCounter(prev => prev - 1);
+    }, 1000);
+
+    clearInterval(counter === 0);
+  };
+
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
       <div className="flex items-center w-full flex-col">
-        <h2 className="flexCenter my-2 text-white text-sm md:text-xl">
+        <h2 className="flexCenter my-2 text-white text-center text-sm md:text-xl">
           Please enter the OTP sent to your mobile number
         </h2>
         <div className="w-full md:w-5/6 flex items-center flex-col relative">
-          <label className="text-white text-center" htmlFor="otp">
-            Enter OTP
-          </label>
           <div className="my-3">
             <OTPInput
               className="otp-form"
@@ -40,14 +69,19 @@ const OtpVarification = () => {
                 ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md'
               }
             >
-              {auth.isLoading ? 'Loading...' : 'Verify OTP'}
+              {auth.isLoading ? 'Verifing...' : 'Verify OTP'}
             </CustomButton>
           </div>
         </div>
         <div className="flex items-center justify-center mt-3">
           <p className="text-white text-sm">
-            Didn&apos;t receive the OTP?{' '}
-            <span className="text-primary-blue cursor-pointer">Resend</span>
+            Didn&apos;t receive the OTP?&nbsp;&nbsp;
+            <CustomButton
+              handleClick={handleResendOtp}
+              btnClass={'w-20 h-9  bg-primary-blue rounded-md'}
+            >
+              {auth.isResend ? <LoadingOutlined /> : 'Resend'}
+            </CustomButton>
           </p>
         </div>
         <div className="flex items-center justify-center">
@@ -55,8 +89,13 @@ const OtpVarification = () => {
         </div>
         <div className="flex items-center justify-center">
           <p className="text-white text-sm">
-            Back to{' '}
-            <span className="text-primary-blue cursor-pointer">Signup</span>
+            Back to&nbsp;&nbsp;
+            <span
+              onClick={() => dispatch(manageAuthRoute('register'))}
+              className="text-primary-blue cursor-pointer"
+            >
+              Signup
+            </span>
           </p>
         </div>
       </div>

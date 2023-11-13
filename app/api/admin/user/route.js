@@ -1,17 +1,17 @@
 // Load the module dependencies
-import sendResponse from '../../../../../helper/sendResponse/sendResponse.js';
+import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 // Import the error handler
-import errorHandler from '../../../../../errorHandler.js';
+import errorHandler from '../../../../errorHandler.js';
 // Import the database connection
-import dbConnect from '../../../../../lib/db/db.connect.js';
+import dbConnect from '../../../../lib/db/db.connect.js';
 // Import the user model
-import { User } from '../../../../../model/user/user.model.js';
+import { User } from '../../../../model/user/user.model.js';
 
 /**
  * Get all users
  *
  * This route allows you to get all users.
- * @route /api/v1/admin/user
+ * @route /api/admin/user
  * @method GET
  * @access Private
  * @type {NextRequest} req - The NextRequest object represents the HTTP request.

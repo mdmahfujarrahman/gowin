@@ -1,18 +1,29 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { gowinImages } from '../../public/assets';
 
 import PhoneInputs from '../PhoneInputs/PhoneInputs';
 
+import Clock from '../Clock/Clock';
+
 import CustomButton from '../../ui/CustomButton/CustomButton';
 import CustomInput from '../../ui/CustomInput/CustomInput';
+
 import notification from '../../helper/nottification/nottification';
 
-const Login = ({ setAuthType }) => {
+import { manageAuthRoute } from '../../store/slices/authSlice/authSlice';
+
+const Login = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [loading, setIsLoading] = useState(false);
+
   const [passShow, setPassShow] = useState(false);
   const [inputData, setInputData] = useState({
     phoneNumber: '',
@@ -29,27 +40,50 @@ const Login = ({ setAuthType }) => {
     setInputData({ ...inputData, [name]: value });
   };
 
-  const handleLogin = () => {
-    if (!inputData.email || !inputData.password) {
-      notification('error', 'Please enter email and password');
+  const handleLogin = async () => {
+    setIsLoading(true);
+    if (!inputData.phoneNumber || !inputData.password) {
+      setIsLoading(false);
+      notification('error', 'Please enter Phone Number and password');
       return;
     }
-    router.push('/fillup');
+    const res = await signIn('credentials', {
+      phoneNumber: inputData.phoneNumber,
+      countryCode: inputData.countryCode,
+      password: inputData.password,
+      redirect: false,
+    });
+    if (res.error) {
+      setIsLoading(false);
+      const errors = JSON.parse(res.error);
+      if (errors.message === 'Your account is not verified yet') {
+        dispatch(manageAuthRoute('pending'));
+        router.push('/signup');
+      } else {
+        setIsLoading(false);
+        notification('error', errors.message);
+      }
+    } else {
+      router.push('/profile');
+      notification('success', 'Login Successfull');
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
-      <div className="flex items-center w-full flex-col">
+      <Clock />
+      <div className="flex items-center w-[320px] flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
           Sign in your Go win
         </h2>
-        <div className="w-full md:w-5/6 flex flex-col relative">
+        <div className="w-full  flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Phone Number
           </label>
           <PhoneInputs handleChange={handleChange} inputData={inputData} />
         </div>
-        <div className="w-full md:w-5/6 flex flex-col relative">
+        <div className="w-full  flex flex-col relative">
           <label className="text-white" htmlFor="name">
             Password
           </label>
@@ -81,17 +115,17 @@ const Login = ({ setAuthType }) => {
           handleClick={handleLogin}
           isDisabled={false}
           btnClass={
-            ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md cursor-pointer'
+            ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md flexCenter cursor-pointer'
           }
         >
-          Sign In
+          {loading ? <LoadingOutlined /> : 'Sign In'}
         </CustomButton>
       </div>
       <div className="flex items-center justify-center">
         <p className="text-white">
           Don&rsquo;t Have an Account?
           <span
-            onClick={() => setAuthType('register')}
+            onClick={() => router.push('/signup')}
             className="text-primary-blue cursor-pointer"
           >
             {' '}

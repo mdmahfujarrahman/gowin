@@ -5,8 +5,12 @@ import React from 'react';
 import { FaRegUser } from 'react-icons/fa';
 // assets
 import { gowinImages } from '../../public/assets';
+import { getCurrentUser } from '../../lib/authOptions/authOptions';
 
-const Navbar = () => {
+import ProfileDropDown from '../ProfileDropDown/ProfileDropDown';
+
+const Navbar = async () => {
+  const session = await getCurrentUser();
   return (
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
@@ -21,8 +25,12 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flexCenter gap-4">
-        <div className="h-12 w-12 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer">
-          <FaRegUser fill="yellow" />
+        <div className="h-12 w-12 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
+          {session?.user?.image ? (
+            <ProfileDropDown/>
+          ) : (
+            <FaRegUser fill="yellow" />
+          )}
         </div>
       </div>
     </nav>

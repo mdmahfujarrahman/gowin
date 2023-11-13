@@ -58,7 +58,7 @@ body {
 
 /* Navbar */
 .navbar {
-  @apply py-5 px-8 bg-primary-red gap-4;
+  @apply py-4 px-8 bg-primary-red gap-4;
 }
 
 /* antd modal */

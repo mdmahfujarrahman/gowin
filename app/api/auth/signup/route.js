@@ -1,13 +1,14 @@
 // Load the module dependencies
 // Import the error handler
+import errorHandler from '../../../../errorHandler.js';
+// Import the sendResponse helper
+import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 // Import the database connection
+import dbConnect from '../../../../lib/db/db.connect.js';
 // Import the user model
-import errorHandler from '../../../../../errorHandler.js';
-import sendResponse from '../../../../../helper/sendResponse/sendResponse.js';
-import { UserValidation } from '../../../../../helper/zodValidation/user/Api/user.validation.js';
-import dbConnect from '../../../../../lib/db/db.connect.js';
-import { User } from '../../../../../model/user/user.model.js';
+import { User } from '../../../../model/user/user.model.js';
 // Import the validation schema
+import { UserValidation } from '../../../../helper/zodValidation/user/Api/user.validation.js';
 
 /**
  * Create a new user
@@ -29,7 +30,8 @@ export async function POST(req) {
     // Connect to the database
     await dbConnect();
 
-    const user = await User.create(body);
+    const user = await User.create(body)
+    console.log(user)
     // Send the response
     return sendResponse(
       {

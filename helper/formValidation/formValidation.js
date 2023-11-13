@@ -14,15 +14,14 @@ const Signup = form => {
     notification('error', 'Please select country Name');
     return false;
   } else if (form.password === '') {
-    if (form.phoneNumber.length > 6) {
-      notification('error', 'Password must be at least 6 characters');
-      return false;
-    }
     notification('error', 'Password is required');
     return false;
-    // } else if (form.profilePicture === '') {
-    //   notification('error', 'Please upload profile picture');
-    //   return false;
+  } else if (form.password.length < 6) {
+    notification('error', 'Password must be at least 6 characters');
+    return false;
+  } else if (form.profilePicture === '') {
+    notification('error', 'Please upload profile picture');
+    return false;
   } else {
     return true;
   }

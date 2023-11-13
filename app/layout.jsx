@@ -9,7 +9,7 @@ import dbConnect from '../lib/db/db.connect';
 import Toast from '../ui/Toast/Toast.jsx';
 // providers
 import Providers from '../store/Providers';
-
+import AuthSession from '../lib/AuthSession/AuthSession';
 //
 export const dynamic = 'force-dynamic';
 
@@ -23,11 +23,13 @@ export default function RootLayout({ children }) {
   dbConnect();
   return (
     <html lang="en">
-      <body>
+      <body className="bg-primary-blue">
         <main>
           <Toast />
           <AntdRegistry>
-            <Providers>{children}</Providers>
+            <AuthSession>
+              <Providers>{children}</Providers>
+            </AuthSession>
           </AntdRegistry>
         </main>
       </body>

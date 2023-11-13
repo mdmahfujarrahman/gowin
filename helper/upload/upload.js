@@ -18,7 +18,6 @@ const uploadImage = (
       const prog = `${Math.round(
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
       )}%`;
-      console.log(prog);
       setPercentUpload(prog);
     },
     error => console.log(error),
