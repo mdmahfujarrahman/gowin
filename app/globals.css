@@ -6,10 +6,18 @@
 
 :root{
   --primary-blue: "#042A3F";
-  --primary-red: '#F92B3B';
+  --primary-red: "#F92B3B";
+  --primary-yellow: "#FFEB34";
   --white: #fff;
   --border-thin: rgba(128, 128, 128, 0.221);
   --box-shadow: "0 15px 25px rgba(0, 0, 0, 0.1)";
+}
+
+@font-face {
+  font-family: 'Dejavu Sans';
+  src: url('/fonts/DejaVuSans-Bold.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
 }
 
 * {
@@ -18,6 +26,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   font-family: Lato, sans-serif;
 }
@@ -25,6 +35,9 @@ body {
 .fontLeto {
   font-family: Lato, sans-serif;
 } 
+.fontDejavu{
+  font-family: 'Dejavu Sans', sans-serif !important;
+}
 
 .flexCenter {
   @apply flex justify-center items-center;
@@ -56,9 +69,82 @@ body {
   border-radius: 10px;
 }
 
+/* Progress */
+
+ .cssProgress-bar {
+  display: block;
+  float: left;
+  width: 0%;
+  height: 100%;
+  background: var(--primary-blue);
+  box-shadow: inset 0px -1px 2px rgba(0,0,0,0.1);
+  -webkit-transition: width 0.8s ease-in-out;
+  transition: width 0.8s ease-in-out;
+  height: 20px;
+  border-radius: 9px;
+  width: 100%;
+}
+
+.cssProgress-success{
+  background-color: #FFEB34  !important;
+}
+
+.cssProgress-active {
+  animation: cssProgressActive 2s linear infinite;
+  background-image: -webkit-linear-gradient(
+    135deg,
+    rgba(4, 42, 63, 0.225) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(4, 42, 63, 0.225) 50%,
+    rgba(4, 42, 63, 0.225) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: linear-gradient(
+    -45deg,
+    rgba(4, 42, 63, 0.225) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(4, 42, 63, 0.225) 50%,
+    rgba(4, 42, 63, 0.225) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 35px 35px;
+}
+
+
+
+@-webkit-keyframes cssProgressActive {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 35px 35px;
+  }
+}
+@-ms-keyframes cssProgressActive {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 35px 35px;
+  }
+}
+@keyframes cssProgressActive {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 35px 35px;
+  }
+}
+
+
 /* Navbar */
 .navbar {
-  @apply py-4 px-8 bg-primary-red gap-4;
+  @apply py-4 px-4 md:px-10 bg-primary-red gap-4;
 }
 
 /* antd modal */
@@ -112,23 +198,6 @@ body {
 }
 
 
-/* Loading */
-
-/* body {
-	margin: 0px;
-	background: radial-gradient(#CECECE, #fff);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-} */
-.container {
-	width: 150px;
-	height: 150px;
-	border-radius: 100%;
-	background: linear-gradient(165deg, rgba(255,255,255,1) 0%, rgb(220, 220, 220) 40%, rgb(170, 170, 170) 98%, rgb(10, 10, 10) 100%);
-	position: relative;
-}
 
 .loader {
   width: 40px;
@@ -155,4 +224,82 @@ body {
    33%  {inset:-10px;transform: rotate(0deg)}
    66%  {inset:-10px;transform: rotate(90deg)}
    100% {inset:0    ;transform: rotate(90deg)}
+}
+
+.animated-image {
+  transform: scale(1);
+  animation: scaleUpDown 2s ease-in-out infinite;
+}
+
+@keyframes scaleUpDown {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+/* Confetti animation */
+.confetti-container {
+  /* width: 100vw; */
+  /* height: 100vh; */
+  /* background: #ffffff; */
+  /* border:1px solid white; */
+  /* display:fixed; */
+  top:0px;
+}
+.confetti {
+  position: absolute;
+  top: -10px;
+  border-radius: 50%;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-1 {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50px) rotate(360deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(720deg);
+  }
+}
+
+@keyframes confetti-2 {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-25px) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) rotate(360deg);
+  }
+}
+
+@keyframes confetti-3 {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(25px) rotate(-180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(50px) rotate(-360deg);
+  }
 }

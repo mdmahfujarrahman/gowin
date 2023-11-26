@@ -7,7 +7,12 @@ const CustomButton = ({
   isDisabled = false,
 }) => {
   return (
-    <button disabled={isDisabled} className={btnClass} onClick={handleClick}>
+    <button
+      type="submit"
+      disabled={isDisabled}
+      className={btnClass}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );

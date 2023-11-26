@@ -27,7 +27,7 @@ const Navbar = async () => {
       <div className="flexCenter gap-4">
         <div className="h-12 w-12 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
           {session?.user?.image ? (
-            <ProfileDropDown/>
+            <ProfileDropDown />
           ) : (
             <FaRegUser fill="yellow" />
           )}

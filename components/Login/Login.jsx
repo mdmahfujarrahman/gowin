@@ -40,7 +40,8 @@ const Login = () => {
     setInputData({ ...inputData, [name]: value });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async e => {
+    e.preventDefault();
     setIsLoading(true);
     if (!inputData.phoneNumber || !inputData.password) {
       setIsLoading(false);
@@ -71,7 +72,10 @@ const Login = () => {
   };
 
   return (
-    <div className="my-2 flex justify-center items-center  flex-col">
+    <form
+      onSubmit={handleLogin}
+      className="my-2 flex justify-center items-center  flex-col"
+    >
       <Clock />
       <div className="flex items-center w-[320px] flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
@@ -112,7 +116,6 @@ const Login = () => {
       </div>
       <div className="flex items-center justify-center">
         <CustomButton
-          handleClick={handleLogin}
           isDisabled={false}
           btnClass={
             ' my-2 h-10 bg-primary-blue w-32 border-none text-white rounded-md flexCenter cursor-pointer'
@@ -133,7 +136,7 @@ const Login = () => {
           </span>{' '}
         </p>
       </div>
-    </div>
+    </form>
   );
 };
 

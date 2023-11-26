@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        dejavuSans: ['Dejavu Sans', 'sans-serif'],
+      },
       colors: {
         'nav-border': '#252F3D',
         'light-white': '#FAFAFB',
@@ -21,11 +24,13 @@ module.exports = {
         'primary-blue': '#042A3F',
         'primary-red': '#F92B3B',
         'primary-yellow': '#FFFF00',
+        'secendary-yellow': '#FFEB34',
         'primary-green': '#46D39D',
         'transparent-bg': 'rgba(255,255, 255, 0.10)',
         'gray-50': '#D9D9D9',
       },
       backgroundImage: {
+        'card-bg': "url('/assets/resultCard/cardbg.jpeg')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
