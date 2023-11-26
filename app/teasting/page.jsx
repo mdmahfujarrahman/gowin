@@ -1,6 +1,6 @@
 import React from 'react';
 
-const loading = () => {
+const page = () => {
   return (
     <div className="flexCenter h-screen">
       <div class="loader"></div>
@@ -8,4 +8,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default page;
