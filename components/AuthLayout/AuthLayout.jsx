@@ -20,7 +20,7 @@ const AuthLayout = async () => {
       if (session.user.role === 'admin') {
         redirect('/dasboard');
       } else {
-        redirect('/profile');
+        redirect('/results');
       }
     }
   }

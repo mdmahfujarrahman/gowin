@@ -1,5 +1,6 @@
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../lib/firebase/firebase.config';
+import toast from 'react-hot-toast';
 
 const uploadImage = (
   e,
@@ -10,6 +11,11 @@ const uploadImage = (
 ) => {
   setIsUploading(true);
   const file = e.target.files[0];
+  if (!file.type.includes('image')) {
+    toast.error('Please select an image file');
+    setIsUploading(false);
+    return;
+  }
   const sotrageRef = ref(storage, `files/${file.name}`);
   const uploadTask = uploadBytesResumable(sotrageRef, file);
   uploadTask.on(

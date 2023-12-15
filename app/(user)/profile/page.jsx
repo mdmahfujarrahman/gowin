@@ -1,6 +1,6 @@
-import Navbar from '../../components/Navbar/Navbar.jsx';
-import { getCurrentUser } from '../../lib/authOptions/authOptions.js';
-import GameLayout from '../../components/GameLayout/GameLayout.jsx';
+import Navbar from '../../../components/Navbar/Navbar.jsx';
+import { getCurrentUser } from '../../../lib/authOptions/authOptions.js';
+import GameLayout from '../../../components/GameLayout/GameLayout.jsx';
 
 const Dashboard = async () => {
   const session = await getCurrentUser();

@@ -34,7 +34,13 @@ const ImageUpload = ({ inputData, setInputData }) => {
           ? 'Upload Again'
           : 'Upload'}
       </label>
-      <input onChange={handleUpload} type="file" ref={imgref} hidden />
+      <input
+        accept="image/*"
+        onChange={handleUpload}
+        type="file"
+        ref={imgref}
+        hidden
+      />
     </div>
   );
 };

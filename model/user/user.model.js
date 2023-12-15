@@ -57,6 +57,13 @@ UserSchema.statics.isUserExist = async function (phoneNumber, countryCode) {
   });
   return user;
 };
+UserSchema.statics.getSingleUser = async function (id) {
+  const user = await this.findOne({ _id: id });
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  return user;
+};
 
 // Check hashed password with user password before save user document
 UserSchema.pre('save', async function (next) {

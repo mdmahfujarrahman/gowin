@@ -65,7 +65,7 @@ const Login = () => {
         notification('error', errors.message);
       }
     } else {
-      router.push('/profile');
+      router.push('/results');
       notification('success', 'Login Successfull');
       setIsLoading(false);
     }

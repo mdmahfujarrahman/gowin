@@ -1,8 +1,10 @@
+import moment from 'moment';
 import Image from 'next/image';
 import { gowinImages, resultCardImages } from '../../../public/assets';
 import CardRound from '../CardRound/CardRound.jsx';
 
 const Playing = () => {
+  const today = new Date();
   return (
     <div className="w-full px-4 md:px-10">
       <div className="flex flex-col">
@@ -15,8 +17,10 @@ const Playing = () => {
             <p className="fontDejavu text-white text-2xl md:text-6xl mb-1 tracking-[-2px] font-extrabold">
               RESULTS
             </p>
-
-            <div className="cssProgress-bar cssProgress-success cssProgress-active"></div>
+            <p className="fontDejavu text-white text-sm md:text-3xl mb-1 tracking-[-2px] font-extrabold">
+              {moment(today).format('LL')}
+            </p>
+            {/* <div className="cssProgress-bar cssProgress-success cssProgress-active"></div> */}
           </div>
           <Image
             src={gowinImages.logoSmall}
