@@ -12,53 +12,72 @@ export async function GET() {
   const alt = firstImage.attr('alt');
   const yeasterDayResult = await Result.previousResult();
 
-  if (alt.includes('WhatsApp')) {
-    if (
-      src === yeasterDayResult[0].orginalImage &&
-      alt === yeasterDayResult[0].orginalImageAlt
-    ) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 200,
-          message: 'Result not updated yet',
-          data: [],
-        },
-        200,
-      );
+  if (!yeasterDayResult.length) {
+    const newImage = await uploadImage(src);
+    const upload = await Result.create({
+      orginalImage: src,
+      image: newImage,
+      resultCode: 1,
+      orginalImageAlt: alt,
+    });
+    return sendResponse(
+      {
+        success: true,
+        statusCode: 200,
+        message: 'Result updated',
+        data: upload,
+      },
+      200,
+    );
+  } else {
+    if (alt.includes('WhatsApp')) {
+      if (
+        src === yeasterDayResult[0].orginalImage &&
+        alt === yeasterDayResult[0].orginalImageAlt
+      ) {
+        return sendResponse(
+          {
+            success: false,
+            statusCode: 200,
+            message: 'Result not updated yet',
+            data: [],
+          },
+          200,
+        );
+      }
+    } else if (alt.includes('Draw Results')) {
+      if (
+        src === yeasterDayResult[0]?.orginalImage &&
+        alt === yeasterDayResult[0]?.orginalImageAlt
+      ) {
+        return sendResponse(
+          {
+            success: false,
+            statusCode: 200,
+            message: 'Result not updated yet',
+            data: [],
+          },
+          200,
+        );
+      }
     }
-  } else if (alt.includes('Draw Results')) {
-    if (
-      src === yeasterDayResult[0].orginalImage &&
-      alt === yeasterDayResult[0].orginalImageAlt
-    ) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 200,
-          message: 'Result not updated yet',
-          data: [],
-        },
-        200,
-      );
-    }
+
+    const newImage = await uploadImage(src);
+
+    const upload = await Result.create({
+      orginalImage: src,
+      image: newImage,
+      resultCode: parseInt(yeasterDayResult[0].resultCode) + 1,
+      orginalImageAlt: alt,
+    });
+    return sendResponse(
+      {
+        success: true,
+        statusCode: 200,
+        message: 'Result updated',
+        data: upload,
+      },
+      200,
+    );
   }
-
-  const newImage = await uploadImage(src);
-
-  const upload = await Result.create({
-    orginalImage: src,
-    image: newImage,
-    resultCode: parseInt(yeasterDayResult[0].resultCode) + 1,
-    orginalImageAlt: alt,
-  });
-  return sendResponse(
-    {
-      success: true,
-      statusCode: 200,
-      message: 'Result updated',
-      data: upload,
-    },
-    200,
-  );
 }

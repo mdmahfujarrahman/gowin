@@ -58,20 +58,31 @@ const statusData = async () => {
   }
 };
 
-const startRunning = async (status, info) => {
+const collectResult = async (status, info) => {
+  const timeData = await info?.timing;
+  // collect  result and update bangladesh time
   const bdTime = new Date().toLocaleString('en-US', {
-    timeZone: 'Asia/Dhaka',
+    timeZone: timeData?.timeZone || 'Asia/Dhaka',
   });
-  const bdDate = new Date(bdTime);
-  const start = new Date(bdDate);
-  start.setHours(12, 0, 0); // 5:00 PM
-  const end = new Date(bdDate);
-  end.setHours(13, 59, 0); // 5:10 PM
-  //
-  if (bdDate >= start && bdDate <= end) {
+
+  // collect  result and update at 11:11 PM to 11:25 PM
+  const collectDate = new Date(bdTime);
+  const startCollect = new Date(collectDate);
+  startCollect.setHours(
+    timeData?.resultCollect.start.hours || 11,
+    timeData?.resultCollect.start.minutes || 11,
+    timeData?.resultCollect.start.seconds || 0,
+  ); // 5:00 PM
+  const endCollect = new Date(collectDate);
+  endCollect.setHours(
+    timeData?.resultCollect?.end?.hours || 11,
+    timeData?.resultCollect?.end?.minutes || 25,
+    timeData?.resultCollect?.end?.seconds || 0,
+  ); // 5:10 PM
+  // start running at 11:00 PM to 11:10 PM
+  if (collectDate >= startCollect && collectDate <= endCollect) {
     const getResult = await dailyUpdateResult();
     if (getResult?.success) {
-      console.log('if');
       const updateData = await updateStatus(status, info);
       return updateData;
     } else {
@@ -82,29 +93,76 @@ const startRunning = async (status, info) => {
           timeZone: 'Asia/Dhaka',
         },
       );
-      console.log(checkTime);
       const checkDate = new Date(checkTime);
       const updateStart = new Date(checkDate);
-      updateStart.setHours(12, 0, 0); // 5:00 PM
+      updateStart.setHours(
+        timeData?.resultCollect.start.hours || 11,
+        timeData?.resultCollect.start.minutes || 11,
+        timeData?.resultCollect.start.seconds || 0,
+      ); // 5:00 PM
       const updateEnd = new Date(checkDate);
-      updateEnd.setHours(13, 59, 0); // 5:10 PM
+      updateEnd.setHours(
+        timeData?.resultCollect?.end?.hours || 11,
+        timeData?.resultCollect?.end?.minutes || 25,
+        timeData?.resultCollect?.end?.seconds || 0,
+      ); // 5:10 PM
       if (checkDate >= updateStart && checkDate <= updateEnd) {
         const updateData = await updateStatus('result', copyInfo);
         return updateData;
       } else {
-        startRunning();
+        collectResult('result', copyInfo);
       }
     }
   }
 };
 
+const startCountdown = async (status, info) => {
+  const timeData = await info?.timing;
+  // collect  result and update bangladesh time
+  const bdTime = new Date().toLocaleString('en-US', {
+    timeZone: timeData?.timeZone || 'Asia/Dhaka',
+  });
+
+  // collect  result and update at 11:11 PM to 11:25 PM
+  const countdownDate = new Date(bdTime);
+  const startCountdownTime = new Date(countdownDate);
+  startCountdownTime.setHours(
+    timeData?.startCountdown.start.hours || 17,
+    timeData?.startCountdown.start.minutes || 0,
+    timeData?.startCountdown.start.seconds || 0,
+  ); // 5:00 PM
+  const endCountdownTime = new Date(countdownDate);
+  endCountdownTime.setHours(
+    timeData?.startCountdown?.end?.hours || 17,
+    timeData?.startCountdown?.end?.minutes || 10,
+    timeData?.startCountdown?.end?.seconds || 0,
+  ); // 5:10 PM
+  // start running at 11:00 PM to 11:10 PM
+  if (
+    countdownDate >= startCountdownTime &&
+    countdownDate <= endCountdownTime
+  ) {
+    const updateData = await updateStatus(status, info);
+    return updateData;
+  }
+
+  return info;
+};
+
 async function getData() {
   let info = await statusData();
-  console.log('info rrunning');
+
   if (info?.timing?.status === 'running') {
-    await startRunning('result', info);
+    console.log('start collect');
+    await collectResult('result', info);
     console.log('info result');
   }
+  if (info?.timing?.status === 'result') {
+    console.log('start countdown');
+    await startCountdown('running', info);
+    console.log('info end');
+  }
+
   return info;
 }
 
