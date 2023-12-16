@@ -17,3 +17,9 @@ export const contactInfoData = [
     data: 'gowinoffcialwebsite@gmail.com',
   },
 ];
+
+export const ProfileSidebarList = [
+  'Personal Details',
+  'Profile Settings',
+  'Transaction History',
+];

@@ -1,15 +1,25 @@
-import Navbar from '../../../components/Navbar/Navbar.jsx';
-import GameLayout from '../../../components/GameLayout/GameLayout.jsx';
+'use client';
+import React, { useState } from 'react';
+import ProfileSidebar from '../../../components/ProfileSidebar/ProfileSidebar';
+import ProdileRightTab from '../../../components/ProdileRightTab/ProdileRightTab';
 
-const Dashboard = async () => {
+const Profile = () => {
+  const [profileSidTab, setProfileSidTab] = useState('Personal Details');
+
   return (
     <>
-      <Navbar />
-      <div className="flexCenter flex-col h-full my-5 bg-primary-blue">
-        <GameLayout />
-      </div>
+      <ProfileSidebar
+        profileSidTab={profileSidTab}
+        setProfileSidTab={setProfileSidTab}
+        // formState={formState}
+      />
+      <ProdileRightTab
+        profileSidTab={profileSidTab}
+        // formState={formState}
+        // reducerDispatch={reducerDispatch}
+      />
     </>
   );
 };
 
-export default Dashboard;
+export default Profile;
