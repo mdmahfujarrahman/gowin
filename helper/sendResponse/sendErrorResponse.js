@@ -3,7 +3,7 @@
  *
  * This function handles all the errors and returns an error response.
  *
- * @param {{sucess: boolean , message: string, errorMessage: Array, stack: Array}} options
+ * @param {{success: boolean , message: string, errorMessage: Array, stack: Array}} options
  * @param {number} statusCode
  * @returns {Object} An error response containing status code, message, error message and stack trace.
  * @author mdmahfujarrahman

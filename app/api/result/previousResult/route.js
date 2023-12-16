@@ -15,7 +15,7 @@ export async function GET() {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'Result Retrived Suceesfully',
         data: res,

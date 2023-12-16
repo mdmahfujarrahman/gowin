@@ -61,7 +61,7 @@ export default async function errorHandler(error) {
   // Send the response
   return sendErrorResponse(
     {
-      sucess: false,
+      success: false,
       message,
       errorMessage: errorMessages,
       stack: envConfig.env !== 'production' ? error?.stack : undefined,

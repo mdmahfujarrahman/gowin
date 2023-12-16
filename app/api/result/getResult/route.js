@@ -2,6 +2,7 @@ import request from 'request-promise';
 import cheerio from 'cheerio';
 import { Result } from '../../../../model/result/result.model';
 import { uploadImage } from '../../utils/uploadImage.js';
+import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 
 export async function GET() {
   const response = await request('https://gowin.ae/results/');
@@ -16,22 +17,30 @@ export async function GET() {
       src === yeasterDayResult[0].orginalImage &&
       alt === yeasterDayResult[0].orginalImageAlt
     ) {
-      return Response.json({
-        sucess: false,
-        statusCode: 200,
-        message: 'Result not updated yet',
-      });
+      return sendResponse(
+        {
+          success: false,
+          statusCode: 200,
+          message: 'Result not updated yet',
+          data: [],
+        },
+        200,
+      );
     }
   } else if (alt.includes('Draw Results')) {
     if (
       src === yeasterDayResult[0].orginalImage &&
       alt === yeasterDayResult[0].orginalImageAlt
     ) {
-      return Response.json({
-        sucess: false,
-        statusCode: 200,
-        message: 'Result not updated yet',
-      });
+      return sendResponse(
+        {
+          success: false,
+          statusCode: 200,
+          message: 'Result not updated yet',
+          data: [],
+        },
+        200,
+      );
     }
   }
 
@@ -43,5 +52,13 @@ export async function GET() {
     resultCode: parseInt(yeasterDayResult[0].resultCode) + 1,
     orginalImageAlt: alt,
   });
-  return Response.json(upload);
+  return sendResponse(
+    {
+      success: true,
+      statusCode: 200,
+      message: 'Result updated',
+      data: upload,
+    },
+    200,
+  );
 }

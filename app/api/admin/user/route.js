@@ -25,7 +25,7 @@ export async function GET() {
     const users = await User.find({});
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'User retrived successfully',
         data: users,

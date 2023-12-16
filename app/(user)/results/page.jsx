@@ -6,6 +6,16 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
 
+const dailyUpdateResult = async () => {
+  try {
+    const response = await fetch(`${envConfig.serverUrl}/result/getResult`);
+    const data = await response?.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const updateStatus = async (status, info) => {
   const body = {
     id: info?.timing?._id,
@@ -20,7 +30,6 @@ const updateStatus = async (status, info) => {
     body: JSON.stringify(body),
   });
   const data = await res?.json();
-  console.log(data?.data);
   const updateData = {
     timing: data?.data,
     result: info?.result,
@@ -49,13 +58,7 @@ const statusData = async () => {
   }
 };
 
-// const dailyUpdateResult = async () => {
-//   const response = await fetch(`${envConfig.serverUrl}/result/getResult`);
-//   const data = await response?.json();
-//   console.log(data);
-// };
-
-const startRunning = async (id, status, info) => {
+const startRunning = async (status, info) => {
   const bdTime = new Date().toLocaleString('en-US', {
     timeZone: 'Asia/Dhaka',
   });
@@ -63,20 +66,43 @@ const startRunning = async (id, status, info) => {
   const start = new Date(bdDate);
   start.setHours(12, 0, 0); // 5:00 PM
   const end = new Date(bdDate);
-  end.setHours(12, 59, 0); // 5:10 PM
+  end.setHours(13, 59, 0); // 5:10 PM
+  //
   if (bdDate >= start && bdDate <= end) {
-    const updateData = await updateStatus(status, info);
-    console.log(updateData);
-    return updateData;
+    const getResult = await dailyUpdateResult();
+    if (getResult?.success) {
+      console.log('if');
+      const updateData = await updateStatus(status, info);
+      return updateData;
+    } else {
+      const copyInfo = await statusData();
+      const checkTime = new Date(copyInfo?.result?.createdAt).toLocaleString(
+        'en-US',
+        {
+          timeZone: 'Asia/Dhaka',
+        },
+      );
+      console.log(checkTime);
+      const checkDate = new Date(checkTime);
+      const updateStart = new Date(checkDate);
+      updateStart.setHours(12, 0, 0); // 5:00 PM
+      const updateEnd = new Date(checkDate);
+      updateEnd.setHours(13, 59, 0); // 5:10 PM
+      if (checkDate >= updateStart && checkDate <= updateEnd) {
+        const updateData = await updateStatus('result', copyInfo);
+        return updateData;
+      } else {
+        startRunning();
+      }
+    }
   }
 };
 
 async function getData() {
   let info = await statusData();
-  console.log(info);
   console.log('info rrunning');
   if (info?.timing?.status === 'running') {
-    await startRunning(info?.timing?._id, 'result', info);
+    await startRunning('result', info);
     console.log('info result');
   }
   return info;

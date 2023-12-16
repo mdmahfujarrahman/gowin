@@ -16,7 +16,7 @@ export async function GET() {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'Timing Retrived Suceesfully',
         data: res,
@@ -35,7 +35,7 @@ export async function POST(req) {
     if (!body.userId) {
       return sendResponse(
         {
-          sucess: false,
+          success: false,
           statusCode: httpStatus.NOT_FOUND,
           message: 'User Id is required',
         },
@@ -46,7 +46,7 @@ export async function POST(req) {
     if (user.role !== 'admin') {
       return sendResponse(
         {
-          sucess: false,
+          success: false,
           statusCode: httpStatus.UNAUTHORIZED,
           message: 'User not admin',
         },
@@ -59,7 +59,7 @@ export async function POST(req) {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'Timing Retrived Suceesfully',
         data: res,
@@ -81,7 +81,7 @@ export async function PATCH(req) {
     if (!body.userId) {
       return sendResponse(
         {
-          sucess: false,
+          success: false,
           statusCode: httpStatus.NOT_FOUND,
           message: 'User Id is required',
         },
@@ -94,7 +94,7 @@ export async function PATCH(req) {
       if (user.role !== 'admin') {
         return sendResponse(
           {
-            sucess: false,
+            success: false,
             statusCode: httpStatus.UNAUTHORIZED,
             message: 'User not admin',
           },
@@ -106,7 +106,7 @@ export async function PATCH(req) {
     if (!body.id) {
       return sendResponse(
         {
-          sucess: false,
+          success: false,
           statusCode: httpStatus.NOT_FOUND,
           message: 'Id is required',
         },
@@ -125,7 +125,7 @@ export async function PATCH(req) {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'Timing Update Suceesfully',
         data: res,

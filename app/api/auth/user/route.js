@@ -18,7 +18,7 @@ export async function GET(req) {
     if (!isExist) {
       return sendResponse(
         {
-          sucess: true,
+          success: true,
           statusCode: 200,
           message: 'User Retrived Suceesfully',
           data: "User doesn't exist",
@@ -30,7 +30,7 @@ export async function GET(req) {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'User Retrived Suceesfully',
         data: isExist,

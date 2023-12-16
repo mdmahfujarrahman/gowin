@@ -35,7 +35,7 @@ export async function POST(req) {
     // Send the response
     return sendResponse(
       {
-        sucess: true,
+        success: true,
         statusCode: 200,
         message: 'User Created Suceesfully',
         data: user,
