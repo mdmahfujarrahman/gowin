@@ -58,7 +58,6 @@ export const requestOtpThunk = createAsyncThunk(
       appVerifier,
     )
       .then(res => {
-        console.log(payload);
         window.confirmationResult = res;
         // dispatch manage auth route
         thunkAPI.dispatch(manageAuthRoute('otp'));

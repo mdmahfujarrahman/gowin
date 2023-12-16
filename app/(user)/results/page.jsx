@@ -1,11 +1,14 @@
-import { CronJob } from 'cron';
 import Navbar from '../../../components/Navbar/Navbar.jsx';
 import GameLayout from '../../../components/GameLayout/GameLayout.jsx';
 import { envConfig } from '../../../lib/config/index.js';
 
-const updateStatus = async (id, status, info) => {
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
+const updateStatus = async (status, info) => {
   const body = {
-    id: id,
+    id: info?.timing?._id,
     status: status,
     userId: 'system',
   };
@@ -17,41 +20,76 @@ const updateStatus = async (id, status, info) => {
     body: JSON.stringify(body),
   });
   const data = await res?.json();
+  console.log(data?.data);
+  const updateData = {
+    timing: data?.data,
+    result: info?.result,
+  };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return (info = data);
+  return (info = updateData);
+};
+
+const statusData = async () => {
+  try {
+    const response = await fetch(`${envConfig.serverUrl}/result/timing`, {
+      next: { revalidate: 0 },
+    });
+    const prevData = await fetch(
+      `${envConfig.serverUrl}/result/previousResult`,
+      { next: { revalidate: 0 } },
+    );
+    const data = await response?.json();
+    const prev = await prevData?.json();
+    return {
+      timing: data?.data?.data[0],
+      result: prev?.data?.data[0],
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// const dailyUpdateResult = async () => {
+//   const response = await fetch(`${envConfig.serverUrl}/result/getResult`);
+//   const data = await response?.json();
+//   console.log(data);
+// };
+
+const startRunning = async (id, status, info) => {
+  const bdTime = new Date().toLocaleString('en-US', {
+    timeZone: 'Asia/Dhaka',
+  });
+  const bdDate = new Date(bdTime);
+  const start = new Date(bdDate);
+  start.setHours(12, 0, 0); // 5:00 PM
+  const end = new Date(bdDate);
+  end.setHours(12, 59, 0); // 5:10 PM
+  if (bdDate >= start && bdDate <= end) {
+    const updateData = await updateStatus(status, info);
+    console.log(updateData);
+    return updateData;
+  }
 };
 
 async function getData() {
-  let info;
-  const res = await fetch(`${envConfig.serverUrl}/result/timing`);
-  info = await res?.json();
-
-  const job = new CronJob(
-    '59 * * * * *', //
-    async () => {
-      const id = info?.data?.data[0]?._id;
-      if (id) {
-        await updateStatus(id, 'result', info);
-      }
-    },
-    null,
-    true,
-    'Asia/Dubai',
-  );
-
-  job.start();
+  let info = await statusData();
   console.log(info);
+  console.log('info rrunning');
+  if (info?.timing?.status === 'running') {
+    await startRunning(info?.timing?._id, 'result', info);
+    console.log('info result');
+  }
   return info;
 }
 
 const Dashboard = async () => {
   const info = await getData();
-
+  // console.log(info);
   return (
     <>
       <Navbar />
       <div className="flexCenter flex-col h-full my-5 bg-primary-blue">
-        <GameLayout gameData={info?.data?.data[0]} />
+        <GameLayout gameData={info} />
       </div>
     </>
   );

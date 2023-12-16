@@ -5,18 +5,16 @@ import Playing from '../ResultCard/Playing/Playing';
 import Result from '../ResultCard/Result/Result';
 import ResultCardHeading from '../ResultCard/ResultCardHeading/ResultCardHeading';
 import ContactModal from '../ConcatModal/ConcatModal';
-import { useRouter } from 'next/navigation';
 
 const GameLayout = ({ gameData }) => {
-  const router = useRouter();
   const [contactInfoModal, setContactInfoModal] = useState(false);
-  const [status, setStatus] = useState(gameData?.status); // ['playing', 'result', "cancel"]
+  const [status, setStatus] = useState(gameData?.timing?.status); // ['playing', 'result', "cancel"]
   const handleOpen = () => setContactInfoModal(true);
   const handleClose = () => setContactInfoModal(false);
 
   useEffect(() => {
-    router.refresh();
-  }, [status]);
+    setStatus(gameData?.timing?.status);
+  }, [gameData?.timing?.status]);
 
   return (
     <>
@@ -44,27 +42,7 @@ const GameLayout = ({ gameData }) => {
           <Playing />
         </>
       )}
-      {status === 'result' && <Result />}
-      <div className="flex items-center justify-center gap-3 mt-5">
-        <p
-          className="py-2 px-5 bg-primary-green rounded text-white"
-          onClick={() => setStatus('playing')}
-        >
-          running
-        </p>
-        <p
-          className="py-2 px-5 bg-primary-green rounded text-white"
-          onClick={() => setStatus('result')}
-        >
-          result
-        </p>
-        <p
-          className="py-2 px-5 bg-primary-green rounded text-white"
-          onClick={() => setStatus('cancel')}
-        >
-          cancel
-        </p>
-      </div>
+      {status === 'result' && <Result resultData={gameData?.result} />}
       <ContactModal handleClose={handleClose} open={contactInfoModal} />
     </>
   );

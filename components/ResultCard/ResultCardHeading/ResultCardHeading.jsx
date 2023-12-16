@@ -2,7 +2,6 @@ import React from 'react';
 import CustomButton from '../../../ui/CustomButton/CustomButton';
 
 const ResultCardHeading = async ({ gameData, handleModal }) => {
-  console.log(gameData);
   return (
     <div className="flex items-center flex-col mb-5 py-18 md:py-20">
       {gameData?.status === 'result' && (

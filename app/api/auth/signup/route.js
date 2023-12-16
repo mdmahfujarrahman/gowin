@@ -31,7 +31,7 @@ export async function POST(req) {
     await dbConnect();
 
     const user = await User.create(body);
-    console.log(user);
+
     // Send the response
     return sendResponse(
       {

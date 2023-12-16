@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../lib/firebase/firebase.config';
+import errorHandler from '../../../errorHandler';
 
 export const uploadImage = async image => {
   try {
@@ -13,6 +14,6 @@ export const uploadImage = async image => {
     const url = await getDownloadURL(storageRef);
     return url;
   } catch (error) {
-    console.log(error);
+    errorHandler(error);
   }
 };

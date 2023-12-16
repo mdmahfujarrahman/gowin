@@ -77,7 +77,6 @@ const Confettifuls = ({ children }) => {
     };
   }, []);
 
-  console.log(children);
   return (
     <div
       className="js-container confetti-container"

@@ -68,9 +68,9 @@ UserSchema.statics.getSingleUser = async function (id) {
 // Check hashed password with user password before save user document
 UserSchema.pre('save', async function (next) {
   // check if the user is exist
-  console.log(this.phoneNumber);
+
   const isExist = await User.findOne({ phoneNumber: this.phoneNumber });
-  console.log(isExist);
+
   if (isExist) {
     throw new ApiError(httpStatus.CONFLICT, 'Phone number already exist.');
   }

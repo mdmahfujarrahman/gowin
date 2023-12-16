@@ -5,7 +5,6 @@ import React from 'react';
 
 const NavLinks = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <Link
