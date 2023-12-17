@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import ProfileSidebar from '../../../components/ProfileSidebar/ProfileSidebar';
 import ProdileRightTab from '../../../components/ProdileRightTab/ProdileRightTab';
+import { useSession } from 'next-auth/react';
 
 const Profile = () => {
+  const session = useSession();
   const [profileSidTab, setProfileSidTab] = useState('Personal Details');
 
   return (
@@ -11,11 +13,10 @@ const Profile = () => {
       <ProfileSidebar
         profileSidTab={profileSidTab}
         setProfileSidTab={setProfileSidTab}
-        // formState={formState}
       />
       <ProdileRightTab
         profileSidTab={profileSidTab}
-        // formState={formState}
+        formState={session?.data?.user}
         // reducerDispatch={reducerDispatch}
       />
     </>
