@@ -1,6 +1,7 @@
 import Navbar from '../../../components/Navbar/Navbar.jsx';
 import GameLayout from '../../../components/GameLayout/GameLayout.jsx';
 import { envConfig } from '../../../lib/config/index.js';
+import { getCurrentUser } from '../../../lib/authOptions/authOptions.js';
 
 export const fetchCache = 'force-no-store';
 export const revalidate = 0;
@@ -58,6 +59,34 @@ const statusData = async () => {
   }
 };
 
+const getWinner = async (info, type) => {
+  let data;
+  const payload = {
+    resultId: info?.result?._id,
+    userId: 'system',
+  };
+
+  if (type === 'update') {
+    const res = await fetch(`${envConfig.serverUrl}/admin/winner`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    data = await res?.json();
+  }
+
+  const updateInfo = {
+    timing: info?.timing,
+    result: {
+      ...info?.result,
+      winner: data?.data?.data,
+    },
+  };
+  return updateInfo;
+};
+
 const collectResult = async (status, info) => {
   const timeData = await info?.timing;
   // collect  result and update bangladesh time
@@ -84,6 +113,7 @@ const collectResult = async (status, info) => {
     const getResult = await dailyUpdateResult();
     if (getResult?.success) {
       const updateData = await updateStatus(status, info);
+      await getWinner(updateData, 'update');
       return updateData;
     } else {
       const copyInfo = await statusData();
@@ -108,6 +138,7 @@ const collectResult = async (status, info) => {
       ); // 5:10 PM
       if (checkDate >= updateStart && checkDate <= updateEnd) {
         const updateData = await updateStatus('result', copyInfo);
+        await getWinner(updateData, 'update');
         return updateData;
       } else {
         collectResult('result', copyInfo);
@@ -143,6 +174,7 @@ const startCountdown = async (status, info) => {
     countdownDate <= endCountdownTime
   ) {
     const updateData = await updateStatus(status, info);
+
     return updateData;
   }
 
@@ -153,14 +185,10 @@ async function getData() {
   let info = await statusData();
 
   if (info?.timing?.status === 'running') {
-    console.log('start collect');
     await collectResult('result', info);
-    console.log('info result');
   }
   if (info?.timing?.status === 'result') {
-    console.log('start countdown');
     await startCountdown('running', info);
-    console.log('info end');
   }
 
   return info;
@@ -168,12 +196,14 @@ async function getData() {
 
 const Dashboard = async () => {
   const info = await getData();
-  // console.log(info);
+  const userInfo = await getCurrentUser();
+
+  console.log(info);
   return (
     <>
       <Navbar />
       <div className="flexCenter flex-col h-full my-5 bg-primary-blue">
-        <GameLayout gameData={info} />
+        <GameLayout userInfo={userInfo} gameData={info} />
       </div>
     </>
   );

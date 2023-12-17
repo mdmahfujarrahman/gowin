@@ -11,6 +11,10 @@ const ResultSchema = new Schema(
       type: String,
       required: [true, 'Image URL is required'],
     },
+    title: {
+      type: String,
+      required: [true, 'Title is required'],
+    },
     resultCode: {
       type: String,
       required: [true, 'Result Code is required'],

@@ -77,7 +77,7 @@ const ProfileRightSettings = () => {
       <div className="p-3 flex justify-between items-center rounded-[10px] border-[2px] border-slate-400 w-full mb-5">
         <div
           onClick={() => setSetting('Change Password')}
-          className="flex h-10 w-48 items-center justify-center bg-primaryLightBlue hover:primaryExtralightblue text-white rounded-md cursor-pointer"
+          className="flex h-10 w-full md:w-48 items-center justify-center bg-primaryLightBlue hover:primaryExtralightblue text-white rounded-md cursor-pointer"
         >
           <Image
             width={30}

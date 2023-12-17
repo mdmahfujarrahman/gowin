@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import { Result } from '../../../../model/result/result.model';
 import { uploadImage } from '../../utils/uploadImage.js';
 import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
+import moment from 'moment';
 
 export async function GET() {
   const response = await request('https://gowin.ae/results/');
@@ -11,12 +12,14 @@ export async function GET() {
   const src = firstImage.attr('src');
   const alt = firstImage.attr('alt');
   const yeasterDayResult = await Result.previousResult();
+  const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' });
 
   if (!yeasterDayResult.length) {
     const newImage = await uploadImage(src);
     const upload = await Result.create({
       orginalImage: src,
       image: newImage,
+      title: `Draw Results ${moment(date).format('DD MMM YYYY')}`,
       resultCode: 1,
       orginalImageAlt: alt,
     });
@@ -67,9 +70,11 @@ export async function GET() {
     const upload = await Result.create({
       orginalImage: src,
       image: newImage,
-      resultCode: parseInt(yeasterDayResult[0].resultCode) + 1,
+      title: `Draw Results ${moment(date).format('DD MMM YYYY')}`,
+      resultCode: parseInt(yeasterDayResult[0]?.resultCode) + 1,
       orginalImageAlt: alt,
     });
+
     return sendResponse(
       {
         success: true,
