@@ -23,6 +23,7 @@ module.exports = {
         'black-100': '#252525',
         'primary-blue': '#042A3F',
         primaryLightBlue: '#387da1',
+        primaryExtralightblue: '#1d75a5',
         'primary-red': '#F92B3B',
         'primary-yellow': '#FFFF00',
         'secendary-yellow': '#FFEB34',

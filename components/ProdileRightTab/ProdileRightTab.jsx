@@ -1,4 +1,5 @@
 import ProfileRightPersonalDetails from '../ProfileRightPersonalDetails/ProfileRightPersonalDetails';
+import ProfileRightSettings from '../ProfileRightSettings/ProfileRightSettings';
 
 const ProdileRightTab = ({ profileSidTab, formState }) => {
   return (
@@ -8,6 +9,12 @@ const ProdileRightTab = ({ profileSidTab, formState }) => {
       </div>
       {profileSidTab === 'Personal Details' && (
         <ProfileRightPersonalDetails
+          formState={formState}
+          //   reducerDispatch={reducerDispatch}
+        />
+      )}
+      {profileSidTab === 'Profile Settings' && (
+        <ProfileRightSettings
           formState={formState}
           //   reducerDispatch={reducerDispatch}
         />

@@ -8,7 +8,7 @@ import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 import { User } from '../../../../model/user/user.model.js';
 import bcrypt from 'bcrypt';
 
-export async function GET(req) {
+export async function PATCH(req) {
   const body = await req.json();
   try {
     await dbConnect();
@@ -69,11 +69,11 @@ export async function GET(req) {
       return sendResponse(
         {
           success: false,
-          statusCode: 400,
+          statusCode: 200,
           message: 'Old Password is not match',
           data: null,
         },
-        400,
+        200,
       );
     }
 

@@ -5,6 +5,7 @@ import view from './view.png';
 import hide from './hide.png';
 import waiting from './Waiting.png';
 import logout from './logout.png';
+import passwordIcon from './reset-password.png';
 
 // result card images
 import resultCradbg from './resultCard/cardbg.jpeg';
@@ -26,6 +27,7 @@ export const gowinImages = {
   waiting,
   logout,
   logoSmall,
+  passwordIcon,
 };
 
 export const resultCardImages = {
