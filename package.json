@@ -29,6 +29,7 @@
     "cron": "^3.1.6",
     "firebase": "^10.5.2",
     "http-status": "^1.7.3",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
     "mongoose": "^7.6.3",

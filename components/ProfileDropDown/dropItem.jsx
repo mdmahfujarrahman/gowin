@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { gowinImages } from '../../public/assets';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
+import Cookies from 'js-cookie';
 
 export const items = [
   {
@@ -24,11 +25,12 @@ export const items = [
     label: (
       <p
         className="flex items-center"
-        onClick={() =>
+        onClick={() => {
           signOut({
             callbackUrl: `/`,
-          })
-        }
+          });
+          Cookies.remove('user');
+        }}
       >
         <Image
           src={gowinImages.logout}

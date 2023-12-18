@@ -1,10 +1,17 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-const NavLinks = () => {
+const NavLinks = ({ session }) => {
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (session.user) {
+      Cookies.set('user', session?.user?._id);
+    }
+  }, []);
 
   return (
     <Link

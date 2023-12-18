@@ -29,7 +29,7 @@ const Navbar = async () => {
         </Link>
       </div>
       <div className="flexCenter">
-        <NavLinks />
+        <NavLinks session={session} />
         <div className="h-12 w-12 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
           {session?.user?.image ? (
             <ProfileDropDown />
