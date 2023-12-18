@@ -6,6 +6,9 @@ import hide from './hide.png';
 import waiting from './Waiting.png';
 import logout from './logout.png';
 import passwordIcon from './reset-password.png';
+import bankTransfer from './transfer.png';
+import moneyTransfer from './wire-transfer.png';
+import downArrow from './arrow-down.png';
 
 // result card images
 import resultCradbg from './resultCard/cardbg.jpeg';
@@ -28,6 +31,9 @@ export const gowinImages = {
   logout,
   logoSmall,
   passwordIcon,
+  bankTransfer,
+  moneyTransfer,
+  downArrow,
 };
 
 export const resultCardImages = {
@@ -42,4 +48,10 @@ export const contactImages = {
   imoIcon,
   whatsappIcon,
   emailIcon,
+};
+
+export const lottaryType = {
+  'Super Six': supar,
+  'Fun Four': fun,
+  'Luckey Three': luckey,
 };

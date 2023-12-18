@@ -15,7 +15,18 @@ const ContactModal = ({ open, handleClose }) => {
         {contactInfoData.map(item => (
           <div className="flex gap-3 items-center" key={item.id}>
             <Image className="h-10 w-10" src={item.logo} alt={item.data} />
-            <p className="text-xl">{item.data}</p>
+            <a
+              href={
+                item.type === 'email'
+                  ? `mailto:${item.data}`
+                  : item.type === 'whatsapp'
+                  ? `https://wa.me/${item.data}`
+                  : `tel:${item.data}`
+              }
+              className="text-sm md:text-xl"
+            >
+              {item.data}
+            </a>
           </div>
         ))}
       </div>

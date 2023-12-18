@@ -16,8 +16,6 @@ const GameLayout = ({ gameData, winnerInfo }) => {
     setStatus(gameData?.timing?.status);
   }, [gameData?.timing?.status]);
 
-  console.log(winnerInfo, 'gameData');
-
   return (
     <>
       {status === 'running' ? (

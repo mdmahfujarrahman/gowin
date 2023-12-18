@@ -2,7 +2,7 @@ import { envConfig } from '../../../lib/config/index.js';
 
 const dailyUpdateResult = async () => {
   try {
-    const response = await fetch(`${envConfig.serverUrl}/result/getResult`);
+    const response = await fetch(`${envConfig.serverUrl}/result/collectResult`);
     const data = await response?.json();
     return data;
   } catch (error) {

@@ -8,7 +8,7 @@ const NavLinks = ({ session }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (session.user) {
+    if (session?.user) {
       Cookies.set('user', session?.user?._id);
     }
   }, []);

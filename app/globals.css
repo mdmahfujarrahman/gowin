@@ -304,3 +304,7 @@ body {
     transform: translateY(50px) rotate(-360deg);
   }
 }
+
+.ant-modal-close {
+  top: 28px !important;
+}
