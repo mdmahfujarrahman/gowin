@@ -32,20 +32,28 @@ const updateStatus = async (status, info) => {
   return (info = updateData);
 };
 
+const collectprevData = async () => {
+  try {
+    const response = await fetch(
+      `${envConfig.serverUrl}/result/previousResult`,
+    );
+    const data = await response?.json();
+    return data?.data?.data[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const statusData = async () => {
   try {
     const response = await fetch(`${envConfig.serverUrl}/result/timing`, {
       next: { revalidate: 0 },
     });
-    const prevData = await fetch(
-      `${envConfig.serverUrl}/result/previousResult`,
-      { next: { revalidate: 0 } },
-    );
     const data = await response?.json();
-    const prev = await prevData?.json();
+    const prev = await collectprevData();
     return {
       timing: data?.data?.data[0],
-      result: prev?.data?.data[0],
+      result: prev,
     };
   } catch (error) {
     console.log(error);
@@ -176,6 +184,8 @@ const startCountdown = async (status, info) => {
 
 export async function getData() {
   let info = await statusData();
+
+  console.log(info);
 
   if (info?.timing?.status === 'running') {
     await collectResult('result', info);
