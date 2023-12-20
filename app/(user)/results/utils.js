@@ -37,6 +37,7 @@ const collectprevData = async () => {
     const response = await fetch(
       `${envConfig.serverUrl}/result/previousResult`,
       {
+        cache: 'no-store',
         next: { revalidate: 0 },
       },
     );
