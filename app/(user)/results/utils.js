@@ -3,7 +3,12 @@ import { envConfig } from '../../../lib/config/index.js';
 
 const dailyUpdateResult = async () => {
   try {
-    const response = await fetch(`${envConfig.serverUrl}/result/collectResult`);
+    const response = await fetch(
+      `${envConfig.serverUrl}/result/collectResult`,
+      {
+        cache: 'no-store',
+      },
+    );
     const data = await response?.json();
     return data;
   } catch (error) {
@@ -23,6 +28,7 @@ const updateStatus = async (status, info) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
+    cache: 'no-store',
   });
   const data = await res?.json();
   const updateData = {
@@ -39,7 +45,6 @@ const collectprevData = async () => {
       `${envConfig.serverUrl}/result/previousResult`,
       {
         cache: 'no-store',
-        next: { revalidate: 0 },
       },
     );
     const data = await response?.json();
@@ -52,7 +57,7 @@ const collectprevData = async () => {
 const statusData = async () => {
   try {
     const response = await fetch(`${envConfig.serverUrl}/result/timing`, {
-      next: { revalidate: 0 },
+      cache: 'no-store',
     });
     const data = await response?.json();
     const prev = await collectprevData();
