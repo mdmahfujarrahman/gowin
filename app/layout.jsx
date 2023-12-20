@@ -12,6 +12,7 @@ import Providers from '../store/Providers';
 import AuthSession from '../lib/AuthSession/AuthSession';
 //
 export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 // Meta data
 export const metadata = {
