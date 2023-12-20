@@ -36,6 +36,9 @@ const collectprevData = async () => {
   try {
     const response = await fetch(
       `${envConfig.serverUrl}/result/previousResult`,
+      {
+        next: { revalidate: 0 },
+      },
     );
     const data = await response?.json();
     return data?.data?.data[0];
