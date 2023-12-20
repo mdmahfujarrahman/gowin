@@ -4,6 +4,8 @@ import errorHandler from '../../../../errorHandler.js';
 // Import the database connection
 import dbConnect from '../../../../lib/db/db.connect.js';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req) {
   const resultId = req.nextUrl.searchParams.get('resultId');
   const type = req.nextUrl.searchParams.get('type');

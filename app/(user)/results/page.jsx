@@ -2,11 +2,7 @@ import GameLayout from '../../../components/GameLayout/GameLayout.jsx';
 import { getCurrentUser } from '../../../lib/authOptions/authOptions.js';
 
 import { getData, getWinnerData } from './utils.js';
-
-export const fetchCache = 'force-no-store';
-export const revalidate = 0;
 export const dynamic = 'force-dynamic';
-
 const Dashboard = async () => {
   let winnerInfo = {
     isCadiate: null,

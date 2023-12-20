@@ -5,6 +5,8 @@ import { uploadImage } from '../../utils/uploadImage.js';
 import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 import moment from 'moment';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const response = await request('https://gowin.ae/results/');
   const $ = cheerio.load(response);

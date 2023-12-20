@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { envConfig } from '../../../lib/config/index.js';
 
 const dailyUpdateResult = async () => {
