@@ -13,6 +13,7 @@ import AuthSession from '../lib/AuthSession/AuthSession';
 //
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
+export const revalidate = 0;
 
 // Meta data
 export const metadata = {
