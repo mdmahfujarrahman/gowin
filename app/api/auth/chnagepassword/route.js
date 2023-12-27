@@ -6,7 +6,7 @@ import dbConnect from '../../../../lib/db/db.connect.js';
 import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 // Import the user model
 import { User } from '../../../../model/user/user.model.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs-react';
 
 export async function PATCH(req) {
   const body = await req.json();

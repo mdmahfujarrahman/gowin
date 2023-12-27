@@ -8,10 +8,10 @@ import { Modal } from 'antd';
  * @returns {JSX.Element} - modal element
  */
 
-const CustomModal = ({ open, handleCancel, children }) => {
+const CustomModal = ({ open, handleCancel, children, customClass }) => {
   return (
     <Modal
-      className="rounded-none"
+      className={customClass}
       footer={null}
       open={open}
       onCancel={handleCancel}

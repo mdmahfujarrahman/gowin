@@ -5,11 +5,12 @@
 @tailwind utilities;
 
 :root{
-  --primary-blue: "#042A3F";
+  --primaryBlue: #042A3F;
   --primary-red: "#F92B3B";
   --primary-yellow: "#FFEB34";
   --white: #fff;
   --primaryLightBlue: #387da1;
+  --primaryThinLightBlue: #92d8fd;
   --border-thin: rgba(128, 128, 128, 0.221);
   --box-shadow: "0 15px 25px rgba(0, 0, 0, 0.1)";
 }
@@ -58,6 +59,15 @@ body {
 
 .paddings {
   @apply lg:px-20 py-6 px-5;
+}
+
+.mainWrapper {
+  @apply h-screen p-5;
+}
+
+/* Navbar */
+.navbar {
+  @apply py-4 px-4 md:px-10 bg-primary-red gap-4;
 }
 
 ::-webkit-scrollbar {
@@ -143,16 +153,21 @@ body {
 }
 
 
-/* Navbar */
-.navbar {
-  @apply py-4 px-4 md:px-10 bg-primary-red gap-4;
-}
+
 
 /* antd modal */
 .ant-modal-content{
   border-radius: 2px !important;
 }
 
+.calc-100vh-60 {
+  height: calc(100vh - 60px);
+}
+
+
+.actionModal .ant-modal-close {
+  display: none !important;
+}
 
 /* React Phone Input */
 
@@ -198,6 +213,15 @@ body {
   font-size: 20px;
 }
 
+
+.moon {
+  /* background: url('../public/assets/admin/utils/night-sky.jpg') linear-gradient(to right, transparent, rgb(89 89 89 / 70%)); */
+  background-size: cover !important;
+}
+.sun{
+  /* background: url('../public/assets/admin/utils/sun.jpg'), linear-gradient(to left, transparent, rgb(89 89 89 / 70%)), ;; */
+  background-size: cover !important;
+}
 
 
 .loader {
@@ -307,4 +331,55 @@ body {
 
 .ant-modal-close {
   top: 28px !important;
+}
+
+
+/* sidebar */
+
+.mainLayout_sidebar_active {
+  animation: openSidebar 0.8s;
+  animation-timing-function: ease-in-out;
+-webkit-animation-timing-function: ease-in-out;
+  display: flex;
+  position: fixed;
+  background-color: var(--primaryBlue);
+  height: 100vh;
+  color: white;
+  z-index: 999;
+  width: 40%;
+}
+
+@keyframes openSidebar {
+  0%{
+      left: -100%;
+  }
+  100% {
+      left: 0;
+  }
+} 
+@keyframes closeSidebar {
+  0%{
+      left: 0;
+  }
+  100% {
+      left: -100%;
+  }
+}
+
+.mainLayout_sidebar {
+  padding: 10px 0;
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@media all and (max-width: 768px) {
+  .mainLayout_sidebar {
+      animation: closeSidebar 0.8s;
+      animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+      display: none;
+      position: fixed;
+      background-color: var(--primaryBlue);
+      height: 100vh;
+      color: white;
+  }
 }

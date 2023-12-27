@@ -9,6 +9,9 @@ import passwordIcon from './reset-password.png';
 import bankTransfer from './transfer.png';
 import moneyTransfer from './wire-transfer.png';
 import downArrow from './arrow-down.png';
+import plusIcon from './plus.svg';
+import notification from './bell.svg';
+import menu from './hamburger.png';
 
 // result card images
 import resultCradbg from './resultCard/cardbg.jpeg';
@@ -22,6 +25,29 @@ import imoIcon from './contact/imo.png';
 import whatsappIcon from './contact/whatsapp.png';
 import emailIcon from './contact/mail.png';
 
+// admin sidebar images
+
+import dashboard from './admin/sidebar/menu.png';
+import dashboardWhite from './admin/sidebar/menuWhite.png';
+import pendingUser from './admin/sidebar/pending.png';
+import pendingUserWhite from './admin/sidebar/pendingWhite.png';
+import user from './admin/sidebar/user.png';
+import userWhite from './admin/sidebar/userWhite.png';
+import settings from './admin/sidebar/settings.png';
+import settingsWhite from './admin/sidebar/settingsWhite.png';
+
+// dashboard state images
+import userState from './admin/dashboardState/user.png';
+import pendingUserState from './admin/dashboardState/account-pending.png';
+
+// admin icons
+import approve from './admin/utils/approve.png';
+import reject from './admin/utils/reject.png';
+// admin utils images
+
+import moon from './admin/utils/night-sky.jpg';
+import sun from './admin/utils/sun.jpg';
+
 export const gowinImages = {
   Logo,
   dummyProfile,
@@ -34,6 +60,9 @@ export const gowinImages = {
   bankTransfer,
   moneyTransfer,
   downArrow,
+  plusIcon,
+  notification,
+  menu,
 };
 
 export const resultCardImages = {
@@ -54,4 +83,30 @@ export const lottaryType = {
   'Super Six': supar,
   'Fun Four': fun,
   'Luckey Three': luckey,
+};
+
+export const adminSidebarImage = {
+  user,
+  pendingUser,
+  dashboard,
+  settings,
+  userWhite,
+  pendingUserWhite,
+  dashboardWhite,
+  settingsWhite,
+};
+
+export const dashboardState = {
+  userState,
+  pendingUserState,
+};
+
+export const adminIcons = {
+  approve,
+  reject,
+};
+
+export const adminUtilsImages = {
+  moon,
+  sun,
 };

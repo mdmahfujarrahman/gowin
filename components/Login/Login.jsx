@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -65,9 +65,19 @@ const Login = () => {
         notification('error', errors.message);
       }
     } else {
-      router.push('/results');
+      const sessions = await getSession();
+      console.log(sessions);
       notification('success', 'Login Successfull');
-      setIsLoading(false);
+      if (sessions?.user?.role === 'admin') {
+        console.log('Enter if');
+        router.push('/dashboard');
+        setIsLoading(false);
+        return;
+      } else {
+        console.log('Enter else');
+        router.push('/results');
+        setIsLoading(false);
+      }
     }
   };
 

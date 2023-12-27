@@ -24,6 +24,9 @@ module.exports = {
         'primary-blue': '#042A3F',
         primaryLightBlue: '#387da1',
         primaryExtralightblue: '#1d75a5',
+        primaryThinlightblue: '#92d8fd',
+        dashboardUserState: 'rgba(207, 255, 233, 1)',
+        dashboardPendingUserState: 'rgba(210, 234, 255, 1)',
         'primary-red': '#F92B3B',
         'primary-yellow': '#FFFF00',
         'secendary-yellow': '#FFEB34',
@@ -34,6 +37,8 @@ module.exports = {
       backgroundImage: {
         'card-bg': "url('/assets/resultCard/cardbg.jpeg')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        moon: "url('/assets/admin/utils/night-sky.jpg')",
+        sun: "url('/assets/admin/utils/sun.jpg')",
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },

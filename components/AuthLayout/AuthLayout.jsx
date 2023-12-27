@@ -18,7 +18,7 @@ const AuthLayout = async () => {
       redirect('/signup');
     } else {
       if (session.user.role === 'admin') {
-        redirect('/dasboard');
+        redirect('/dashboard');
       } else {
         redirect('/results');
       }

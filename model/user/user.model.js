@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 import ApiError from '../../helper/customError/ApiError';
 import httpStatus from 'http-status';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs-react';
 
 const UserSchema = new Schema(
   {
@@ -81,4 +81,4 @@ UserSchema.pre('save', async function (next) {
 });
 
 // export User model if exist or create new model
-export const User = mongoose.models.User || model('User', UserSchema);
+export const User = mongoose?.models?.User || model('User', UserSchema);

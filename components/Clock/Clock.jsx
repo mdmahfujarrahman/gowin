@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { clockTimer } from '../../helper/colckHelper/clockTimer';
 
 const Clock = () => {
-  const [formattedTime, setFormattedTime] = useState(clockTimer());
+  const [formattedTime, setFormattedTime] = useState(clockTimer('Asia/Dubai'));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFormattedTime(clockTimer());
+      setFormattedTime(clockTimer('Asia/Dubai'));
     }, 1000);
 
     return () => {
