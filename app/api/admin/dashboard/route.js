@@ -7,6 +7,10 @@ import dbConnect from '../../../../lib/db/db.connect.js';
 // Import the user model
 import { User } from '../../../../model/user/user.model.js';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 /**
  * Get all users
  *

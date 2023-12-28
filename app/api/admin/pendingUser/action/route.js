@@ -10,6 +10,10 @@ import { getToken } from 'next-auth/jwt';
 import { envConfig } from '../../../../../lib/config/index.js';
 import httpStatus from 'http-status';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 const actionType = {
   approve: 'approve',
   reject: 'reject',
