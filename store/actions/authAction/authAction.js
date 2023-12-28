@@ -86,7 +86,6 @@ export const verifyOtpThunk = createAsyncThunk(
   'gowin/verifyOtp',
   async (payload, thunkAPI) => {
     let confirmationResult = window.confirmationResult;
-
     try {
       // get state
       const state = thunkAPI.getState();
