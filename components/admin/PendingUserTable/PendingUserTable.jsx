@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PendingTableHeaders } from '../../../constant/TableHeaders.jsx';
 import CustomModal from '../../../ui/CustomModal/CustomModal.jsx';
 import CustomTable from '../Table/CustomTable';
@@ -7,25 +7,20 @@ import { Button } from 'antd';
 import AcceptAction from '../AdminModal/AcceptAction/AcceptAction.jsx';
 import RejectAction from '../AdminModal/RejectAction/RejectAction.jsx';
 import toast from 'react-hot-toast';
-
-const data = [];
-for (let i = 0; i < 15; i++) {
-  data.push({
-    _id: i,
-    key: i,
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/gowinoffcial.appspot.com/o/files%2F336672754_968079451229097_8041909563150014048_n.jpg?alt=media&token=1b703f04-0b22-421a-8702-5611cbfc0e18',
-    name: `Edward King ${i}`,
-    phone: '+881786950046',
-    country: `BD`,
-    signedUp: `${i} days Ago`,
-  });
-}
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getPendingUserThunk,
+  updateUserStatusThunk,
+} from '../../../store/actions/penidngUserAction/penidngUserAction.js';
+import { useSearchParams } from 'next/navigation';
 
 const PendingUserTable = () => {
+  const params = useSearchParams();
+  const searchParams = params.get('status');
+  const dispatch = useDispatch();
+  const pendingUser = useSelector(state => state?.pendingUser);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tableData, setTableData] = useState(data);
-  const [isLoading, setIsLoading] = useState(false);
+  const [tableData, setTableData] = useState([]);
   const [stateData, setStateData] = useState({
     isModalOpen: false,
     actionType: '',
@@ -54,16 +49,19 @@ const PendingUserTable = () => {
       handleMultiUserApprove(userData);
       return;
     }
-    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false);
-      setTableData(prevState =>
-        prevState.filter(item => item._id !== userData._id),
+      dispatch(
+        updateUserStatusThunk({
+          type: 'approve',
+          userId: userData._id,
+          handleCloseModal: handleCloseModal,
+        }),
       );
-      toast.success(`${userData?.name} approved successfully`);
+      if (searchParams) {
+        params.delete('status');
+      }
       setSelectedRowKeys([]);
-      handleCloseModal();
-    }, 1000);
+    }, 100);
   };
 
   const handleReject = (isMulti, userData) => {
@@ -71,16 +69,15 @@ const PendingUserTable = () => {
       handleMultiUserReject(userData);
       return;
     }
-    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false);
-      setTableData(prevState =>
-        prevState.filter(item => item._id !== userData._id),
+      dispatch(
+        updateUserStatusThunk({
+          type: 'reject',
+          userId: userData._id,
+          handleCloseModal: handleCloseModal,
+        }),
       );
-      toast.success(`${userData?.name} rejected successfully`);
-      setSelectedRowKeys([]);
-      handleCloseModal();
-    }, 1000);
+    }, 100);
   };
 
   const handleMultiUserAction = (type, userData) => {
@@ -103,9 +100,7 @@ const PendingUserTable = () => {
   };
 
   const handleMultiUserReject = userData => {
-    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false);
       const filterData = tableData.filter(
         item => !userData.map(user => user?._id).includes(item?._id),
       );
@@ -117,9 +112,7 @@ const PendingUserTable = () => {
   };
 
   const handleMultiUserApprove = userData => {
-    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false);
       const filterData = tableData.filter(
         item => !userData.map(user => user?._id).includes(item?._id),
       );
@@ -130,6 +123,16 @@ const PendingUserTable = () => {
     }, 1000);
   };
 
+  useEffect(() => {
+    dispatch(getPendingUserThunk());
+  }, []);
+
+  useEffect(() => {
+    if (searchParams) {
+      dispatch(getPendingUserThunk(searchParams));
+    }
+  }, []);
+
   return (
     <>
       <CustomTable
@@ -137,7 +140,7 @@ const PendingUserTable = () => {
         handleClick={handleMultiUserAction}
         setSelectedRowKeys={setSelectedRowKeys}
         selectedRowKeys={selectedRowKeys}
-        tableData={tableData}
+        tableData={searchParams ? pendingUser?.rejectUser : pendingUser?.users}
         tableHead={[
           ...PendingTableHeaders,
           {
@@ -149,18 +152,20 @@ const PendingUserTable = () => {
                   <div className="flex items-center">
                     <Button
                       onClick={() => handleUserAction('approve', record)}
-                      className="mr-3"
+                      className="mr-3 bg-[#1677ff]"
                       type="primary"
                     >
                       Approve
                     </Button>
-                    <Button
-                      onClick={() => handleUserAction('reject', record)}
-                      type="primary"
-                      danger
-                    >
-                      Reject
-                    </Button>
+                    {record.status !== 'rejected' && (
+                      <Button
+                        onClick={() => handleUserAction('reject', record)}
+                        type="primary"
+                        danger
+                      >
+                        Reject
+                      </Button>
+                    )}
                   </div>
                 </>
               );
@@ -177,7 +182,7 @@ const PendingUserTable = () => {
           <AcceptAction
             userData={stateData?.data}
             isMultiUserAction={stateData?.isMultiUserAction}
-            isLoading={isLoading}
+            isLoading={pendingUser.isUpdating}
             handleApprove={handleApprove}
             handleClose={handleCloseModal}
           />
@@ -185,7 +190,7 @@ const PendingUserTable = () => {
         {stateData.actionType === 'reject' && (
           <RejectAction
             userData={stateData?.data}
-            isLoading={isLoading}
+            isLoading={pendingUser.isUpdating}
             isMultiUserAction={stateData?.isMultiUserAction}
             handleReject={handleReject}
             handleClose={handleCloseModal}

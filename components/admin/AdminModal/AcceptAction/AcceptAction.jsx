@@ -42,7 +42,7 @@ const AcceptAction = ({
       <div className="flex justify-end items-center mt-4">
         <Button
           onClick={() => handleApprove(isMultiUserAction, userData)}
-          className="mr-3 w-24"
+          className="mr-3 w-24 bg-[#1677ff]"
           loading={isLoading}
           type="primary"
         >

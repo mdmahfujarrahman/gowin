@@ -3,6 +3,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import notification from '../nottification/nottification.js';
 
 export function generateRecaptcha() {
+  if (typeof window === 'undefined') return;
   if (!window.recaptchaVerifier) {
     window.recaptchaVerifier = new RecaptchaVerifier(
       auth,

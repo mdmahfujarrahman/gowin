@@ -195,8 +195,6 @@ const startCountdown = async (status, info) => {
 export async function getData() {
   let info = await statusData();
 
-  console.log(info);
-
   if (info?.timing?.status === 'running') {
     await collectResult('result', info);
   }

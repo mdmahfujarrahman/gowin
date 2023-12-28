@@ -49,6 +49,7 @@ const handleSearchProp = dataIndex => ({
             width: 90,
             display: 'flex',
             alignItems: 'center',
+            backgroundColor: '#1677ff',
           }}
         >
           Search
@@ -112,10 +113,13 @@ export const PendingTableHeaders = [
       <div className="flexCenter h-10 w-10 rounded-full overflow-hidden">
         {' '}
         <Image
-          className="rounded-full"
+          className="rounded-full "
           width={40}
           height={40}
-          src={record.image}
+          style={{
+            height: '40px',
+          }}
+          src={record.profilePicture}
           alt="profile"
         />
       </div>
@@ -124,20 +128,42 @@ export const PendingTableHeaders = [
   {
     title: 'Name',
     dataIndex: 'name',
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: (a, b) => a.name.localeCompare(b.name),
     ...handleSearchProp('name'),
   },
   {
     title: 'Phone Number',
-    dataIndex: 'phone',
+    dataIndex: 'phoneNumber',
   },
   {
     title: 'Country',
     dataIndex: 'country',
+    sorter: (a, b) => a.country.localeCompare(b.country),
+    ...handleSearchProp('country'),
   },
   {
     title: 'Signed Up',
     dataIndex: 'signedUp',
-    ...handleSearchProp('signedUp'),
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    sorter: (a, b) => a.status.localeCompare(b.status),
+    ...handleSearchProp('status'),
+    render: (text, record) => {
+      return (
+        <div
+          className={`flex items-center justify-center rounded-full px-2 py-1 text-xs font-bold ${
+            record.status === 'pending'
+              ? 'bg-dashboardPendingUserState'
+              : record.status === 'rejected'
+              ? 'bg-red-400'
+              : 'bg-dashboardUserState'
+          }`}
+        >
+          {record.status.toUpperCase()}
+        </div>
+      );
+    },
   },
 ];

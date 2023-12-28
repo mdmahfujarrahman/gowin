@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 import ApiError from '../../helper/customError/ApiError';
 import httpStatus from 'http-status';
-import bcrypt from 'bcryptjs-react';
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new Schema(
   {
@@ -64,19 +64,33 @@ UserSchema.statics.getSingleUser = async function (id) {
   }
   return user;
 };
+UserSchema.statics.isAdmin = async function (id) {
+  console.log(id);
+  const user = await this.findOne({ _id: id });
+  console.log(user);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Unauthorized access');
+  }
+  if (user.role !== 'admin') {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Unauthorized access');
+  }
+  return user;
+};
 
 // Check hashed password with user password before save user document
 UserSchema.pre('save', async function (next) {
   // check if the user is exist
 
   const isExist = await User.findOne({ phoneNumber: this.phoneNumber });
+  console.log('come');
 
   if (isExist) {
     throw new ApiError(httpStatus.CONFLICT, 'Phone number already exist.');
   }
   // only hash the password if it has been modified (or is new)
   if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
+  const salt = bcrypt.genSaltSync(12);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 

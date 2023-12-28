@@ -63,6 +63,7 @@ export const gowinImages = {
   plusIcon,
   notification,
   menu,
+  reject,
 };
 
 export const resultCardImages = {

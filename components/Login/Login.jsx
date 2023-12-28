@@ -57,8 +57,12 @@ const Login = () => {
     if (res.error) {
       setIsLoading(false);
       const errors = JSON.parse(res.error);
+      console.log(errors);
       if (errors.message === 'Your account is not verified yet') {
         dispatch(manageAuthRoute('pending'));
+        router.push('/signup');
+      } else if (errors.message === 'Your account is rejected') {
+        dispatch(manageAuthRoute('rejected'));
         router.push('/signup');
       } else {
         setIsLoading(false);

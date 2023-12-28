@@ -6,7 +6,7 @@ import dbConnect from '../../../../lib/db/db.connect.js';
 import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 // Import the user model
 import { User } from '../../../../model/user/user.model.js';
-import bcrypt from 'bcryptjs-react';
+import bcrypt from 'bcryptjs';
 
 export async function PATCH(req) {
   const body = await req.json();
@@ -77,12 +77,14 @@ export async function PATCH(req) {
       );
     }
 
+    const salt = bcrypt.genSaltSync(12);
+
     const updatePassword = await User.findOneAndUpdate(
       {
         _id: body.id,
       },
       {
-        password: await bcrypt.hash(body.newPassword, 12),
+        password: await bcrypt.hash(body.newPassword, salt),
       },
       {
         new: true,

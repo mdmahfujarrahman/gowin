@@ -6,7 +6,6 @@ import { useSession } from 'next-auth/react';
 const ProfileDropDown = () => {
   const { data: session, status } = useSession();
 
-  console.log(session);
   return (
     <Dropdown
       menu={{

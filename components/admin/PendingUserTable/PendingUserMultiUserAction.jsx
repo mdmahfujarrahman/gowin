@@ -18,7 +18,7 @@ const PendingUserMultiUserAction = ({
       <div className="flex items-center">
         <Button
           onClick={() => handleClick('approve', selectedRowKeys)}
-          className="mr-3"
+          className="mr-3 bg-[#1677ff]"
           type="primary"
         >
           Approve
