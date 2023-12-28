@@ -4,16 +4,19 @@ import { gowinImages } from '../../public/assets';
 import { useState } from 'react';
 import ContactModal from '../ConcatModal/ConcatModal.jsx';
 import CustomButton from '../../ui/CustomButton/CustomButton';
+import { useDispatch } from 'react-redux';
+import { manageResetRoute } from '../../store/slices/authSlice/authSlice.js';
 
 const RejectedAccount = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const router = useRouter();
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
       <div className="flex items-center w-full flex-col">
-        <div className="flexCenter flex-col text-white text-center text-sm md:text-xl relative my-4 w-[320px] h-[220px] bg-transparent-bg shadow-[0 15px 25px rgba(0, 0, 0, 0.1)] z-40 rounded-md backdrop-opacity-10">
+        <div className="flexCenter flex-col text-white text-center text-sm md:text-xl relative my-4 w-[320px] h-[250px] bg-transparent-bg shadow-[0 15px 25px rgba(0, 0, 0, 0.1)] z-40 rounded-md backdrop-opacity-10">
           <Image
             src={gowinImages.reject}
             alt="pending"
@@ -36,7 +39,10 @@ const RejectedAccount = () => {
           <p className="text-white text-sm">
             Back to&nbsp;&nbsp;
             <span
-              onClick={() => router.push('/')}
+              onClick={() => {
+                router.push('/');
+                dispatch(manageResetRoute('reset'));
+              }}
               className="text-primary-blue cursor-pointer"
             >
               Login

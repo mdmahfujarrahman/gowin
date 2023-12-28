@@ -18,11 +18,10 @@ import { gowinImages } from '../../public/assets';
 import Clock from '../Clock/Clock';
 
 import { isUserExistThunk } from '../../store/actions/authAction/authAction';
-import { useRouter } from 'next/navigation';
 import { LoadingOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 const SignUp = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const { auth } = useSelector(state => state);
   const [passShow, setPassShow] = useState(false);
@@ -47,7 +46,7 @@ const SignUp = () => {
   const handleSignup = async () => {
     const valid = formValidation.Signup(inputData);
     if (!valid) return;
-    dispatch(isUserExistThunk(inputData));
+    dispatch(isUserExistThunk({ ...inputData, type: 'signup' }));
   };
 
   return (
@@ -125,13 +124,10 @@ const SignUp = () => {
       <div className="flex items-center justify-center">
         <p className="text-white">
           Already have a Account?{' '}
-          <span
-            onClick={() => router.push('/')}
-            className="text-primary-blue cursor-pointer"
-          >
+          <Link href="/" className="text-primary-blue cursor-pointer">
             {' '}
             Login Here!
-          </span>{' '}
+          </Link>{' '}
         </p>
       </div>
     </div>

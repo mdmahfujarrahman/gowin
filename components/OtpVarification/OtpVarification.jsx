@@ -15,7 +15,7 @@ import {
   resendOtpThunk,
 } from '../../store/slices/authSlice/authSlice';
 
-const OtpVarification = () => {
+const OtpVarification = ({ type }) => {
   const [counter, setCounter] = useState(30);
   const dispatch = useDispatch();
   const { auth } = useSelector(state => state);
@@ -24,7 +24,7 @@ const OtpVarification = () => {
   const varifyOtp = () => {
     if (otpValue.length < 6)
       return notification('error', 'Please enter valid OTP');
-    dispatch(verifyOtpThunk({ otp: otpValue }));
+    dispatch(verifyOtpThunk({ otp: otpValue, type }));
   };
 
   const handleResendOtp = () => {
@@ -33,6 +33,7 @@ const OtpVarification = () => {
       requestOtpThunk({
         phoneNumber: auth.newUserData.phoneNumber,
         isResend: true,
+        type,
       }),
     );
     setInterval(() => {

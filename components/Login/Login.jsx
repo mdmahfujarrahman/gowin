@@ -5,7 +5,7 @@ import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
-
+import { Divider } from 'antd';
 import { gowinImages } from '../../public/assets';
 
 import PhoneInputs from '../PhoneInputs/PhoneInputs';
@@ -18,6 +18,7 @@ import CustomInput from '../../ui/CustomInput/CustomInput';
 import notification from '../../helper/nottification/nottification';
 
 import { manageAuthRoute } from '../../store/slices/authSlice/authSlice';
+import Link from 'next/link';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,6 @@ const Login = () => {
     if (res.error) {
       setIsLoading(false);
       const errors = JSON.parse(res.error);
-      console.log(errors);
       if (errors.message === 'Your account is not verified yet') {
         dispatch(manageAuthRoute('pending'));
         router.push('/signup');
@@ -70,7 +70,6 @@ const Login = () => {
       }
     } else {
       const sessions = await getSession();
-      console.log(sessions);
       notification('success', 'Login Successfull');
       if (sessions?.user?.role === 'admin') {
         console.log('Enter if');
@@ -140,14 +139,28 @@ const Login = () => {
       </div>
       <div className="flex items-center justify-center">
         <p className="text-white">
-          Don&rsquo;t Have an Account?
-          <span
-            onClick={() => router.push('/signup')}
-            className="text-primary-blue cursor-pointer"
-          >
-            {' '}
+          Forgot Password? &nbsp;
+          <Link className="text-primary-blue cursor-pointer" href="/reset">
+            Click Here!
+          </Link>
+        </p>
+      </div>
+      <div className="w-full ">
+        <Divider>
+          <Image
+            width={30}
+            height={30}
+            src={gowinImages.devider}
+            alt="devider"
+          />
+        </Divider>
+      </div>
+      <div className="flex items-center justify-center">
+        <p className="text-white">
+          Don&rsquo;t Have an Account? &nbsp;
+          <Link className="text-primary-blue cursor-pointer" href="/signup">
             Sign Up Here!
-          </span>{' '}
+          </Link>{' '}
         </p>
       </div>
     </form>

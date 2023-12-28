@@ -8,6 +8,10 @@ const signUpReq = payload => {
   return API.post('/auth/signup', payload);
 };
 
+const createResetToken = payload => {
+  return API.post('/auth/resetToken', payload);
+};
+
 const isUserExistReq = payload => {
   return API.get(
     `/auth/user?phoneNumber=${payload.phoneNumber}&countryCode=${payload.countryCode}`,
@@ -50,4 +54,5 @@ export const GowinService = {
   getPendingUserReq,
   updateUserStatusReq,
   getActiveUserReq,
+  createResetToken,
 };

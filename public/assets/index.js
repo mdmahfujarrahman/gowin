@@ -12,6 +12,7 @@ import downArrow from './arrow-down.png';
 import plusIcon from './plus.svg';
 import notification from './bell.svg';
 import menu from './hamburger.png';
+import devider from './devider.png';
 
 // result card images
 import resultCradbg from './resultCard/cardbg.jpeg';
@@ -64,6 +65,7 @@ export const gowinImages = {
   notification,
   menu,
   reject,
+  devider,
 };
 
 export const resultCardImages = {

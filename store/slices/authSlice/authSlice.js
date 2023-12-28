@@ -14,6 +14,8 @@ const initialState = {
   token: null,
   newUserData: null,
   route: 'register',
+  resetRoute: 'reset',
+  resetUser: null,
   user: null,
   error: {
     isError: false,
@@ -28,6 +30,12 @@ export const authSlice = createSlice({
   reducers: {
     manageAuthRoute: (state, action) => {
       state.route = action.payload;
+    },
+    manageResetRoute: (state, action) => {
+      state.resetRoute = action.payload;
+      if (action.payload === 'reset') {
+        state.resetUser = null;
+      }
     },
     resendOtpThunk: state => {
       state.isResend = true;
@@ -44,22 +52,45 @@ export const authSlice = createSlice({
     });
     builder.addCase(isUserExistThunk.fulfilled, (state, action) => {
       if (action.payload.data.data === "User doesn't exist") {
-        state.isUserExist = action.payload.data.data;
-        state.newUserData = action.payload.payload;
-        state.error = {
-          isError: false,
-          message: '',
-        };
-        state.isLoading = true;
+        if (action.payload.payload.type === 'signup') {
+          state.isUserExist = action.payload.data.data;
+          state.newUserData = action.payload.payload;
+          state.error = {
+            isError: false,
+            message: '',
+          };
+          state.isLoading = true;
+        } else {
+          notification('error', "User doesn't exist");
+          state.error = {
+            isError: false,
+            message: '',
+          };
+          state.isLoading = false;
+        }
       } else {
-        notification('error', 'User already exist , Please login');
-        state.isUserExist = action.payload.data.data;
-        state.newUserData = action.payload.payload;
-        state.error = {
-          isError: false,
-          message: '',
-        };
-        state.isLoading = false;
+        if (action.payload.payload.type === 'resetPassword') {
+          const payload = {
+            ...action.payload.payload,
+            userId: action?.payload?.data?.data?._id,
+          };
+          state.resetUser = payload;
+          state.error = {
+            isError: true,
+            message: "User doesn't exist",
+          };
+          state.isLoading = true;
+          return;
+        } else if (action.payload.payload.type === 'signup') {
+          notification('error', 'User already exist , Please login');
+          state.isUserExist = action.payload.data.data;
+          state.newUserData = action.payload.payload;
+          state.error = {
+            isError: false,
+            message: '',
+          };
+          state.isLoading = false;
+        }
       }
     });
     builder.addCase(isUserExistThunk.rejected, (state, action) => {
@@ -86,9 +117,25 @@ export const authSlice = createSlice({
         notification('success', 'OTP resent successfully');
         state.isResend = false;
       } else {
-        notification('success', 'OTP sent successfully');
-        state.isOtpSent = true;
-        state.isLoading = false;
+        if (action.payload.type === 'resetPassword') {
+          const payload = {
+            phoneNumber: action.payload.phoneNumber,
+            countryCode: action.payload.countryCode,
+            userId: action.payload.userId,
+            type: action.payload.type,
+          };
+          notification('success', 'OTP sent successfully');
+          state.resetUser = {
+            ...state.resetUser,
+            ...payload,
+          };
+          state.isOtpSent = true;
+          state.isLoading = false;
+        } else {
+          notification('success', 'OTP sent successfully');
+          state.isOtpSent = true;
+          state.isLoading = false;
+        }
       }
       state.error = {
         isError: false,
@@ -162,14 +209,29 @@ export const authSlice = createSlice({
         message: '',
       };
     });
-    builder.addCase(verifyOtpThunk.fulfilled, state => {
-      notification('success', 'OTP verified successfully');
-      state.isOtpVerified = true;
-      state.error = {
-        isError: false,
-        message: '',
-      };
-      state.isLoading = true;
+    builder.addCase(verifyOtpThunk.fulfilled, (state, action) => {
+      console.log(action.payload);
+      if (action.payload.type === 'resetpassword') {
+        notification('success', 'OTP verified successfully');
+        state.isOtpVerified = true;
+        state.resetUser = {
+          ...state.resetUser,
+          token: action.payload.token,
+        };
+        state.error = {
+          isError: false,
+          message: '',
+        };
+        state.isLoading = false;
+      } else {
+        notification('success', 'OTP verified successfully');
+        state.isOtpVerified = true;
+        state.error = {
+          isError: false,
+          message: '',
+        };
+        state.isLoading = true;
+      }
     });
     builder.addCase(verifyOtpThunk.rejected, (state, action) => {
       if (action.payload.code === 'auth/invalid-verification-code') {
@@ -229,6 +291,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { manageAuthRoute, resendOtpThunk } = authSlice.actions;
+export const { manageAuthRoute, resendOtpThunk, manageResetRoute } =
+  authSlice.actions;
 
 export default authSlice.reducer;
