@@ -50,7 +50,6 @@ export const requestOtpThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     // generate recaptcha
     generateRecaptcha();
-    if (typeof window === 'undefined') return;
     const appVerifier = window.recaptchaVerifier;
     // call request otp api
     const response = signInWithPhoneNumber(
@@ -59,7 +58,6 @@ export const requestOtpThunk = createAsyncThunk(
       appVerifier,
     )
       .then(res => {
-        if (typeof window === 'undefined') return;
         window.confirmationResult = res;
         // dispatch manage auth route
         thunkAPI.dispatch(manageAuthRoute('otp'));
@@ -87,10 +85,8 @@ export const requestOtpThunk = createAsyncThunk(
 export const verifyOtpThunk = createAsyncThunk(
   'gowin/verifyOtp',
   async (payload, thunkAPI) => {
-    let confirmationResult;
-    if (typeof window !== 'undefined') {
-      confirmationResult = window.confirmationResult;
-    }
+    let confirmationResult = window.confirmationResult;
+
     try {
       // get state
       const state = thunkAPI.getState();
