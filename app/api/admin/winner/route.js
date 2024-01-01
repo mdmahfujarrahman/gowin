@@ -12,6 +12,10 @@ import moment from 'moment';
 import { Winner } from '../../../../model/winner/winner.model.js';
 import { Result } from '../../../../model/result/result.model.js';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 import { filterWinners } from './utils.js';
 /**
  * Get all users

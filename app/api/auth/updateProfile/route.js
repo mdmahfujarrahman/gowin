@@ -7,6 +7,10 @@ import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 // Import the user model
 import { User } from '../../../../model/user/user.model.js';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 export async function PATCH(req) {
   const body = await req.json();
   try {

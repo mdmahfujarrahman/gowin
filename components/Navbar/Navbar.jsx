@@ -28,7 +28,7 @@ const Navbar = async () => {
           />
         </Link>
       </div>
-      <div className="flexCenter">
+      <div className="flexCenter gap-1">
         <NavLinks session={session} />
         <div className="h-12 w-12 bg-primary-blue rounded-full flex items-center justify-center cursor-pointer overflow-hidden">
           {session?.user?.image ? (

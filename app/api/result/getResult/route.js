@@ -5,6 +5,7 @@ import errorHandler from '../../../../errorHandler.js';
 import dbConnect from '../../../../lib/db/db.connect.js';
 
 export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
 export async function GET(req) {

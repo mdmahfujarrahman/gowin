@@ -6,6 +6,10 @@ import dbConnect from '../../../../lib/db/db.connect.js';
 import sendResponse from '../../../../helper/sendResponse/sendResponse.js';
 import { Result } from '../../../../model/result/result.model.js';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     await dbConnect();

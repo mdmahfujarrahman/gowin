@@ -10,6 +10,10 @@ import { User } from '../../../../model/user/user.model.js';
 // Import the validation schema
 import { UserValidation } from '../../../../helper/zodValidation/user/Api/user.validation.js';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 /**
  * Create a new user
  *

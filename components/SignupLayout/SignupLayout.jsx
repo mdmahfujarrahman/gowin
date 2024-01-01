@@ -12,7 +12,7 @@ const SignupLayout = () => {
   return (
     <>
       {auth?.route === 'register' ? <SignUp /> : ''}
-      {auth?.route === 'otp' ? <OtpVarification type="resetpassword" /> : ''}
+      {auth?.route === 'otp' ? <OtpVarification type="signup" /> : ''}
       {auth?.route === 'pending' ? <PendingAccount /> : ''}
       {auth?.route === 'rejected' ? <RejectedAccount /> : ''}
     </>

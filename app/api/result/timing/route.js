@@ -8,6 +8,10 @@ import { ClockTiming } from '../../../../model/clockTiming/clockTiming.model.js'
 import { User } from '../../../../model/user/user.model.js';
 import httpStatus from 'http-status';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     await dbConnect();
