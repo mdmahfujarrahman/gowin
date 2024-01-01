@@ -54,7 +54,7 @@ const getPendingWinnerReq = () => {
   return API.get('/admin/pendingWinner');
 };
 const addPendingWinnerReq = payload => {
-  return API.post('/admin/pendingWinner', payload);
+  return API.put('/admin/pendingWinner', payload);
 };
 
 export const GowinService = {

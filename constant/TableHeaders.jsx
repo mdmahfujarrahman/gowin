@@ -172,21 +172,24 @@ export const PendingWinnerTableHeaders = [
   {
     title: 'Winning Photo',
     dataIndex: 'winnerPhoto',
-    render: (text, record) => (
-      <div className="flexCenter h-10 w-10 rounded-full overflow-hidden">
-        {' '}
-        <Image
-          className="rounded-full "
-          width={50}
-          height={50}
-          style={{
-            height: '50px',
-          }}
-          src={record.winnerPhoto}
-          alt="profile"
-        />
-      </div>
-    ),
+    render: (text, record) => {
+      console.log(record);
+      return (
+        <div className="flexCenter h-10 w-10 rounded-full overflow-hidden">
+          {' '}
+          <Image
+            className="rounded-full "
+            width={50}
+            height={50}
+            style={{
+              height: '50px',
+            }}
+            src={record.winnerPhoto}
+            alt="profile"
+          />
+        </div>
+      );
+    },
   },
   {
     title: 'Name',
@@ -206,9 +209,9 @@ export const PendingWinnerTableHeaders = [
   },
   {
     title: 'Prize Won',
-    dataIndex: 'prizeName',
-    sorter: (a, b) => a.prizeName.localeCompare(b.prizeName),
-    ...handleSearchProp('prizeName'),
+    dataIndex: 'prizeType',
+    sorter: (a, b) => a.prizeName.localeCompare(b.prizeType),
+    ...handleSearchProp('prizeType'),
   },
   {
     title: 'Prize Amount',
@@ -216,9 +219,19 @@ export const PendingWinnerTableHeaders = [
     sorter: (a, b) => a.prizeAmount - b.prizeAmount,
   },
   {
-    title: 'Access Bank Account Page',
-    dataIndex: 'isPrizeAccepted',
-    sorter: (a, b) => a.winnerApprove.localeCompare(b.isPrizeAccepted),
-    ...handleSearchProp('isPrizeAccepted'),
+    title: 'Access Bank AC. Page',
+    dataIndex: 'accessBankPage',
+    sorter: (a, b) => a.winnerApprove.localeCompare(b.accessBankPage),
+    render: (text, record) => {
+      return (
+        <div
+          className={`flex items-center text-white justify-center rounded-full px-2 py-1 text-xs font-bold ${
+            record.accessBankPage ? 'bg-primary-green' : 'bg-red-400'
+          }`}
+        >
+          {record.accessBankPage ? 'Yes' : 'No'}
+        </div>
+      );
+    },
   },
 ];

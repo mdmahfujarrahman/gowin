@@ -41,8 +41,8 @@ export const pendingWinnerSlice = createSlice({
           key: item._id,
           name: item.winner.name,
           phoneNumber: item.winner.phoneNumber,
-          country: getCountryName(item?.countryCode),
-          prizeName: item.prizeName,
+          country: getCountryName(item?.winner.countryCode),
+          ...item,
         };
       });
       state.users = formatData;

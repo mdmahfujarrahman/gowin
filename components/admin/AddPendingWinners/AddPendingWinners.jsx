@@ -4,8 +4,10 @@ import { GowinService } from '../../../services/gowinService';
 import AddPendingWinnersInput from './AddPendingWinnersInput';
 import InsidePageHeader from '../InsidePageHeader/InsidePageHeader';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const AddPendingWinners = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [inputData, setInputData] = useState({
     winner: null,
@@ -64,8 +66,13 @@ const AddPendingWinners = () => {
       delete payload?.profilePicture;
       const response = await GowinService.addPendingWinnerReq(payload);
       console.log(response);
+      if (response?.data?.data.success) {
+        toast.success('Pending Winner Added Successfully');
+        router.push('/pending-winner');
+      }
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.data.message);
       setIsLoading(false);
     }
   };

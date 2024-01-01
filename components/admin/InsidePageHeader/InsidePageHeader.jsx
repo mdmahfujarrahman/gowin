@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { adminIcons } from '../../../public/assets';
 
-const InsidePageHeader = ({ title, backRoute, handleSave, isLoading }) => {
+const InsidePageHeader = ({ title, backRoute, handleSave, loading }) => {
   const router = useRouter();
   return (
     <div className="flex justify-between items-center mb-5">
@@ -28,7 +28,7 @@ const InsidePageHeader = ({ title, backRoute, handleSave, isLoading }) => {
       <div className="flex items-center">
         <Button
           onClick={handleSave}
-          loading={isLoading}
+          loading={loading}
           className="w-24"
           type="primary"
         >

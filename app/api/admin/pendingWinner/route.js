@@ -117,6 +117,145 @@ export async function POST(req) {
   }
 }
 
-// export async function PATCH(req){
+export async function PUT(req) {
+  const token = await getToken({ req, secret: envConfig.nextsecret });
+  try {
+    await dbConnect();
+    const body = await req.json();
 
-// }
+    PendingWinnerValidation.PendingWinnerSchema.parse(body);
+
+    if (!token) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'Unauthorized Request',
+        },
+        httpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const isAdmin = await User.isAdmin(token?._id);
+    if (!isAdmin) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'Unauthorized Request',
+        },
+        httpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const getPendingwinners = await PendingWinners.find({});
+    const pendingWinner = getPendingwinners[0];
+    console.log(pendingWinner);
+    const isExist = pendingWinner.winners.find(
+      item => item?.winner?.toString() === body?.winner,
+    );
+    console.log(isExist);
+    if (isExist) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.BAD_REQUEST,
+          message: 'Winner Already Exist',
+        },
+        httpStatus.BAD_REQUEST,
+      );
+    }
+
+    const peyload = {
+      winner: [...pendingWinner.winners, body],
+    };
+
+    console.log(peyload);
+
+    const pending = await PendingWinners.findByIdAndUpdate(
+      pendingWinner._id,
+      { $push: { winners: body } },
+      { new: true },
+    ).populate('winners.winner');
+
+    return sendResponse(
+      {
+        success: true,
+        statusCode: 200,
+        message: 'Pending Winner Updated Successfully',
+        data: pending,
+      },
+      200,
+    );
+  } catch (error) {
+    return errorHandler(error);
+  }
+}
+
+export async function PATCH(req) {
+  const token = await getToken({ req, secret: envConfig.nextsecret });
+  try {
+    await dbConnect();
+    const body = await req.json();
+
+    PendingWinnerValidation.PendingWinnerSchema.parse(body);
+
+    if (!token) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'Unauthorized Request',
+        },
+        httpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const isAdmin = await User.isAdmin(token?._id);
+    if (!isAdmin) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.UNAUTHORIZED,
+          message: 'Unauthorized Request',
+        },
+        httpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const getPendingwinners = await PendingWinners.find({});
+    const pendingWinner = getPendingwinners[0];
+    const isExist = pendingWinner.winners.find(
+      item => item._id.toString() === body.winner,
+    );
+
+    if (isExist) {
+      return sendResponse(
+        {
+          success: false,
+          statusCode: httpStatus.BAD_REQUEST,
+          message: 'Winner Already Exist',
+        },
+        httpStatus.BAD_REQUEST,
+      );
+    }
+
+    const pending = await PendingWinners.findByIdAndUpdate(
+      body._id,
+      { $set: { winners: body.winners } },
+      { new: true },
+    );
+
+    return sendResponse(
+      {
+        success: true,
+        statusCode: 200,
+        message: 'Pending Winner Updated Successfully',
+        data: pending,
+      },
+      200,
+    );
+  } catch (error) {
+    return errorHandler(error);
+  }
+}

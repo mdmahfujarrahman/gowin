@@ -11,7 +11,7 @@ import { getAllPendingWinnersThunk } from '../../../store/actions/pendingWinnerA
 
 const PendingWinnersTable = () => {
   const dispatch = useDispatch();
-  const PendingWinners = useSelector(state => state?.PendingWinners);
+  const PendingWinners = useSelector(state => state?.pendingWinner);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [stateData, setStateData] = useState({
     isModalOpen: false,
@@ -62,32 +62,32 @@ const PendingWinnersTable = () => {
         tableData={PendingWinners?.users}
         tableHead={[
           ...PendingWinnerTableHeaders,
-          {
-            title: 'Action',
-            dataIndex: 'action',
-            render: (text, record) => {
-              return (
-                <>
-                  <div className="flex items-center">
-                    <Button
-                      onClick={() => handleUserAction('delete', record)}
-                      type="primary"
-                      danger
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      onClick={() => handleUserAction('delete', record)}
-                      type="primary"
-                      danger
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </>
-              );
-            },
-          },
+          // {
+          //   title: 'Action',
+          //   dataIndex: 'action',
+          //   render: (text, record) => {
+          //     return (
+          //       <>
+          //         <div className="flex items-center">
+          //           <Button
+          //             onClick={() => handleUserAction('delete', record)}
+          //             type="primary"
+          //             danger
+          //           >
+          //             Edit
+          //           </Button>
+          //           <Button
+          //             onClick={() => handleUserAction('delete', record)}
+          //             type="primary"
+          //             danger
+          //           >
+          //             Delete
+          //           </Button>
+          //         </div>
+          //       </>
+          //     );
+          //   },
+          // },
         ]}
       />
     </>
