@@ -16,7 +16,6 @@ export const metadata = {
 
 export default async function AdminLayout({ children }) {
   const userInfo = await getCurrentUser();
-  console.log('Enter main');
   await dbConnect();
   if (userInfo?.user?.role === 'user') {
     redirect('/result');

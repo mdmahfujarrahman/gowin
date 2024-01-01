@@ -17,7 +17,7 @@ export const updateUserStatusThunk = createAsyncThunk(
   'gowin/updateUserStatus',
   async (payload, thunkAPI) => {
     try {
-      const response = await GowinService.updateUserStatusReq({
+      const response = await GowinService.updatePendingUserStatusReq({
         userId: payload.userId,
         type: payload.type,
       });

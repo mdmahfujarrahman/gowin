@@ -167,3 +167,58 @@ export const PendingTableHeaders = [
     },
   },
 ];
+
+export const PendingWinnerTableHeaders = [
+  {
+    title: 'Winning Photo',
+    dataIndex: 'winnerPhoto',
+    render: (text, record) => (
+      <div className="flexCenter h-10 w-10 rounded-full overflow-hidden">
+        {' '}
+        <Image
+          className="rounded-full "
+          width={50}
+          height={50}
+          style={{
+            height: '50px',
+          }}
+          src={record.winnerPhoto}
+          alt="profile"
+        />
+      </div>
+    ),
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    ...handleSearchProp('name'),
+  },
+  {
+    title: 'Phone Number',
+    dataIndex: 'phoneNumber',
+  },
+  {
+    title: 'Country',
+    dataIndex: 'country',
+    sorter: (a, b) => a.country.localeCompare(b.country),
+    ...handleSearchProp('country'),
+  },
+  {
+    title: 'Prize Won',
+    dataIndex: 'prizeName',
+    sorter: (a, b) => a.prizeName.localeCompare(b.prizeName),
+    ...handleSearchProp('prizeName'),
+  },
+  {
+    title: 'Prize Amount',
+    dataIndex: 'prizeAmount',
+    sorter: (a, b) => a.prizeAmount - b.prizeAmount,
+  },
+  {
+    title: 'Access Bank Account Page',
+    dataIndex: 'isPrizeAccepted',
+    sorter: (a, b) => a.winnerApprove.localeCompare(b.isPrizeAccepted),
+    ...handleSearchProp('isPrizeAccepted'),
+  },
+];

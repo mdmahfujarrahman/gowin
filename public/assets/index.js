@@ -36,6 +36,8 @@ import user from './admin/sidebar/user.png';
 import userWhite from './admin/sidebar/userWhite.png';
 import settings from './admin/sidebar/settings.png';
 import settingsWhite from './admin/sidebar/settingsWhite.png';
+import pendingWinners from './admin/sidebar/pendingWinners.png';
+import pendingWinnersWhite from './admin/sidebar/pendingWinnersWhite.png';
 
 // dashboard state images
 import userState from './admin/dashboardState/user.png';
@@ -44,6 +46,9 @@ import pendingUserState from './admin/dashboardState/account-pending.png';
 // admin icons
 import approve from './admin/utils/approve.png';
 import reject from './admin/utils/reject.png';
+import bin from './admin/utils/delete.png';
+import leftArrow from './admin/utils/leftarrow.png';
+
 // admin utils images
 
 import moon from './admin/utils/night-sky.jpg';
@@ -97,6 +102,8 @@ export const adminSidebarImage = {
   pendingUserWhite,
   dashboardWhite,
   settingsWhite,
+  pendingWinners,
+  pendingWinnersWhite,
 };
 
 export const dashboardState = {
@@ -107,6 +114,8 @@ export const dashboardState = {
 export const adminIcons = {
   approve,
   reject,
+  bin,
+  leftArrow,
 };
 
 export const adminUtilsImages = {

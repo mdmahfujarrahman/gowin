@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { Table } from 'antd';
 import { useState } from 'react';
 import PendingUserMultiUserAction from '../PendingUserTable/PendingUserMultiUserAction';
+import ActiveUserMultiUserAction from '../ActiveUserTable/ActiveUserMultiUserAction';
 
 const CustomTable = ({
   tableHead,
@@ -24,13 +26,20 @@ const CustomTable = ({
 
   return (
     <div>
-      {tableId === 'pendinguser' && (
+      {/* {tableId === 'pendinguser' && (
         <PendingUserMultiUserAction
           handleClick={handleClick}
           hasSelected={hasSelected}
           selectedRowKeys={selectedRows}
         />
-      )}
+      )} */}
+      {/* {tableId === 'activeuser' && (
+        <ActiveUserMultiUserAction
+          handleClick={handleClick}
+          hasSelected={hasSelected}
+          selectedRowKeys={selectedRows}
+        />
+      )} */}
       <Table
         rowSelection={rowSelection}
         columns={tableHead}

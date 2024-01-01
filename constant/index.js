@@ -45,9 +45,16 @@ export const SidebarList = [
   {
     id: 3,
     route: '/active-user',
-    name: 'Active User',
+    name: 'Active Users',
     icon: adminSidebarImage.user,
     iconWhite: adminSidebarImage.userWhite,
+  },
+  {
+    id: 3,
+    route: '/pending-winner',
+    name: 'Pending Winners',
+    icon: adminSidebarImage.pendingWinners,
+    iconWhite: adminSidebarImage.pendingWinnersWhite,
   },
   // {
   //   id: 4,
@@ -61,5 +68,23 @@ export const SidebarList = [
     name: 'Settings',
     icon: adminSidebarImage.settings,
     iconWhite: adminSidebarImage.settingsWhite,
+  },
+];
+
+export const PrizeName = [
+  {
+    id: 'Super Six',
+    label: 'Super Six',
+    value: 'Super Six',
+  },
+  {
+    id: 'Fun Four',
+    label: 'Fun Four',
+    value: 'Fun Four',
+  },
+  {
+    id: 'Lucky Three',
+    label: 'Lucky Three',
+    value: 'Lucky Three',
   },
 ];

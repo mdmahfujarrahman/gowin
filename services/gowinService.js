@@ -36,13 +36,25 @@ const getPendingUserReq = payload => {
     ? API.get(`/admin/pendingUser?status=${payload}`)
     : API.get('/admin/pendingUser');
 };
-const updateUserStatusReq = payload => {
+const updatePendingUserStatusReq = payload => {
   return API.patch('/admin/pendingUser/action', payload);
 };
 
 // active user
 const getActiveUserReq = () => {
   return API.get('/admin/activeUser');
+};
+const updateActiveUserStatusReq = payload => {
+  return API.patch('/admin/activeUser/action', payload);
+};
+
+// pending winner
+
+const getPendingWinnerReq = () => {
+  return API.get('/admin/pendingWinner');
+};
+const addPendingWinnerReq = payload => {
+  return API.post('/admin/pendingWinner', payload);
 };
 
 export const GowinService = {
@@ -52,7 +64,10 @@ export const GowinService = {
   getCurrentUserReq,
   getDashboardStateReq,
   getPendingUserReq,
-  updateUserStatusReq,
+  updatePendingUserStatusReq,
   getActiveUserReq,
+  updateActiveUserStatusReq,
+  getPendingWinnerReq,
+  addPendingWinnerReq,
   createResetToken,
 };

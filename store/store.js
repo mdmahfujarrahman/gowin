@@ -5,6 +5,7 @@ import authReducer from './slices/authSlice/authSlice';
 import dashboardReducer from './slices/dashboardSlice/dashboardSlice';
 import pendingUserReducer from './slices/pendingUserSlice/pendingUserSlice';
 import activeUserReducer from './slices/activeUserSlice/activeUserSlice';
+import pendingWinnerReducer from './slices/pendingWinnerSlice/pendingWinnerSlice';
 import { envConfig } from '../lib/config';
 
 // combine reducers
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   dashboard: dashboardReducer,
   pendingUser: pendingUserReducer,
   activeUser: activeUserReducer,
+  pendingWinner: pendingWinnerReducer,
 });
 
 // create store

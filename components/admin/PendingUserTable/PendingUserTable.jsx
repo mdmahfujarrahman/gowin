@@ -6,6 +6,7 @@ import CustomTable from '../Table/CustomTable';
 import { Button } from 'antd';
 import AcceptAction from '../AdminModal/AcceptAction/AcceptAction.jsx';
 import RejectAction from '../AdminModal/RejectAction/RejectAction.jsx';
+import DeleteAction from '../AdminModal/DeleteAction/DeleteAction.jsx';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -64,6 +65,23 @@ const PendingUserTable = () => {
     }, 100);
   };
 
+  const handleDelete = (isMulti, userData) => {
+    if (isMulti) {
+      handleMultiUserDelete(userData);
+      return;
+    }
+    setTimeout(() => {
+      dispatch(
+        updateUserStatusThunk({
+          type: 'delete',
+          userId: userData._id,
+          handleCloseModal: handleCloseModal,
+        }),
+      );
+      setSelectedRowKeys([]);
+    }, 100);
+  };
+
   const handleReject = (isMulti, userData) => {
     if (isMulti) {
       handleMultiUserReject(userData);
@@ -97,6 +115,14 @@ const PendingUserTable = () => {
         isMultiUserAction: true,
       });
     }
+    if (type === 'delete') {
+      setStateData({
+        isModalOpen: true,
+        actionType: type,
+        data: userData,
+        isMultiUserAction: true,
+      });
+    }
   };
 
   const handleMultiUserReject = userData => {
@@ -118,6 +144,18 @@ const PendingUserTable = () => {
       );
       setTableData(filterData);
       toast.success(`${userData?.length} users approved successfully`);
+      setSelectedRowKeys([]);
+      handleCloseModal();
+    }, 1000);
+  };
+
+  const handleMultiUserDelete = userData => {
+    setTimeout(() => {
+      const filterData = tableData.filter(
+        item => !userData.map(user => user?._id).includes(item?._id),
+      );
+      setTableData(filterData);
+      toast.success(`${userData?.length} users deleted successfully`);
       setSelectedRowKeys([]);
       handleCloseModal();
     }, 1000);
@@ -152,20 +190,29 @@ const PendingUserTable = () => {
                   <div className="flex items-center">
                     <Button
                       onClick={() => handleUserAction('approve', record)}
-                      className="mr-3 bg-[#1677ff]"
+                      className="mr-3  bg-primary-green"
                       type="primary"
+                      style={{ backgroundColor: '#46D39D' }}
                     >
                       Approve
                     </Button>
+
                     {record.status !== 'rejected' && (
                       <Button
                         onClick={() => handleUserAction('reject', record)}
                         type="primary"
-                        danger
                       >
                         Reject
                       </Button>
                     )}
+                    <Button
+                      onClick={() => handleUserAction('delete', record)}
+                      type="primary"
+                      className="ml-3"
+                      danger
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </>
               );
@@ -193,6 +240,15 @@ const PendingUserTable = () => {
             isLoading={pendingUser.isUpdating}
             isMultiUserAction={stateData?.isMultiUserAction}
             handleReject={handleReject}
+            handleClose={handleCloseModal}
+          />
+        )}
+        {stateData.actionType === 'delete' && (
+          <DeleteAction
+            userData={stateData?.data}
+            isLoading={pendingUser.isUpdating}
+            isMultiUserAction={stateData?.isMultiUserAction}
+            handleReject={handleDelete}
             handleClose={handleCloseModal}
           />
         )}

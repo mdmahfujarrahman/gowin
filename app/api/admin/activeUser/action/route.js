@@ -15,39 +15,19 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
 const actionType = {
-  approve: 'approve',
-  reject: 'reject',
   delete: 'delete',
 };
 
-const UpdateUserAction = async (userId, type) => {
-  if (type === 'delete') {
-    const updateUser = await User.findOneAndDelete({
-      _id: userId,
-    }).select('-password');
-    return updateUser;
-  } else {
-    const updateUser = await User.findOneAndUpdate(
-      {
-        _id: userId,
-      },
-      {
-        $set: {
-          status: type,
-        },
-      },
-      {
-        new: true,
-      },
-    ).select('-password');
-    return updateUser;
-  }
+const UpdateUserAction = async userId => {
+  const updateUser = await User.findOneAndDelete({
+    _id: userId,
+  });
+  return updateUser;
 };
 
 export async function PATCH(req) {
   try {
     const body = await req.json();
-    console.log(body);
     if (!body?.type) {
       return sendResponse(
         {
@@ -94,7 +74,6 @@ export async function PATCH(req) {
     }
     const isAdmin = await User.isAdmin(token?._id);
     if (isAdmin) {
-      console.log('isAdmin');
       const getUser = await User.findOne({
         _id: body?.userId,
       });
@@ -110,30 +89,8 @@ export async function PATCH(req) {
         );
       }
 
-      if (body?.type === actionType.approve) {
-        const updateUser = await UpdateUserAction(body?.userId, 'active');
-        return sendResponse(
-          {
-            success: true,
-            statusCode: 200,
-            message: 'User approved successfully',
-            data: updateUser,
-          },
-          200,
-        );
-      } else if (body?.type === actionType.reject) {
-        const updateUser = await UpdateUserAction(body?.userId, 'rejected');
-        return sendResponse(
-          {
-            success: true,
-            statusCode: 200,
-            message: 'User rejected successfully',
-            data: updateUser,
-          },
-          200,
-        );
-      } else if (body?.type === actionType.delete) {
-        const updateUser = await UpdateUserAction(body?.userId, 'deleted');
+      if (actionType[body?.type]) {
+        const updateUser = await UpdateUserAction(body?.userId);
         return sendResponse(
           {
             success: true,

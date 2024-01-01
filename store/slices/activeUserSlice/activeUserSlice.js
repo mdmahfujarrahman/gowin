@@ -3,7 +3,10 @@ import { timeAgo } from '../../../helper/colckHelper/clockTimer';
 import toast from 'react-hot-toast';
 import { getCountryName } from '../../../helper/utils/index';
 
-import { getActiveUserThunk } from '../../actions/activeUserAction/activeUserAction';
+import {
+  getActiveUserThunk,
+  updateActiveUserStatusThunk,
+} from '../../actions/activeUserAction/activeUserAction';
 
 const initialState = {
   users: null,
@@ -12,6 +15,7 @@ const initialState = {
     message: '',
   },
   isLoading: false,
+  isUpdating: false,
 };
 
 export const activeUserSlice = createSlice({
@@ -56,6 +60,41 @@ export const activeUserSlice = createSlice({
         isError: true,
         message: '',
       };
+      state.isLoading = false;
+    });
+    // update user status
+    builder.addCase(updateActiveUserStatusThunk.pending, state => {
+      state.isLoading = true;
+      state.isUpdating = true;
+      state.error = {
+        isError: false,
+        message: '',
+      };
+    });
+    builder.addCase(updateActiveUserStatusThunk.fulfilled, (state, action) => {
+      const handleCloseModal = action.payload?.handleCloseModal;
+
+      const formatData = state.users?.filter(
+        item => item._id !== action.payload?.data?.data?.data?._id,
+      );
+      state.users = formatData;
+      toast.success(action.payload.data.data.message);
+      handleCloseModal();
+      state.error = {
+        isError: false,
+        message: '',
+      };
+      state.isUpdating = false;
+      state.isLoading = false;
+    });
+    builder.addCase(updateActiveUserStatusThunk.rejected, (state, action) => {
+      console.log(action.payload.response.data.data.message);
+      toast.error(action.payload.response.data.data.message);
+      state.error = {
+        isError: true,
+        message: '',
+      };
+      state.isUpdating = false;
       state.isLoading = false;
     });
   },

@@ -18,9 +18,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               setIsSidebarOpen(false);
             }}
             className={`cursor-pointer px-[10px] h-[50px] flex items-center ${
-              pathName === item.route && 'bg-primaryThinlightblue'
+              pathName.includes(item.route) && 'bg-primaryThinlightblue'
             } ${
-              isSidebarOpen && pathName === item.route && 'bg-primaryLightBlue'
+              isSidebarOpen &&
+              pathName.includes(item.route) &&
+              'bg-primaryLightBlue'
             }`}
             key={item.id}
           >

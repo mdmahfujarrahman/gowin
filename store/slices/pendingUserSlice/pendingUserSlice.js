@@ -89,8 +89,7 @@ export const pendingUserSlice = createSlice({
         item => item._id !== action.payload?.data?.data?.data?._id,
       );
       state.users = formatData;
-      console.log('action.payload', action.payload);
-      console.log('action.payload', action.payload);
+
       toast.success(action.payload.data.data.message);
       handleCloseModal();
       state.error = {
@@ -101,7 +100,6 @@ export const pendingUserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(updateUserStatusThunk.rejected, (state, action) => {
-      console.log(action.payload.response.data.data.message);
       toast.error(action.payload.response.data.data.message);
       state.error = {
         isError: true,

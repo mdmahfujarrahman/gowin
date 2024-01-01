@@ -12,3 +12,23 @@ export const getActiveUserThunk = createAsyncThunk(
     }
   },
 );
+
+export const updateActiveUserStatusThunk = createAsyncThunk(
+  'gowin/updateActiveUserStatus',
+  async (payload, thunkAPI) => {
+    try {
+      const response = await GowinService.updateActiveUserStatusReq({
+        userId: payload.userId,
+        type: payload.type,
+      });
+      const updateResponse = {
+        ...response,
+        handleCloseModal: payload.handleCloseModal,
+        isMultiUserAction: payload.isMultiUserAction,
+      };
+      return thunkAPI.fulfillWithValue(updateResponse);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

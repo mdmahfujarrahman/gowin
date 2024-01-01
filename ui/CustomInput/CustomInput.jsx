@@ -22,6 +22,7 @@ const CustomInput = ({
     <input
       type={type ? type : 'text'}
       name={name ? name : ''}
+      min={0}
       placeholder={placeholder ? placeholder : ''}
       className={`px-3 py-1  fontLeto outline-none border-0  ${className}`}
       onChange={handleChange ? handleChange : null}
