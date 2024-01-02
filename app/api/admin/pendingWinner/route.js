@@ -65,9 +65,6 @@ export async function POST(req) {
     await dbConnect();
     const body = await req.json();
 
-    console.log(req);
-    console.log(body);
-
     PendingWinnerValidation.PendingWinnerSchema.parse(body);
 
     if (!token) {
@@ -150,11 +147,11 @@ export async function PUT(req) {
 
     const getPendingwinners = await PendingWinners.find({});
     const pendingWinner = getPendingwinners[0];
-    console.log(pendingWinner);
+
     const isExist = pendingWinner.winners.find(
       item => item?.winner?.toString() === body?.winner,
     );
-    console.log(isExist);
+
     if (isExist) {
       return sendResponse(
         {
@@ -165,12 +162,6 @@ export async function PUT(req) {
         httpStatus.BAD_REQUEST,
       );
     }
-
-    const peyload = {
-      winner: [...pendingWinner.winners, body],
-    };
-
-    console.log(peyload);
 
     const pending = await PendingWinners.findByIdAndUpdate(
       pendingWinner._id,
@@ -198,8 +189,6 @@ export async function PATCH(req) {
     await dbConnect();
     const body = await req.json();
 
-    PendingWinnerValidation.PendingWinnerSchema.parse(body);
-
     if (!token) {
       return sendResponse(
         {
@@ -223,27 +212,102 @@ export async function PATCH(req) {
       );
     }
 
-    const getPendingwinners = await PendingWinners.find({});
-    const pendingWinner = getPendingwinners[0];
-    const isExist = pendingWinner.winners.find(
-      item => item._id.toString() === body.winner,
-    );
+    if (body.type === 'delete') {
+      if (!body.winnerId) {
+        return sendResponse(
+          {
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: 'Winner Id is required',
+          },
+          httpStatus.BAD_REQUEST,
+        );
+      }
 
-    if (isExist) {
+      const getPendingwinners = await PendingWinners.find({})
+        .populate('winners.winner')
+        .lean();
+      const pendingWinner = getPendingwinners[0]?.winners;
+      const isExist = pendingWinner.find(
+        item => item?._id?.toString() === body?.winnerId,
+      );
+      if (!isExist) {
+        return sendResponse(
+          {
+            success: false,
+            statusCode: httpStatus.BAD_REQUEST,
+            message: 'Winner Not Exist',
+          },
+          httpStatus.BAD_REQUEST,
+        );
+      }
+
+      const updatePendingWinner = pendingWinner.filter(
+        item => item?._id?.toString() !== body?.winnerId,
+      );
+
+      await PendingWinners.findOneAndUpdate(
+        { _id: getPendingwinners[0]?._id },
+        { $set: { winners: updatePendingWinner } },
+        { new: true },
+      )
+        .populate('winners.winner')
+        .lean();
+
+      return sendResponse(
+        {
+          success: true,
+          statusCode: 200,
+          message: 'Pending Winner Deleted Successfully',
+          data: isExist,
+        },
+        200,
+      );
+    }
+
+    PendingWinnerValidation.UpdatePendingWinnerSchema.parse(body);
+
+    const getPendingwinners = await PendingWinners.find({})
+      .populate('winners.winner')
+      .lean();
+    const pendingWinner = getPendingwinners[0]?.winners;
+    const isExist = pendingWinner.find(
+      item => item?._id?.toString() === body?.winnerId,
+    );
+    if (!isExist) {
       return sendResponse(
         {
           success: false,
           statusCode: httpStatus.BAD_REQUEST,
-          message: 'Winner Already Exist',
+          message: 'Winner Not Exist',
         },
         httpStatus.BAD_REQUEST,
       );
     }
 
-    const pending = await PendingWinners.findByIdAndUpdate(
-      body._id,
-      { $set: { winners: body.winners } },
+    const updatePendingWinner = pendingWinner.map(item => {
+      if (item?._id?.toString() === body?.winnerId) {
+        return {
+          ...item,
+          prizeType: body.prizeType,
+          prizeAmount: body.prizeAmount,
+          winnerPhoto: body.winnerPhoto,
+          accessBankPage: body.accessBankPage,
+        };
+      }
+      return item;
+    });
+
+    const pending = await PendingWinners.findOneAndUpdate(
+      { _id: getPendingwinners[0]?._id },
+      { $set: { winners: updatePendingWinner } },
       { new: true },
+    )
+      .populate('winners.winner')
+      .lean();
+
+    const updatedPendingWinner = pending.winners.find(
+      item => item?._id?.toString() === body?.winnerId,
     );
 
     return sendResponse(
@@ -251,7 +315,7 @@ export async function PATCH(req) {
         success: true,
         statusCode: 200,
         message: 'Pending Winner Updated Successfully',
-        data: pending,
+        data: updatedPendingWinner,
       },
       200,
     );

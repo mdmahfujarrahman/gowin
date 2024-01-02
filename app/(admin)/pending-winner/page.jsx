@@ -9,7 +9,7 @@ export const revalidate = 0;
 const PendingWinner = () => {
   return (
     <div className="mainWrapper">
-      <div className="mainWrapper flex flex-col">
+      <div className="p-0 md:p-5 lg:p-5 flex flex-col ">
         <PageHeader title="Pending Winners" route="/pending-winner/add-new" />
         <PendingWinnersTable />
       </div>

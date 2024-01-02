@@ -1,12 +1,21 @@
 'use client';
 import { AutoComplete } from 'antd';
 
-const CustomAutoComplete = ({ options, placeholder, name, handleChange }) => {
+const CustomAutoComplete = ({
+  options,
+  placeholder,
+  name,
+  handleChange,
+  value,
+  isDisable,
+}) => {
   return (
     <AutoComplete
       className="h-10 w-full px-3 py-1 rounded-sm focus:outline-none"
       placeholder={placeholder}
+      disabled={isDisable}
       options={options}
+      defaultValue={value}
       style={{
         height: '40px',
       }}

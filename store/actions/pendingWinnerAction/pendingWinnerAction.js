@@ -12,3 +12,21 @@ export const getAllPendingWinnersThunk = createAsyncThunk(
     }
   },
 );
+export const updatePendingWinnersThunk = createAsyncThunk(
+  'gowin/updatePendingWinners',
+  async (payload, thunkAPI) => {
+    try {
+      const response = await GowinService.updatePendingWinnerReq({
+        winnerId: payload.winnerId,
+        type: payload.type,
+      });
+      const updateResponse = {
+        ...response,
+        handleCloseModal: payload.handleCloseModal,
+      };
+      return thunkAPI.fulfillWithValue(updateResponse);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

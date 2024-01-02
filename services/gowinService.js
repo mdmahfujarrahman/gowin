@@ -56,6 +56,9 @@ const getPendingWinnerReq = () => {
 const addPendingWinnerReq = payload => {
   return API.put('/admin/pendingWinner', payload);
 };
+const updatePendingWinnerReq = payload => {
+  return API.patch('/admin/pendingWinner', payload);
+};
 
 export const GowinService = {
   loginReq,
@@ -69,5 +72,6 @@ export const GowinService = {
   updateActiveUserStatusReq,
   getPendingWinnerReq,
   addPendingWinnerReq,
+  updatePendingWinnerReq,
   createResetToken,
 };

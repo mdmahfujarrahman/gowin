@@ -8,6 +8,7 @@ const RejectAction = ({
   isLoading,
   handleReject,
   handleClose,
+  title,
   isMultiUserAction,
 }) => {
   return (
@@ -24,7 +25,7 @@ const RejectAction = ({
       </div>
       <div>
         <h1 className="text-2xl font-bold text-center mt-4 uppercase">
-          Delete User
+          {title}
         </h1>
         {isMultiUserAction ? (
           <p className="text-center mt-2">

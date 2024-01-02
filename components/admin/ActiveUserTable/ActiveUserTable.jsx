@@ -102,6 +102,7 @@ const ActiveUserTable = () => {
         setSelectedRowKeys={setSelectedRowKeys}
         selectedRowKeys={selectedRowKeys}
         tableData={activeUser?.users}
+        loading={activeUser?.isLoading}
         tableHead={[
           ...PendingTableHeaders,
           {
@@ -132,6 +133,7 @@ const ActiveUserTable = () => {
       >
         {stateData.actionType === 'delete' && (
           <DeleteAction
+            title="Delete Active User"
             userData={stateData?.data}
             isLoading={activeUser.isUpdating}
             isMultiUserAction={stateData?.isMultiUserAction}

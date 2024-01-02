@@ -178,6 +178,7 @@ const PendingUserTable = () => {
         handleClick={handleMultiUserAction}
         setSelectedRowKeys={setSelectedRowKeys}
         selectedRowKeys={selectedRowKeys}
+        loading={pendingUser?.isLoading}
         tableData={searchParams ? pendingUser?.rejectUser : pendingUser?.users}
         tableHead={[
           ...PendingTableHeaders,
@@ -245,6 +246,7 @@ const PendingUserTable = () => {
         )}
         {stateData.actionType === 'delete' && (
           <DeleteAction
+            title="Delete Pending User"
             userData={stateData?.data}
             isLoading={pendingUser.isUpdating}
             isMultiUserAction={stateData?.isMultiUserAction}

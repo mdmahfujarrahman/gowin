@@ -65,7 +65,7 @@ const AddPendingWinners = () => {
       };
       delete payload?.profilePicture;
       const response = await GowinService.addPendingWinnerReq(payload);
-      console.log(response);
+
       if (response?.data?.data.success) {
         toast.success('Pending Winner Added Successfully');
         router.push('/pending-winner');
@@ -76,8 +76,6 @@ const AddPendingWinners = () => {
       setIsLoading(false);
     }
   };
-
-  console.log(inputData);
 
   return (
     <>

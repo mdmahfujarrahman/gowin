@@ -9,8 +9,6 @@ const DashboardStateCards = () => {
   const dispatch = useDispatch();
   const dashboard = useSelector(state => state.dashboard);
 
-  console.log(dashboard);
-
   useEffect(() => {
     dispatch(getDashboardStateThunk());
   }, []);

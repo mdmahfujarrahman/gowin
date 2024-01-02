@@ -12,6 +12,7 @@ const CustomTable = ({
   handleClick,
   selectedRowKeys,
   setSelectedRowKeys,
+  loading,
 }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const onSelectChange = (keys, record) => {
@@ -44,6 +45,7 @@ const CustomTable = ({
         rowSelection={rowSelection}
         columns={tableHead}
         dataSource={tableData}
+        loading={loading}
         // onChange={handleChnage}
       />
     </div>

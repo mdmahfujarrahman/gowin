@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-import { getAllPendingWinnersThunk } from '../../actions/pendingWinnerAction/pendingWinnerAction';
+import {
+  getAllPendingWinnersThunk,
+  updatePendingWinnersThunk,
+} from '../../actions/pendingWinnerAction/pendingWinnerAction';
 import { getCountryName } from '../../../helper/utils/index';
 
 const initialState = {
@@ -58,6 +61,42 @@ export const pendingWinnerSlice = createSlice({
         isError: true,
         message: '',
       };
+      state.isLoading = false;
+    });
+    // update user status
+    builder.addCase(updatePendingWinnersThunk.pending, state => {
+      state.isLoading = true;
+      state.isUpdating = true;
+      state.error = {
+        isError: false,
+        message: '',
+      };
+    });
+    builder.addCase(updatePendingWinnersThunk.fulfilled, (state, action) => {
+      const handleCloseModal = action.payload?.handleCloseModal;
+      console.log(action.payload?.data?.data?.data?._id);
+      console.log(action.payload?.data?.data?.data);
+      const formatData = state.users?.filter(
+        item => item._id !== action.payload?.data?.data?.data?._id,
+      );
+      state.users = formatData;
+
+      toast.success(action.payload.data.data.message);
+      handleCloseModal();
+      state.error = {
+        isError: false,
+        message: '',
+      };
+      state.isUpdating = false;
+      state.isLoading = false;
+    });
+    builder.addCase(updatePendingWinnersThunk.rejected, (state, action) => {
+      toast.error(action.payload.response.data.data.message);
+      state.error = {
+        isError: true,
+        message: '',
+      };
+      state.isUpdating = false;
       state.isLoading = false;
     });
   },

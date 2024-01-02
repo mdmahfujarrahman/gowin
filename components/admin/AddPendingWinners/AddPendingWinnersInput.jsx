@@ -12,6 +12,7 @@ const AddPendingWinnersInput = ({
   handleChange,
   inputData,
   setInputData,
+  type,
 }) => {
   return (
     <>
@@ -26,6 +27,8 @@ const AddPendingWinnersInput = ({
           <CustomAutoComplete
             placeholder="Select Winner Name"
             name="winner"
+            value={inputData.winner}
+            isDisable={type === 'edit'}
             handleChange={handleChange}
             options={activeUser}
           />
@@ -39,6 +42,7 @@ const AddPendingWinnersInput = ({
             handleChange={handleChange}
             value={inputData.prizeType}
             name="prizeType"
+            isDisable={false}
             options={PrizeName}
           />
         </div>

@@ -91,6 +91,7 @@ export const lottaryType = {
   'Super Six': supar,
   'Fun Four': fun,
   'Luckey Three': luckey,
+  'Lucky Three': luckey,
 };
 
 export const adminSidebarImage = {

@@ -4,7 +4,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { adminIcons } from '../../../public/assets';
 
-const InsidePageHeader = ({ title, backRoute, handleSave, loading }) => {
+const InsidePageHeader = ({
+  title,
+  backRoute,
+  handleSave,
+  nextRoute,
+  loading,
+}) => {
   const router = useRouter();
   return (
     <div className="flex justify-between items-center mb-5">
@@ -21,19 +27,36 @@ const InsidePageHeader = ({ title, backRoute, handleSave, loading }) => {
             src={adminIcons.leftArrow}
           />
         </div>
-        <p className="text-xl md:text-2xl lg:text-2xl font-bold text-primaryBlue">
+        <p className="text-sm md:text-2xl lg:text-2xl font-bold text-primaryBlue">
           {title}
         </p>
       </div>
       <div className="flex items-center">
-        <Button
-          onClick={handleSave}
-          loading={loading}
-          className="w-24"
-          type="primary"
-        >
-          Save
-        </Button>
+        {title === 'View Pending Winner' ? (
+          <Button
+            onClick={() => router.push(nextRoute)}
+            loading={loading}
+            className="w-24"
+            type="primary"
+            style={{
+              backgroundColor: '#46D39D',
+            }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            onClick={handleSave}
+            loading={loading}
+            className="w-24"
+            type="primary"
+            style={{
+              backgroundColor: '#46D39D',
+            }}
+          >
+            Save
+          </Button>
+        )}
       </div>
     </div>
   );
