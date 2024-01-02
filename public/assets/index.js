@@ -43,6 +43,8 @@ import exitWhite from './admin/sidebar/exitWhite.png';
 // dashboard state images
 import userState from './admin/dashboardState/user.png';
 import pendingUserState from './admin/dashboardState/account-pending.png';
+import rejetedState from './admin/dashboardState/rejected.png';
+import pendingWinnerState from './admin/dashboardState/pendingWinner.png';
 
 // admin icons
 import approve from './admin/utils/approve.png';
@@ -112,6 +114,8 @@ export const adminSidebarImage = {
 export const dashboardState = {
   userState,
   pendingUserState,
+  rejetedState,
+  pendingWinnerState,
 };
 
 export const adminIcons = {

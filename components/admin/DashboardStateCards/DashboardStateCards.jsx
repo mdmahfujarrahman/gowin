@@ -33,18 +33,18 @@ const DashboardStateCards = () => {
       />
       <DashboardStateCard
         title="Rejeted User"
-        icon={dashboardState.userState}
+        icon={dashboardState.rejetedState}
         isLoading={dashboard.isLoading}
         stateData={dashboard.dashboardState.rejected}
-        bgColor="bg-dashboardUserState"
+        bgColor="bg-[#ffcdd4]"
         route="/pending-user?status=rejected"
       />
       <DashboardStateCard
         title="Pending Winner"
-        icon={dashboardState.userState}
+        icon={dashboardState.pendingWinnerState}
         isLoading={dashboard.isLoading}
         stateData={dashboard.dashboardState.pendingWinners}
-        bgColor="bg-dashboardUserState"
+        bgColor="bg-[#cfffdb]"
         route="/pending-winner"
       />
     </div>

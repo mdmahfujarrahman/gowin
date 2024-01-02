@@ -221,7 +221,6 @@ export const PendingWinnerTableHeaders = [
   {
     title: 'Access Bank AC. Page',
     dataIndex: 'accessBankPage',
-    sorter: (a, b) => a.winnerApprove.localeCompare(b.accessBankPage),
     render: (text, record) => {
       return (
         <div

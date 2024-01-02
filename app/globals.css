@@ -352,7 +352,7 @@ body {
   height: 100vh;
   color: white;
   z-index: 999;
-  width: 40%;
+  width: 50%;
 }
 
 @keyframes openSidebar {

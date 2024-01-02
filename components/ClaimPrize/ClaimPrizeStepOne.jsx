@@ -7,7 +7,7 @@ import Image from 'next/image';
 import CustomInput from '../../ui/CustomInput/CustomInput';
 import CustomButton from '../../ui/CustomButton/CustomButton';
 
-const ClaimPrizeStepOne = ({ winnerDeatils }) => {
+const ClaimPrizeStepOne = ({ winnerDeatils, type }) => {
   const [inputData, setInputData] = useState({});
 
   const [selected, setSelected] = useState('');
@@ -211,15 +211,28 @@ const ClaimPrizeStepOne = ({ winnerDeatils }) => {
                   Lucky Winner{' '}
                 </h5>
                 <Image
-                  src={lottaryType[winnerDeatils?.data?.winnerType]}
-                  alt={winnerDeatils?.data?.winnerType}
+                  src={
+                    lottaryType[
+                      type === 'winner'
+                        ? winnerDeatils?.data?.prizeType
+                        : winnerDeatils?.data?.winnerType
+                    ]
+                  }
+                  alt={
+                    type === 'winner'
+                      ? winnerDeatils?.data.prizeType
+                      : winnerDeatils?.data?.winnerType
+                  }
                   width={100}
                   height={60}
                   className="mt-4"
                 />
 
                 <h2 className="text-5xl font-extrabold text-white mt-4">
-                  AED 50000
+                  AED{' '}
+                  {type === 'winner'
+                    ? winnerDeatils?.data?.prizeAmount
+                    : '50000'}
                 </h2>
               </div>
               <div className="flex items-center mt-4">
@@ -227,27 +240,37 @@ const ClaimPrizeStepOne = ({ winnerDeatils }) => {
                   width={100}
                   height={120}
                   className="rounded-md "
-                  src={winnerDeatils.data.user.image}
+                  src={
+                    type === 'winner'
+                      ? winnerDeatils?.data?.winner?.profilePicture
+                      : winnerDeatils.data.user.image
+                  }
                   alt="bank transfer"
                 />
                 <div className="flex flex-col ml-3">
                   <div className="px-3 py-2 bg-primaryLightBlue rounded-full">
                     <h2 className="text-sm font-extrabold text-white">
-                      {winnerDeatils.data.user.name}
+                      {type === 'winner'
+                        ? winnerDeatils?.data?.winner?.name
+                        : winnerDeatils.data.user.name}
                     </h2>
                   </div>
                   <div className="px-3 py-2 bg-primaryLightBlue rounded-full mt-3">
-                    <h2 className="text-sm font-extrabold text-white uppercase">
-                      {winnerDeatils.data.user.countryCode}
+                    <h2 className="text-sm text-center font-extrabold text-white uppercase">
+                      {type === 'winner'
+                        ? winnerDeatils?.data?.winner?.countryCode
+                        : winnerDeatils.data.user.countryCode}
                     </h2>
                   </div>
                 </div>
               </div>
-              <div className="px-3 py-2 bg-red-400 rounded-full mt-3">
-                <h2 className="text-sm font-extrabold text-white uppercase">
-                  Winning Date: 17/12/2023
-                </h2>
-              </div>
+              {type !== 'winner' && (
+                <div className="px-3 py-2 bg-red-400 rounded-full mt-3">
+                  <h2 className="text-sm font-extrabold text-white uppercase">
+                    Winning Date: 17/12/2023
+                  </h2>
+                </div>
+              )}
             </div>
           </div>
         </div>

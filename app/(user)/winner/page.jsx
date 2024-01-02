@@ -11,7 +11,19 @@ export const metadata = {
 const Winner = async req => {
   const userInfo = await getCurrentUser();
   const resultId = req?.searchParams?.result;
-  const winnerDeatils = await getWinnerPageData(userInfo, resultId);
+  const winnerId = req?.searchParams?.winnerId;
+
+  console.log(winnerId);
+  console.log(resultId);
+
+  if (!resultId && !winnerId) {
+    redirect('/results');
+  }
+
+  const id = winnerId ? winnerId : resultId;
+  const type = winnerId ? 'winner' : 'result';
+
+  const winnerDeatils = await getWinnerPageData(userInfo, id, type);
 
   if (!winnerDeatils?.success) {
     redirect('/results');
@@ -20,7 +32,7 @@ const Winner = async req => {
 
   return (
     <div className="flexCenter flex-col my-5 bg-primary-blue">
-      <ClaimPrize winnerDeatils={winnerDeatils} />
+      <ClaimPrize winnerDeatils={winnerDeatils} type={type} />
     </div>
   );
 };

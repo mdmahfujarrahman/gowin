@@ -1,4 +1,6 @@
 import { envConfig } from '../../../lib/config';
+import dbConnect from '../../../lib/db/db.connect';
+import { PendingWinners } from '../../../model/pendingWinners/pendingWinners.model';
 
 const checkWinner = (winnerData, winnerType, userId) => {
   return winnerData?.find(item => item?.toString() === userId?.toString())
@@ -62,10 +64,10 @@ const checkWinners = async (user, resultId) => {
   }
 };
 
-export const getWinnerPageData = async (user, resultId) => {
+const fetchResultWinner = async (user, id) => {
   try {
     const res = await fetch(
-      `${envConfig.serverUrl}/result/getResult?type=single&resultId=${resultId}`,
+      `${envConfig.serverUrl}/result/getResult?type=single&resultId=${id}`,
     );
     const data = await res?.json();
     if (!data?.data?.success) {
@@ -83,5 +85,66 @@ export const getWinnerPageData = async (user, resultId) => {
       success: false,
       data: null,
     };
+  }
+};
+
+const getPenidngWinner = async (user, id) => {
+  try {
+    if (!user?.user?._id === id) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+    await dbConnect();
+    const getAllPeningWinner = await PendingWinners.find({})
+      .populate('winners.winner')
+      .lean();
+
+    if (!getAllPeningWinner) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+
+    if (getAllPeningWinner[0].winners.length === 0) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+
+    const isExit = getAllPeningWinner[0].winners.find(
+      item => item.winner._id.toString() === id,
+    );
+
+    if (!isExit) {
+      return {
+        success: false,
+        message: "winner doesn't exist",
+        data: null,
+      };
+    }
+
+    return {
+      success: true,
+      data: isExit,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
+};
+
+export const getWinnerPageData = async (user, id, type) => {
+  if (type == 'winner') {
+    const response = await getPenidngWinner(user, id);
+    return response;
+  } else {
+    const response = await fetchResultWinner(user, id);
+    return response;
   }
 };

@@ -6,7 +6,7 @@ import { gowinImages } from '../../public/assets';
 import ContactModal from '../ConcatModal/ConcatModal';
 import { useState } from 'react';
 
-const ClaimPrize = ({ winnerDeatils }) => {
+const ClaimPrize = ({ winnerDeatils, type }) => {
   const [contactInfoModal, setContactInfoModal] = useState(false); // ['playing', 'result', "cancel"]
   const handleOpen = () => setContactInfoModal(true);
   const handleClose = () => setContactInfoModal(false);
@@ -22,7 +22,7 @@ const ClaimPrize = ({ winnerDeatils }) => {
           steps to claim your prize.
         </p>
       </div>
-      <ClaimPrizeStepOne winnerDeatils={winnerDeatils} />
+      <ClaimPrizeStepOne type={type} winnerDeatils={winnerDeatils} />
       <div className="flex justify-center items-center my-3">
         <a href="#step2">
           <Image
