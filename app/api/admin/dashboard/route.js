@@ -6,6 +6,7 @@ import errorHandler from '../../../../errorHandler.js';
 import dbConnect from '../../../../lib/db/db.connect.js';
 // Import the user model
 import { User } from '../../../../model/user/user.model.js';
+import { PendingWinners } from '../../../../model/pendingWinners/pendingWinners.model.js';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -36,6 +37,8 @@ export async function GET() {
     const filterRejected = users.filter(
       user => user?.status === 'rejected' && user?.role === 'user',
     );
+
+    const pendingWinners = await PendingWinners.find({});
     // get new users 7 days
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -55,6 +58,7 @@ export async function GET() {
           pending: filterInactive?.length,
           rejected: filterRejected?.length,
           newUsers: filterNewUsers?.length,
+          pendingWinners: pendingWinners[0]?.winners?.length,
         },
       },
       200,

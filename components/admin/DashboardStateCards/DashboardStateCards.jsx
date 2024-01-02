@@ -39,6 +39,14 @@ const DashboardStateCards = () => {
         bgColor="bg-dashboardUserState"
         route="/pending-user?status=rejected"
       />
+      <DashboardStateCard
+        title="Pending Winner"
+        icon={dashboardState.userState}
+        isLoading={dashboard.isLoading}
+        stateData={dashboard.dashboardState.pendingWinners}
+        bgColor="bg-dashboardUserState"
+        route="/pending-winner"
+      />
     </div>
   );
 };

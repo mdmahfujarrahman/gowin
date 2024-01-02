@@ -1,8 +1,10 @@
 import React from 'react';
 import { SidebarList } from '../../../constant';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import ClockWized from '../ClockWized/ClockWized';
+import { adminSidebarImage } from '../../../public/assets';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const pathName = usePathname();
@@ -38,6 +40,17 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </div>
         );
       })}
+      <div
+        onClick={() => signOut()}
+        className={`cursor-pointer  px-[10px] h-[50px] flex md:hidden lg:hidden items-center hover:bg-primaryThinlightblue `}
+      >
+        <div className="block md:hidden lg:hidden w-5 h-5 mr-[10px]">
+          <Image src={adminSidebarImage.exitWhite} alt="exit" />
+        </div>
+        <h4 className="d-block d-sm-block d-md-none d-lg-block d-xl-block d-xxl-block">
+          Log out
+        </h4>
+      </div>
       <ClockWized />
     </div>
   );

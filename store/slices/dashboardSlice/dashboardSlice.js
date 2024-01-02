@@ -7,6 +7,7 @@ const initialState = {
     active: '',
     pending: '',
     rejected: '',
+    pendingWinners: '',
   },
   error: {
     isError: false,

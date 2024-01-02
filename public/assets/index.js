@@ -38,6 +38,7 @@ import settings from './admin/sidebar/settings.png';
 import settingsWhite from './admin/sidebar/settingsWhite.png';
 import pendingWinners from './admin/sidebar/pendingWinners.png';
 import pendingWinnersWhite from './admin/sidebar/pendingWinnersWhite.png';
+import exitWhite from './admin/sidebar/exitWhite.png';
 
 // dashboard state images
 import userState from './admin/dashboardState/user.png';
@@ -105,6 +106,7 @@ export const adminSidebarImage = {
   settingsWhite,
   pendingWinners,
   pendingWinnersWhite,
+  exitWhite,
 };
 
 export const dashboardState = {
