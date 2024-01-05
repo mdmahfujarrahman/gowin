@@ -19,7 +19,8 @@ export async function GET() {
   const date = new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' });
 
   if (!yeasterDayResult.length) {
-    const newImage = await uploadImage(src);
+    const fileName = `Draw-Results-${moment().format('DD-MMM-YYYY')}.jpg`;
+    const newImage = await uploadImage(src, fileName, 'draw-result');
     const upload = await Result.create({
       orginalImage: src,
       image: newImage,
@@ -68,8 +69,8 @@ export async function GET() {
         );
       }
     }
-
-    const newImage = await uploadImage(src);
+    const fileName = `Draw-Results-${moment().format('DD-MMM-YYYY')}.jpg`;
+    const newImage = await uploadImage(src, fileName, 'draw-result');
 
     const upload = await Result.create({
       orginalImage: src,

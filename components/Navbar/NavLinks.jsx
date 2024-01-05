@@ -19,8 +19,8 @@ const NavLinks = ({ session }) => {
         <Link
           className={`${
             pathname.replace('/', '') === 'pending-winners'
-              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green'
-              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green border-[1px] border-primary-blue'
+              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50  hover:border-primary-blue'
           } me-6 px-5 py-2`}
           href="/pending-winners"
         >
@@ -29,8 +29,8 @@ const NavLinks = ({ session }) => {
         <Link
           className={`${
             pathname.replace('/', '') === 'winners'
-              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green '
-              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green border-[1px] border-primary-blue'
+              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50  hover:border-primary-blue'
           } me-6 px-5 py-2`}
           href="/winners"
         >
@@ -39,8 +39,8 @@ const NavLinks = ({ session }) => {
         <Link
           className={`${
             pathname.replace('/', '') === 'results'
-              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green  '
-              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green border-[1px] border-primary-blue '
+              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
           } me-6 px-5 py-2`}
           href="/results"
         >
@@ -52,7 +52,7 @@ const NavLinks = ({ session }) => {
           className={`${
             pathname.replace('/', '') === 'pending-winners'
               ? 'py-2 px-3 rounded-3xl bg-primary-blue text-primary-green'
-              : 'text-white hover:bg-primary-blue  hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+              : 'text-white hover:bg-primary-blue  hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
           }  px-3 py-2 order-2 text-center text-sm`}
           href="/pending-winners"
         >
@@ -63,7 +63,7 @@ const NavLinks = ({ session }) => {
             className={`${
               pathname.replace('/', '') === 'winners'
                 ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green '
-                : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+                : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
             } me-2 px-5 py-2 text-sm`}
             href="/winners"
           >
@@ -74,7 +74,7 @@ const NavLinks = ({ session }) => {
             className={`${
               pathname.replace('/', '') === 'results'
                 ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green  '
-                : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 hover:rounded-3xl'
+                : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
             } me-4 px-5 py-2 text-sm`}
             href="/results"
           >
