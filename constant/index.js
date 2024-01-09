@@ -5,13 +5,13 @@ export const contactInfoData = [
     id: 1,
     logo: contactImages.whatsappIcon,
     type: 'whatsapp',
-    data: '+8801785952562',
+    data: '+601127247651',
   },
   {
     id: 2,
     logo: contactImages.imoIcon,
     type: 'imo',
-    data: '+8801785952562',
+    data: '+601127247651',
   },
   {
     id: 3,

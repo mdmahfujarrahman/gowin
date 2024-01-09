@@ -26,7 +26,7 @@ const NavLinks = ({ session }) => {
         >
           Pending Winners
         </Link>
-        <Link
+        {/* <Link
           className={`${
             pathname.replace('/', '') === 'winners'
               ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green border-[1px] border-primary-blue'
@@ -35,7 +35,7 @@ const NavLinks = ({ session }) => {
           href="/winners"
         >
           Winners
-        </Link>
+        </Link> */}
         <Link
           className={`${
             pathname.replace('/', '') === 'results'
@@ -47,18 +47,28 @@ const NavLinks = ({ session }) => {
           Results
         </Link>
       </div>
-      <div className="flex flex-col md:hidden lg:hidden xl:hidden 2xl:hidden">
+      <div className="flex md:hidden lg:hidden xl:hidden 2xl:hidden">
         <Link
           className={`${
             pathname.replace('/', '') === 'pending-winners'
               ? 'py-2 px-3 rounded-3xl bg-primary-blue text-primary-green'
               : 'text-white hover:bg-primary-blue  hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
-          }  px-3 py-2 order-2 text-center text-sm`}
+          }  px-3 py-2  text-center text-sm mr-1`}
           href="/pending-winners"
         >
           Pending Winners
         </Link>
-        <div className="flex items-center order-1 mb-1">
+        <Link
+          className={`${
+            pathname.replace('/', '') === 'results'
+              ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green  '
+              : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
+          } me-4 px-5 py-2 text-sm`}
+          href="/results"
+        >
+          Results
+        </Link>
+        {/* <div className="flex items-center order-1 mb-1">
           <Link
             className={`${
               pathname.replace('/', '') === 'winners'
@@ -70,17 +80,8 @@ const NavLinks = ({ session }) => {
             Winners
           </Link>
 
-          <Link
-            className={`${
-              pathname.replace('/', '') === 'results'
-                ? 'py-2 px-5 rounded-3xl bg-primary-blue text-primary-green  '
-                : 'text-white hover:bg-primary-blue hover:text-primary-green hover:py-2 hover:px-5 rounded-3xl border-[1px] border-slate-50 hover:border-primary-blue'
-            } me-4 px-5 py-2 text-sm`}
-            href="/results"
-          >
-            Results
-          </Link>
-        </div>
+          
+        </div> */}
       </div>
     </>
   );
