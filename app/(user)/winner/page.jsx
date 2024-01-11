@@ -13,9 +13,6 @@ const Winner = async req => {
   const resultId = req?.searchParams?.result;
   const winnerId = req?.searchParams?.winnerId;
 
-  console.log(winnerId);
-  console.log(resultId);
-
   if (!resultId && !winnerId) {
     redirect('/results');
   }
@@ -28,7 +25,6 @@ const Winner = async req => {
   if (!winnerDeatils?.success) {
     redirect('/results');
   }
-  console.log('winnerDeatils', winnerDeatils);
 
   return (
     <div className="flexCenter flex-col my-5 bg-primary-blue">

@@ -61,7 +61,7 @@ const EditPendingWinner = ({ singleWinnersData }) => {
     const { name, value } = e.target;
     setInputData({ ...inputData, [name]: value });
   };
-  console.log(inputData);
+
   return (
     <>
       <InsidePageHeader

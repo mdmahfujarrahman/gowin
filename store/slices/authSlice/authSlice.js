@@ -210,7 +210,6 @@ export const authSlice = createSlice({
       };
     });
     builder.addCase(verifyOtpThunk.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (action.payload.type === 'resetpassword') {
         notification('success', 'OTP verified successfully');
         state.isOtpVerified = true;

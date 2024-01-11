@@ -72,12 +72,10 @@ const Login = () => {
       const sessions = await getSession();
       notification('success', 'Login Successfull');
       if (sessions?.user?.role === 'admin') {
-        console.log('Enter if');
         router.push('/dashboard');
         setIsLoading(false);
         return;
       } else {
-        console.log('Enter else');
         router.push('/results');
         setIsLoading(false);
       }

@@ -80,7 +80,6 @@ export async function PATCH(req) {
   try {
     await dbConnect();
     const body = await req?.json();
-    console.log(body);
 
     if (!body.userId) {
       return sendResponse(
@@ -137,7 +136,6 @@ export async function PATCH(req) {
       200,
     );
   } catch (error) {
-    console.log(error, '------------------');
     // Handle errors and return an error response
     return errorHandler(error);
   }

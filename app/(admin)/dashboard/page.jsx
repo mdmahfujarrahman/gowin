@@ -1,5 +1,6 @@
 import DashboardStateCards from '../../../components/admin/DashboardStateCards/DashboardStateCards';
 import PageHeader from '../../../components/admin/PageHeader/PageHeader';
+import ContactStateCards from '../../../components/admin/ContactStateCards/ContactStateCards';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -9,7 +10,10 @@ const Dashboard = () => {
   return (
     <div className="mainWrapper flex flex-col">
       <PageHeader title="Dashboard" />
-      <DashboardStateCards />
+      <div className="flex w-full flex-col md:flex-row">
+        <DashboardStateCards />
+        <ContactStateCards />
+      </div>
     </div>
   );
 };

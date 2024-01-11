@@ -65,6 +65,13 @@ body {
   @apply h-screen p-5;
 }
 
+
+.flexCenterImportant {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
 /* Navbar */
 .navbar {
   @apply py-4 px-4 md:px-10 bg-primary-red gap-4;

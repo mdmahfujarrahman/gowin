@@ -65,9 +65,8 @@ UserSchema.statics.getSingleUser = async function (id) {
   return user;
 };
 UserSchema.statics.isAdmin = async function (id) {
-  console.log(id);
   const user = await this.findOne({ _id: id });
-  console.log(user);
+
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Unauthorized access');
   }
@@ -82,7 +81,6 @@ UserSchema.pre('save', async function (next) {
   // check if the user is exist
 
   const isExist = await User.findOne({ phoneNumber: this.phoneNumber });
-  console.log('come');
 
   if (isExist) {
     throw new ApiError(httpStatus.CONFLICT, 'Phone number already exist.');

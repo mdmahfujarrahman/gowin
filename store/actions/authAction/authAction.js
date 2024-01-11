@@ -84,13 +84,9 @@ export const requestOtpThunk = createAsyncThunk(
         window.confirmationResult = res;
         // dispatch manage auth route
 
-        console.log(payload);
-
         if (payload?.type === 'resetPassword') {
-          console.log('reset');
           thunkAPI.dispatch(manageResetRoute('otp'));
         } else {
-          console.log('reset');
           thunkAPI.dispatch(manageAuthRoute('otp'));
         }
 
@@ -132,7 +128,6 @@ export const verifyOtpThunk = createAsyncThunk(
       const res = await confirmationResult.confirm(payload.otp);
       // if otp is verified then sign up
       let token;
-      console.log(payload);
       if (payload.type === 'resetpassword') {
         const userId = state?.auth?.resetUser?.userId;
         try {

@@ -23,7 +23,6 @@ export async function GET() {
     });
 
     const getPreviousWinners = await WinnersPhoto.getAll();
-    console.log(getPreviousWinners[0].winners);
 
     const isNewWinner = winners.filter(element => {
       const isExit = !getPreviousWinners[0].winners.some(
@@ -31,8 +30,6 @@ export async function GET() {
       );
       return isExit;
     });
-
-    console.log(isNewWinner);
 
     // const uploadPromises = winners.map(element => {
     //   const fileName = `${element?.alt
@@ -51,7 +48,6 @@ export async function GET() {
     // }));
 
     // const updates = winnersData.filter(element => element?.winnerImage);
-    // console.log(updates);
 
     // const upload = await WinnersPhoto.create({
     //   winners: updates,

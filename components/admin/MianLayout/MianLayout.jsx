@@ -18,7 +18,7 @@ const MianLayout = ({ children }) => {
         <div
           className={`${
             isSidebarOpen ? 'mainLayout_sidebar_active' : 'mainLayout_sidebar'
-          } md:w-2/12 lg:w-2/12 relative`}
+          } md:w-[15%] lg:w-[15%] relative`}
         >
           <Sidebar
             isSidebarOpen={isSidebarOpen}
@@ -27,7 +27,7 @@ const MianLayout = ({ children }) => {
         </div>
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className="overflow-y-scroll  w-full md:w-5/6 lg:w-5/6"
+          className="overflow-y-scroll  w-full md:w-[85%] lg:w-[85%]"
         >
           <Suspense fallback={<PageLoader />}>{children}</Suspense>
         </div>

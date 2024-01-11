@@ -24,7 +24,7 @@ const SinglePendingWinnrsView = async req => {
     redirect('/pending-winner');
     return;
   }
-  console.log('singleWinnersData', singleWinnersData?.data);
+
   return (
     <>
       <Head>

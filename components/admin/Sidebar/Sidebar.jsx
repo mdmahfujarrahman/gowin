@@ -9,7 +9,7 @@ import { adminSidebarImage } from '../../../public/assets';
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const pathName = usePathname();
   const router = useRouter();
-  console.log(pathName.replace('/', ''));
+
   return (
     <div className="flex flex-col w-full">
       {SidebarList.map(item => {

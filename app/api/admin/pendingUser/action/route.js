@@ -21,7 +21,6 @@ const actionType = {
 };
 
 const UpdateUserAction = async (userId, type) => {
-  console.log(type);
   if (type === 'delete') {
     const updateUser = await User.findOneAndDelete({
       _id: userId,
@@ -48,7 +47,7 @@ const UpdateUserAction = async (userId, type) => {
 export async function PATCH(req) {
   try {
     const body = await req.json();
-    console.log(body);
+
     if (!body?.type) {
       return sendResponse(
         {
@@ -95,7 +94,6 @@ export async function PATCH(req) {
     }
     const isAdmin = await User.isAdmin(token?._id);
     if (isAdmin) {
-      console.log('isAdmin');
       const getUser = await User.findOne({
         _id: body?.userId,
       });

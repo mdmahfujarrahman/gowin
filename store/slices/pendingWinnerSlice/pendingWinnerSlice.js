@@ -37,7 +37,6 @@ export const pendingWinnerSlice = createSlice({
       };
     });
     builder.addCase(getAllPendingWinnersThunk.fulfilled, (state, action) => {
-      console.log(action.payload?.data?.data?.data.winners);
       const formatData = action.payload?.data?.data?.data.winners?.map(item => {
         return {
           _id: item._id,
@@ -74,8 +73,7 @@ export const pendingWinnerSlice = createSlice({
     });
     builder.addCase(updatePendingWinnersThunk.fulfilled, (state, action) => {
       const handleCloseModal = action.payload?.handleCloseModal;
-      console.log(action.payload?.data?.data?.data?._id);
-      console.log(action.payload?.data?.data?.data);
+
       const formatData = state.users?.filter(
         item => item._id !== action.payload?.data?.data?.data?._id,
       );

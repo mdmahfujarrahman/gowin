@@ -271,7 +271,6 @@ export async function getData() {
   let info = await statusData();
 
   if (info?.timing?.status === 'running') {
-    console.log('running');
     await collectResult('result', info);
   }
   if (info?.timing?.status === 'result') {

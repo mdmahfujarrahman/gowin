@@ -88,7 +88,6 @@ export const activeUserSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(updateActiveUserStatusThunk.rejected, (state, action) => {
-      console.log(action.payload.response.data.data.message);
       toast.error(action.payload.response.data.data.message);
       state.error = {
         isError: true,

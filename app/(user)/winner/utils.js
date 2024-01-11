@@ -9,7 +9,6 @@ const checkWinner = (winnerData, winnerType, userId) => {
 };
 
 const setWinner = (winnerType, userData) => {
-  console.log(winnerType);
   const status = {
     success: true,
     data: {

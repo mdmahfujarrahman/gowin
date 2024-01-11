@@ -14,7 +14,7 @@ const DashboardStateCards = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-4 flex-col md:flex-row lg:flex-row">
+    <div className="flex items-center gap-4 flex-col md:flex-wrap md:flex-row lg:flex-row w-full md:w-[70%]">
       <DashboardStateCard
         title="Pending User"
         isLoading={dashboard.isLoading}

@@ -173,7 +173,6 @@ export const PendingWinnerTableHeaders = [
     title: 'Winning Photo',
     dataIndex: 'winnerPhoto',
     render: (text, record) => {
-      console.log(record);
       return (
         <div className="flexCenter h-10 w-10 rounded-full overflow-hidden">
           {' '}

@@ -9,7 +9,6 @@ const filterCategoryWinners = (
   luckey,
   canditates,
 ) => {
-  console.log(canditates);
   return payloadCategory?.filter(
     winner =>
       canditates.map(id => id?.toString()).includes(winner) &&

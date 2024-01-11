@@ -92,8 +92,6 @@ const ActiveUserTable = () => {
     dispatch(getActiveUserThunk());
   }, []);
 
-  console.log(stateData);
-
   return (
     <>
       <CustomTable

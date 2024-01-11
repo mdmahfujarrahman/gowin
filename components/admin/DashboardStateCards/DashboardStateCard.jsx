@@ -13,7 +13,7 @@ const DashboardStateCard = ({
   return (
     <div
       onClick={() => router.push(route)}
-      className="flex rounded-md shadow-lg p-4 w-full md:w-1/5 cursor-pointer"
+      className="flex rounded-md shadow-xl p-4 w-full md:w-[31%] lg:w-[31%] cursor-pointer"
     >
       <div className={`h-14 w-14 mr-4 rounded-full  flexCenter ${bgColor}`}>
         <Image width={25} height={25} src={icon} alt="user" />

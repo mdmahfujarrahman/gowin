@@ -16,7 +16,7 @@ export async function GET(req) {
   const countryCode = req.nextUrl.searchParams.get('countryCode');
   try {
     await dbConnect();
-    console.log(phoneNumber, countryCode);
+
     const isExist = await User.isUserExist(phoneNumber, countryCode);
 
     if (!isExist) {
