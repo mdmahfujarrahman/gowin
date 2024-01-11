@@ -56,7 +56,7 @@ export const SidebarList = [
     iconWhite: adminSidebarImage.userWhite,
   },
   {
-    id: 3,
+    id: 4,
     route: '/pending-winner',
     name: 'Pending Winners',
     icon: adminSidebarImage.pendingWinners,

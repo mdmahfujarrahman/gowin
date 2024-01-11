@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDashboardStateThunk } from '../../actions/dashboardAction/dashboardAction';
+import {
+  getDashboardContactStateThunk,
+  getDashboardStateThunk,
+} from '../../actions/dashboardAction/dashboardAction';
 import toast from 'react-hot-toast';
 
 const initialState = {
@@ -9,6 +12,7 @@ const initialState = {
     rejected: '',
     pendingWinners: '',
   },
+  contactState: [],
   error: {
     isError: false,
     message: '',
@@ -28,7 +32,7 @@ export const dashboardSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    // check user exist
+    //
     builder.addCase(getDashboardStateThunk.pending, state => {
       state.isLoading = true;
       state.error = {
@@ -52,7 +56,35 @@ export const dashboardSlice = createSlice({
       };
       state.isLoading = false;
     });
-    // send otp with firebase
+    //
+    builder.addCase(getDashboardContactStateThunk.pending, state => {
+      console.log('pending');
+      state.isLoading = true;
+      state.error = {
+        isError: false,
+        message: '',
+      };
+    });
+    builder.addCase(
+      getDashboardContactStateThunk.fulfilled,
+      (state, action) => {
+        state.contactState = action?.payload?.contactInfo;
+        state.error = {
+          isError: false,
+          message: '',
+        };
+        state.isLoading = false;
+      },
+    );
+    builder.addCase(getDashboardContactStateThunk.rejected, (state, action) => {
+      toast.error(action.payload);
+      console.log(action.payload);
+      state.error = {
+        isError: true,
+        message: '',
+      };
+      state.isLoading = false;
+    });
   },
 });
 

@@ -43,11 +43,6 @@ export async function GET() {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-    const filterNewUsers = users.filter(user => {
-      const userCreatedAt = new Date(user.createdAt);
-      return user?.role === 'user' && userCreatedAt >= oneWeekAgo;
-    });
-
     return sendResponse(
       {
         success: true,
@@ -57,7 +52,6 @@ export async function GET() {
           active: filterActive?.length,
           pending: filterInactive?.length,
           rejected: filterRejected?.length,
-          newUsers: filterNewUsers?.length,
           pendingWinners: pendingWinners[0]?.winners?.length,
         },
       },

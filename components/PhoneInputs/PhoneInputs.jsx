@@ -8,7 +8,7 @@ const PhoneInputs = ({ handleChange, inputData, className, type }) => {
       name="phoneNumber"
       className={className}
       containerClass="my-2"
-      value={type === 'contactEdit' ? inputData.data : inputData?.phoneNumber}
+      value={type === 'contactEdit' ? inputData?.data : inputData?.phoneNumber}
       onChange={(phone, i) => {
         handleChange({
           target: { name: 'phoneNumber', value: phone, code: i.countryCode },
