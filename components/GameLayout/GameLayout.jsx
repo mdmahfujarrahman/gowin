@@ -7,7 +7,7 @@ import ResultCardHeading from '../ResultCard/ResultCardHeading/ResultCardHeading
 import ContactModal from '../ConcatModal/ConcatModal';
 import CustomButton from '../../ui/CustomButton/CustomButton';
 
-const GameLayout = ({ gameData, winnerInfo }) => {
+const GameLayout = ({ gameData, winnerInfo, contactInfo }) => {
   const [contactInfoModal, setContactInfoModal] = useState(false);
   const [status, setStatus] = useState(gameData?.timing?.status); // ['playing', 'result', "cancel"]
   const handleOpen = () => setContactInfoModal(true);
@@ -50,11 +50,15 @@ const GameLayout = ({ gameData, winnerInfo }) => {
           <div className=" w-5/6 md:w-1/3 rounded p-4">
             <Clock />
           </div>
-          <Playing />
+          <Playing handleOpen={handleOpen} />
         </>
       )}
       {status === 'result' && <Result resultData={gameData?.result} />}
-      <ContactModal handleClose={handleClose} open={contactInfoModal} />
+      <ContactModal
+        handleClose={handleClose}
+        open={contactInfoModal}
+        contactInfo={contactInfo}
+      />
     </>
   );
 };

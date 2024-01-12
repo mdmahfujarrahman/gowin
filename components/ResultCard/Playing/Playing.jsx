@@ -2,8 +2,9 @@ import moment from 'moment';
 import Image from 'next/image';
 import { gowinImages, resultCardImages } from '../../../public/assets';
 import CardRound from '../CardRound/CardRound.jsx';
+import CustomButton from '../../../ui/CustomButton/CustomButton';
 
-const Playing = () => {
+const Playing = ({ handleOpen }) => {
   const today = new Date();
   return (
     <div className="w-full px-4 md:px-10">
@@ -29,7 +30,7 @@ const Playing = () => {
           />
         </div>
 
-        <div className="bg-card-bg bg-cover bg-center w-full h-[320px] md:h-[630px] min-h-min ">
+        <div className="bg-card-bg bg-cover bg-center w-full h-[220px] md:h-[630px] min-h-min ">
           <div className="hidden md:flex items-center h-[630px] gap-5 p-2">
             <div className="flex-1 flex flex-col items-end pe-3 md:pe-10 gap-5 ">
               <Image
@@ -107,6 +108,26 @@ const Playing = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col justify-center items-center w-full gap-4">
+        <CustomButton
+          handleClick={handleOpen}
+          btnClass="py-3 px-3 w-64 h-22 mt-5 rounded text-white text-xl bg-primary-green"
+        >
+          Supar 6
+        </CustomButton>
+        <CustomButton
+          handleClick={handleOpen}
+          btnClass="py-3 px-3 w-64 h-22 mt-5 rounded text-white text-xl bg-primary-green"
+        >
+          Fun 4
+        </CustomButton>
+        <CustomButton
+          handleClick={handleOpen}
+          btnClass="py-3 px-3 w-64 h-22 mt-5 rounded text-white text-xl bg-primary-green"
+        >
+          Lucky 3
+        </CustomButton>
       </div>
     </div>
   );

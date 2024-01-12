@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getCurrentUser } from '../../../lib/authOptions/authOptions.js';
 import { getWinnerPageData } from './utils.js';
 import ClaimPrize from '../../../components/ClaimPrize/ClaimPrize.jsx';
+import { getAllContact } from '../../../serverActions/admin/dashboard/index.js';
 
 export const metadata = {
   title: 'Claim Your Prize - Go Win',
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 const Winner = async req => {
+  const contactInfo = await getAllContact();
   const userInfo = await getCurrentUser();
   const resultId = req?.searchParams?.result;
   const winnerId = req?.searchParams?.winnerId;
@@ -28,7 +30,11 @@ const Winner = async req => {
 
   return (
     <div className="flexCenter flex-col my-5 bg-primary-blue">
-      <ClaimPrize winnerDeatils={winnerDeatils} type={type} />
+      <ClaimPrize
+        contactInfo={contactInfo}
+        winnerDeatils={winnerDeatils}
+        type={type}
+      />
     </div>
   );
 };

@@ -3,6 +3,62 @@
 import dbConnect from '../../../lib/db/db.connect';
 import { Contact } from '../../../model/contact/contact.model';
 
+// Server Actions Helper
+
+const getAllContactInfo = async () => {
+  try {
+    await dbConnect();
+    const allContactInfo = await Contact.getAll();
+    return allContactInfo;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateContactId = payload => {
+  return payload.map(contact => {
+    return {
+      ...contact,
+      _id: contact?._id?.toString(),
+    };
+  });
+};
+
+// Server Actions
+
+export async function getAllContact() {
+  try {
+    await dbConnect();
+    const allContactInfo = await getAllContactInfo();
+    const updateContact = updateContactId(allContactInfo?.contactInfo);
+    return updateContact;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateContact(payload) {
+  try {
+    await dbConnect();
+    const allContactInfo = await getAllContactInfo();
+    const response = await Contact.findOneAndUpdate(
+      {
+        _id: allContactInfo._id,
+      },
+      {
+        contactInfo: payload,
+      },
+      {
+        new: true,
+      },
+    )?.lean();
+    const updateContact = updateContactId(response?.contactInfo);
+    return updateContact;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function createContact() {
 //   try {
 //     const payload = [
@@ -29,41 +85,3 @@ import { Contact } from '../../../model/contact/contact.model';
 //     console.log(error);
 //   }
 // }
-
-export async function getAllContact() {
-  try {
-    await dbConnect();
-    const allContactInfo = await Contact.getAll();
-    const updateContact = allContactInfo.contactInfo.map(contact => {
-      return {
-        ...contact,
-        _id: contact._id.toString(),
-      };
-    });
-    return updateContact;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function updateContact(payload) {
-  try {
-    await dbConnect();
-    const allContactInfo = await Contact.getAll();
-
-    const response = await Contact.findOneAndUpdate(
-      {
-        _id: allContactInfo._id,
-      },
-      {
-        contactInfo: payload,
-      },
-      {
-        new: true,
-      },
-    );
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-}

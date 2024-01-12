@@ -19,10 +19,15 @@ const PendingWinners = async () => {
   return (
     <div className="flexCenter flex-col h-full my-5">
       {pendingWinner.success && (
-        <PendingWinnersWin pendingWinner={pendingWinner?.data} />
+        <PendingWinnersWin
+          pendingWinner={pendingWinner?.data}
+          contactInfo={pendingWinner.contactInfo}
+        />
       )}
 
-      {!pendingWinner.success && <PendingWinnersLost />}
+      {!pendingWinner.success && (
+        <PendingWinnersLost contactInfo={pendingWinner.contactInfo} />
+      )}
     </div>
   );
 };

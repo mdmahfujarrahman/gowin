@@ -47,17 +47,19 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center">
-            <div className="h-10 w-10 rounded-full bg-[#D2EAFF] flexCenter mr-2">
-              <Image
-                src={contactIcon[contactInfoData[2]?.type]}
-                height={20}
-                width={20}
-                alt={contactInfoData[2]?.type}
-              />
+          {contactInfoData[2]?.data && (
+            <div className="flex justify-center items-center">
+              <div className="h-10 w-10 rounded-full bg-[#D2EAFF] flexCenter mr-2">
+                <Image
+                  src={contactIcon[contactInfoData[2]?.type]}
+                  height={20}
+                  width={20}
+                  alt={contactInfoData[2]?.type}
+                />
+              </div>
+              <h2 className="text-xm text-white">{contactInfoData[2]?.data}</h2>
             </div>
-            <h2 className="text-xm text-white">{contactInfoData[2]?.data}</h2>
-          </div>
+          )}
         </div>
       )}
       <div className="block md:hidden lg:hidden">
@@ -67,21 +69,23 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
           <ContactStateLoderSmall />
         ) : (
           <Carousel autoplay className="max-w-[325px] flex">
-            {contactInfoData?.map(item => (
-              <div key={item._id} className="flex-col flexCenterImportant">
-                <div className="h-12 w-12 rounded-full bg-[#D2EAFF] flexCenter mb-4">
-                  <Image
-                    src={contactIcon[item?.type]}
-                    height={30}
-                    width={30}
-                    alt={item?.type}
-                  />
+            {contactInfoData
+              ?.filter(contact => contact?.data !== '')
+              .map(item => (
+                <div key={item._id} className="flex-col flexCenterImportant">
+                  <div className="h-12 w-12 rounded-full bg-[#D2EAFF] flexCenter mb-4">
+                    <Image
+                      src={contactIcon[item?.type]}
+                      height={30}
+                      width={30}
+                      alt={item?.type}
+                    />
+                  </div>
+                  <h2 className="text-xl text-white">
+                    {item?.type === 'email' ? item?.data : `+${item?.data}`}
+                  </h2>
                 </div>
-                <h2 className="text-xl text-white">
-                  {item?.type === 'email' ? item?.data : `+${item?.data}`}
-                </h2>
-              </div>
-            ))}
+              ))}
           </Carousel>
         )}
       </div>

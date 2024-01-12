@@ -19,8 +19,6 @@ export const getDashboardContactStateThunk = createAsyncThunk(
   'gowin/contactStateThunk',
   async (payload, thunkAPI) => {
     try {
-      let check = 1;
-      console.log(++check);
       const response = await getAllContact();
       return thunkAPI.fulfillWithValue(response);
     } catch (error) {

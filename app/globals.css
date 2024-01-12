@@ -194,6 +194,12 @@ body {
   display: none !important;
 }
 
+.clockWized .slick-dots{
+  display: none !important;
+}
+
+
+
 /* React Phone Input */
 
 .react-tel-input input {

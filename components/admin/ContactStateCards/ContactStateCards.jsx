@@ -6,24 +6,68 @@ import { useEffect, useState } from 'react';
 import ContactStateCarusal from './ContactStateCarusal.jsx';
 import ContactStateEditModal from './ContactStateEditModal/ContactStateEditModal';
 import { getDashboardContactStateThunk } from '../../../store/actions/dashboardAction/dashboardAction';
+import toast from 'react-hot-toast';
+import { updateContact } from '../../../serverActions/admin/dashboard/index.js';
+import { updateContactState } from '../../../store/slices/dashboardSlice/dashboardSlice.js';
 
 const ContactStateCards = () => {
-  const dashboard = useSelector(state => state?.dashboard);
-  const [inputData, setInputdata] = useState(dashboard?.contactState);
   const dispatch = useDispatch();
-  const [modalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
+  const dashboard = useSelector(state => state?.dashboard);
+  const [inputData, setInputdata] = useState(dashboard?.contactState);
+  const [modalOpen, setIsModalOpen] = useState(false);
 
-  const handleEdit = () => {};
+  const handleEdit = async () => {
+    if (inputData[0].data === '') {
+      return toast.error('Whatapp Number is required');
+    } else if (inputData[1].data === '') {
+      return toast.error('Imo Number is required');
+    }
+    setIsLoading(true);
+    const updatedData = inputData.map(item => {
+      return {
+        type: item.type,
+        data: item.data,
+      };
+    });
+
+    try {
+      const response = await updateContact(updatedData);
+      dispatch(updateContactState(response));
+      setIsLoading(false);
+      handleClose();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
   const handleChange = e => {
-    console.log(e);
+    const { type, data } = e.target;
+    const newData = inputData.map(item => {
+      if (item.type === type) {
+        return { ...item, data };
+      }
+      return item;
+    });
+    setInputdata(newData);
   };
 
   useEffect(() => {
     dispatch(getDashboardContactStateThunk());
   }, []);
+
+  useEffect(() => {
+    if (
+      dashboard?.contactState.length > 0 &&
+      !dashboard?.isLoading &&
+      inputData?.length === 0
+    ) {
+      setInputdata(dashboard?.contactState);
+    }
+  }, [dashboard]);
 
   return (
     <div className="bg-primary-blue w-full md:w-[30%] flex   flex-col h-auto rounded-md p-4 mt-5 md:mt-0 shadow-xl">
@@ -44,6 +88,7 @@ const ContactStateCards = () => {
       <ContactStateEditModal
         handleEdit={handleEdit}
         open={modalOpen}
+        isLoading={isLoading}
         inputData={inputData}
         handleChange={handleChange}
         handleClose={handleClose}

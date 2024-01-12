@@ -6,7 +6,7 @@ import { gowinImages } from '../../public/assets';
 import ContactModal from '../ConcatModal/ConcatModal';
 import { useState } from 'react';
 
-const ClaimPrize = ({ winnerDeatils, type }) => {
+const ClaimPrize = ({ winnerDeatils, type, contactInfo }) => {
   const [contactInfoModal, setContactInfoModal] = useState(false); // ['playing', 'result', "cancel"]
   const handleOpen = () => setContactInfoModal(true);
   const handleClose = () => setContactInfoModal(false);
@@ -34,7 +34,11 @@ const ClaimPrize = ({ winnerDeatils, type }) => {
         </a>
       </div>
       <ClaimPrizeStepTwo handleModal={handleOpen} />
-      <ContactModal handleClose={handleClose} open={contactInfoModal} />
+      <ContactModal
+        contactInfo={contactInfo}
+        handleClose={handleClose}
+        open={contactInfoModal}
+      />
     </div>
   );
 };

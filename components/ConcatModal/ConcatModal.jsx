@@ -1,9 +1,9 @@
-import React from 'react';
 import CustomModal from '../../ui/CustomModal/CustomModal';
 import Image from 'next/image';
-import { contactInfoData } from '../../constant';
+import { contactIcon } from '../../constant';
 
-const ContactModal = ({ open, handleClose }) => {
+const ContactModal = async ({ open, handleClose, contactInfo }) => {
+  // ['playing', 'result', "cancel"]
   return (
     <CustomModal open={open} handleCancel={handleClose}>
       <div className="flex flex-col rounded mb-10">
@@ -12,23 +12,29 @@ const ContactModal = ({ open, handleClose }) => {
         </div>
       </div>
       <div className="flex flex-col items-start gap-3">
-        {contactInfoData.map(item => (
-          <div className="flex gap-3 items-center" key={item.id}>
-            <Image className="h-10 w-10" src={item.logo} alt={item.data} />
-            <a
-              href={
-                item.type === 'email'
-                  ? `mailto:${item.data}`
-                  : item.type === 'whatsapp'
-                  ? `https://wa.me/${item.data}`
-                  : `tel:${item.data}`
-              }
-              className="text-sm md:text-xl"
-            >
-              {item.data}
-            </a>
-          </div>
-        ))}
+        {contactInfo
+          ?.filter(contact => contact?.data !== '')
+          .map(item => (
+            <div className="flex gap-3 items-center" key={item._id}>
+              <Image
+                className="h-10 w-10"
+                src={contactIcon[item.type]}
+                alt={item.data}
+              />
+              <a
+                href={
+                  item.type === 'email'
+                    ? `mailto:${item.data}`
+                    : item.type === 'whatsapp'
+                    ? `https://wa.me/${item.data}`
+                    : `tel:${item.data}`
+                }
+                className="text-sm md:text-xl"
+              >
+                {item.data}
+              </a>
+            </div>
+          ))}
       </div>
     </CustomModal>
   );

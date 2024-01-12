@@ -4,8 +4,8 @@ import { Carousel } from 'antd';
 
 const ClockWized = () => {
   return (
-    <div className="absolute bottom-4 w-full h-auto mb-4 px-1 rounded-md">
-      <Carousel autoplay effect="fade">
+    <div className="absolute  bottom-4 w-full h-auto mb-4 px-1 rounded-md">
+      <Carousel className="clockWized" autoplay effect="fade">
         <div>
           <DbClock />
         </div>

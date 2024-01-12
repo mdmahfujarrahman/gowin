@@ -35,7 +35,7 @@ const ResetPassword = () => {
       className="my-2 flex justify-center items-center  flex-col"
     >
       <Clock />
-      <div className="flex items-center w-[320px] flex-col">
+      <div className="flex items-center w-full flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">Reset Password</h2>
         <div className="w-full  flex flex-col relative">
           <label className="text-white" htmlFor="name">

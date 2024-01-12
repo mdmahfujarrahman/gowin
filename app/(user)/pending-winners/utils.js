@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../../../lib/authOptions/authOptions';
 import { PendingWinners } from '../../../model/pendingWinners/pendingWinners.model';
 import { signOut } from 'next-auth/react';
+import { getAllContact } from '../../../serverActions/admin/dashboard';
 
 const checkWinnerExit = async userId => {
   try {
@@ -55,5 +56,11 @@ export const getData = async () => {
   }
 
   const isWinner = await checkWinnerExit(user?._id);
-  return isWinner;
+  const contactInfo = await getAllContact();
+  return {
+    success: true,
+    isLogin: true,
+    data: isWinner?.data,
+    contactInfo,
+  };
 };

@@ -25,7 +25,7 @@ export default async function RootLayout({ children }) {
   await dbConnect();
   return (
     <html lang="en">
-      <body className="bg-primary-blue">
+      <body className="bg-primary-blue" suppressHydrationWarning={true}>
         <main>
           <Toast />
           <AntdRegistry>

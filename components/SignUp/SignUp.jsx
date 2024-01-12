@@ -52,7 +52,7 @@ const SignUp = () => {
   return (
     <div className="my-2 flex justify-center items-center  flex-col">
       <Clock />
-      <div className="flex items-center w-[320px] flex-col">
+      <div className="flex items-center w-full flex-col">
         <h2 className="flexCenter my-2 text-white text-2xl">
           Sign Up New Go win
         </h2>
@@ -102,7 +102,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <div className="flex  w-[320px] flex-col">
+      <div className="flex  w-full flex-col">
         <div className="flex flex-col gap-2 ">
           <label className="text-white" htmlFor="name">
             Profile Image

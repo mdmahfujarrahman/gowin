@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CustomButton from '../../../ui/CustomButton/CustomButton';
 import ContactModal from '../../ConcatModal/ConcatModal';
 
-const PendingWinnersLost = () => {
+const PendingWinnersLost = ({ contactInfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -28,7 +28,11 @@ const PendingWinnersLost = () => {
           Our Contact Info
         </CustomButton>
       </div>
-      <ContactModal handleClose={handleClose} open={isModalOpen} />
+      <ContactModal
+        contactInfo={contactInfo}
+        handleClose={handleClose}
+        open={isModalOpen}
+      />
     </>
   );
 };

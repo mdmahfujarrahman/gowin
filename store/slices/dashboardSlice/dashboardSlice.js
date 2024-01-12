@@ -30,6 +30,9 @@ export const dashboardSlice = createSlice({
         message: '',
       };
     },
+    updateContactState: (state, action) => {
+      state.contactState = action.payload;
+    },
   },
   extraReducers: builder => {
     //
@@ -88,6 +91,7 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const { clearDashboardErrorMassage } = dashboardSlice.actions;
+export const { clearDashboardErrorMassage, updateContactState } =
+  dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

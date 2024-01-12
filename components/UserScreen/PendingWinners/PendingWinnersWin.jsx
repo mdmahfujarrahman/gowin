@@ -6,7 +6,7 @@ import ContactModal from '../../ConcatModal/ConcatModal';
 import Image from 'next/image';
 import { lottaryType } from '../../../public/assets';
 
-const PendingWinnersWin = ({ pendingWinner }) => {
+const PendingWinnersWin = ({ pendingWinner, contactInfo }) => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
@@ -79,7 +79,11 @@ const PendingWinnersWin = ({ pendingWinner }) => {
           Claim Prize
         </CustomButton>
       </div>
-      <ContactModal handleClose={handleClose} open={isModalOpen} />
+      <ContactModal
+        contactInfo={contactInfo}
+        handleClose={handleClose}
+        open={isModalOpen}
+      />
     </>
   );
 };

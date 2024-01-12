@@ -41,7 +41,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         );
       })}
       <div
-        onClick={() => signOut()}
+        onClick={() => {
+          signOut({
+            callbackUrl: `/`,
+          });
+        }}
         className={`cursor-pointer  px-[10px] h-[50px] flex md:hidden lg:hidden items-center hover:bg-primaryThinlightblue `}
       >
         <div className="block md:hidden lg:hidden w-5 h-5 mr-[10px]">

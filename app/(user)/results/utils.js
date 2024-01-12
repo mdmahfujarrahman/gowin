@@ -3,6 +3,7 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
 import { envConfig } from '../../../lib/config/index.js';
+import { getAllContact } from '../../../serverActions/admin/dashboard/index.js';
 
 const dailyUpdateResult = async () => {
   try {
@@ -276,7 +277,11 @@ export async function getData() {
   if (info?.timing?.status === 'result') {
     await startCountdown('running', info);
   }
-  return info;
+  const contactInfo = await getAllContact();
+  return {
+    ...info,
+    contactInfo,
+  };
 }
 
 const checkWinner = (winnerData, winnerType, userId) => {
