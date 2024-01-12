@@ -31,7 +31,7 @@ const ContactStateCards = () => {
         <p className="text-xl text-white">Contact Info</p>
         <div
           onClick={dashboard?.isLoading ? null : handleOpen}
-          title={dashboard?.isLoading && 'Please for loading data'}
+          title={dashboard?.isLoading ? 'Please for loading data' : null}
           className="bg-[#cfffdb] md:hover:bg-[#b9f7c8]  h-10 w-10 cursor-pointer rounded-full flexCenter"
         >
           <FcSettings className="h-6 w-6 hover:animate-spin" />

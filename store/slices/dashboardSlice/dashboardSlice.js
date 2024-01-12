@@ -68,7 +68,7 @@ export const dashboardSlice = createSlice({
     builder.addCase(
       getDashboardContactStateThunk.fulfilled,
       (state, action) => {
-        state.contactState = action?.payload?.contactInfo;
+        state.contactState = action?.payload;
         state.error = {
           isError: false,
           message: '',

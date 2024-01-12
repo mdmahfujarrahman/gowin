@@ -34,7 +34,13 @@ export async function getAllContact() {
   try {
     await dbConnect();
     const allContactInfo = await Contact.getAll();
-    return allContactInfo;
+    const updateContact = allContactInfo.contactInfo.map(contact => {
+      return {
+        ...contact,
+        _id: contact._id.toString(),
+      };
+    });
+    return updateContact;
   } catch (error) {
     console.log(error);
   }
