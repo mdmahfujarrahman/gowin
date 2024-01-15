@@ -24,8 +24,6 @@ const Dashboard = async () => {
     winnerInfo = res;
   }
 
-  console.log(info);
-
   return (
     <>
       <div className="flexCenter flex-col h-full my-5 bg-primary-blue">
