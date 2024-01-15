@@ -10,13 +10,11 @@ const accessCountry = ['Bangladesh', 'Malaysia', 'United Arab Emirates'];
 const checkIP = async request => {
   const ip = request.headers.get('x-forwarded-for');
   const url = envConfig.ipconfig + ip + envConfig.ipkey;
-  console.log(url);
   const ipInfo = await fetch(url);
   const ipData = await ipInfo.json();
-  console.log(ipData);
   if (ipData?.country) {
     if (!accessCountry.includes(ipData?.country)) {
-      return new Response('Failed to connect', { status: 500 });
+      return Response.redirect('/error');
     }
   }
 };
