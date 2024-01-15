@@ -12,9 +12,9 @@ const checkIP = async request => {
   const url = envConfig.ipconfig + ip + envConfig.ipkey;
   console.log(url);
   const ipInfo = await fetch(url);
-  console.log(ipInfo);
-  if (ipInfo.status === 200) {
-    const ipData = await ipInfo.json();
+  const ipData = await ipInfo.json();
+  console.log(ipData);
+  if (ipData?.country) {
     if (!accessCountry.includes(ipData?.country)) {
       return new Response('Failed to connect', { status: 500 });
     }
