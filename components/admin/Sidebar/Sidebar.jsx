@@ -19,6 +19,10 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               router.push(item.route);
               setIsSidebarOpen(false);
             }}
+            onKeyDown={() => {
+              router.push(item.route);
+              setIsSidebarOpen(false);
+            }}
             className={`cursor-pointer px-[10px] h-[50px] flex items-center ${
               pathName.includes(item.route) && 'bg-primaryThinlightblue'
             } ${
@@ -42,6 +46,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       })}
       <div
         onClick={() => {
+          signOut({
+            callbackUrl: `/`,
+          });
+        }}
+        onKeyDown={() => {
           signOut({
             callbackUrl: `/`,
           });

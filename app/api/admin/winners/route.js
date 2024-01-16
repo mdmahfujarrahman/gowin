@@ -31,28 +31,6 @@ export async function GET() {
       return isExit;
     });
 
-    // const uploadPromises = winners.map(element => {
-    //   const fileName = `${element?.alt
-    //     ?.split('thumbs/')[1]
-    //     ?.replace('WhatsApp-Image', 'GoWin-Winner')}`;
-    //   return uploadImage(element.src, fileName, 'winnersGoWin');
-    // });
-
-    // const uploadedImages = await Promise.all(uploadPromises);
-
-    // const winnersData = winners.map((element, index) => ({
-    //   winnerImage: uploadedImages[index],
-    //   winnerAlt: element.alt?.replace('WhatsApp Image', 'GoWin-Winner'),
-    //   orginalImage: element.src,
-    //   orginalImageAlt: element.alt,
-    // }));
-
-    // const updates = winnersData.filter(element => element?.winnerImage);
-
-    // const upload = await WinnersPhoto.create({
-    //   winners: updates,
-    // });
-
     return sendResponse(
       {
         success: true,

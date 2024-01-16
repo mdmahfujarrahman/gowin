@@ -79,7 +79,6 @@ const ProfileRightPersonalDetails = () => {
     if (isRefresh) {
       setIsRefresh(false);
       router?.refresh();
-      return;
     }
   }, [isRefresh, router]);
 
@@ -146,27 +145,25 @@ const ProfileRightPersonalDetails = () => {
         </div>
         <div className="flex flex-col">
           {isEdit ? (
-            <>
-              <div className="flex items-center justify-start flex-col md:flex-row mb-4">
-                <div className="flex flex-col  md:me-5 w-full md:w-6/12">
-                  <p>Profile Image</p>
-                  <ImageUpload
-                    setInputData={setInputData}
-                    inputData={inputData}
-                  />
-                </div>
-                <div className="flex flex-col  md:me-5 w-full md:w-6/12">
-                  <p>Name</p>
-                  <CustomInput
-                    handleChange={handleChange}
-                    name="name"
-                    value={data?.user?.name}
-                    placeholder="Please Enter your name"
-                    className="my-2 h-10 w-full md:w-6/12 px-3 py-1 rounded-sm border-[1px] border-slate-300 focus:outline-none"
-                  />
-                </div>
+            <div className="flex items-center justify-start flex-col md:flex-row mb-4">
+              <div className="flex flex-col  md:me-5 w-full md:w-6/12">
+                <p>Profile Image</p>
+                <ImageUpload
+                  setInputData={setInputData}
+                  inputData={inputData}
+                />
               </div>
-            </>
+              <div className="flex flex-col  md:me-5 w-full md:w-6/12">
+                <p>Name</p>
+                <CustomInput
+                  handleChange={handleChange}
+                  name="name"
+                  value={data?.user?.name}
+                  placeholder="Please Enter your name"
+                  className="my-2 h-10 w-full md:w-6/12 px-3 py-1 rounded-sm border-[1px] border-slate-300 focus:outline-none"
+                />
+              </div>
+            </div>
           ) : (
             <>
               <div className="flex items-center mb-4">

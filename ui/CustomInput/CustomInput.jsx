@@ -20,13 +20,13 @@ const CustomInput = ({
 }) => {
   return (
     <input
-      type={type ? type : 'text'}
-      name={name ? name : ''}
+      type={type || 'text'}
+      name={name || ''}
       min={0}
-      placeholder={placeholder ? placeholder : ''}
+      placeholder={placeholder || ''}
       className={`px-3 py-1  fontLeto outline-none border-0  ${className}`}
-      onChange={handleChange ? handleChange : null}
-      defaultValue={value ? value : ''}
+      onChange={handleChange || null}
+      defaultValue={value || ''}
     />
   );
 };

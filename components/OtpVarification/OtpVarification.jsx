@@ -76,10 +76,10 @@ const OtpVarification = ({ type }) => {
         </div>
         <div className="flex items-center justify-center mt-3">
           <p className="text-white text-sm">
-            Didn&apos;t receive the OTP?&nbsp;&nbsp;
+            Didn&apos;t receive the OTP?
             <CustomButton
               handleClick={handleResendOtp}
-              btnClass={'w-20 h-9  bg-primary-blue rounded-md'}
+              btnClass={'w-20 h-9  bg-primary-blue rounded-md ms-2'}
             >
               {auth.isResend ? <LoadingOutlined /> : 'Resend'}
             </CustomButton>
@@ -90,10 +90,11 @@ const OtpVarification = ({ type }) => {
         </div>
         <div className="flex items-center justify-center">
           <p className="text-white text-sm">
-            Back to&nbsp;&nbsp;
+            Back to
             <span
               onClick={() => dispatch(manageAuthRoute('register'))}
-              className="text-primary-blue cursor-pointer"
+              className="text-primary-blue cursor-pointer ms-8"
+              onKeyDown={() => dispatch(manageAuthRoute('register'))}
             >
               Signup
             </span>

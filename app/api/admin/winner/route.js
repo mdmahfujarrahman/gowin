@@ -11,12 +11,16 @@ import { User } from '../../../../model/user/user.model.js';
 import moment from 'moment';
 import { Winner } from '../../../../model/winner/winner.model.js';
 import { Result } from '../../../../model/result/result.model.js';
+import {
+  bodyWinnerArrayLengthCheck,
+  isExistCheck,
+  filterWinners,
+} from './utils.js';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 0;
 
-import { filterWinners } from './utils.js';
 /**
  * Get all users
  *
@@ -228,33 +232,14 @@ export async function PATCH(req) {
     await dbConnect();
     const body = await req.json();
 
-    if (!body.userId) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 400,
-          message: 'User Id is required',
-          data: null,
-        },
-        400,
-      );
-    }
+    isExistCheck(body.userId, 'User Id is required');
+
     if (body.userId !== 'system') {
       const isExist = await User.findOne({
         _id: body.userId,
       });
 
-      if (!isExist) {
-        return sendResponse(
-          {
-            success: false,
-            statusCode: 400,
-            message: 'User not found',
-            data: null,
-          },
-          400,
-        );
-      }
+      isExistCheck(isExist, 'User not found');
 
       if (isExist.role !== 'admin') {
         return sendResponse(
@@ -272,30 +257,22 @@ export async function PATCH(req) {
         _id: body.winnerId,
       }).lean();
 
-      if (!isWinnerExist) {
-        return sendResponse(
-          {
-            success: false,
-            statusCode: 400,
-            message: 'Winner not found',
-            data: null,
-          },
-          400,
-        );
-      }
+      isExistCheck(isWinnerExist, 'Winner not found');
 
-      if (body?.canditates?.length > 0) {
+      if (body?.canditates?.length) {
         const filterCanditates = body?.canditates?.filter(
           canditate =>
             !isWinnerExist?.canditates
               ?.map(id => id?.toString())
               .includes(canditate),
         );
-
         const payload =
-          isWinnerExist?.canditates?.length === 0
+          (isWinnerExist?.canditates ?? []).length === 0
             ? body?.canditates
-            : [...isWinnerExist?.canditates, ...filterCanditates];
+            : [
+                ...(isWinnerExist?.canditates ?? []),
+                ...(filterCanditates ?? []),
+              ];
 
         const updateCanditates = await Winner.findOneAndUpdate(
           {
@@ -320,11 +297,7 @@ export async function PATCH(req) {
         );
       }
 
-      if (
-        body?.winners?.superSix.length > 0 ||
-        body?.winners?.funFour.length > 0 ||
-        body?.winners?.luckeyThree.length > 0
-      ) {
+      if (bodyWinnerArrayLengthCheck(body?.winners)) {
         const updatedWinners = filterWinners(
           body?.winners,
           isWinnerExist.winners,
@@ -355,55 +328,26 @@ export async function PATCH(req) {
       }
     }
 
-    if (!body.resultId) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 400,
-          message: 'Result Id is required',
-          data: null,
-        },
-        400,
-      );
-    }
+    isExistCheck(body.resultId, 'Result Id is required');
 
     const checkPreviousResult = await Result.findOne({
       _id: body?.resultId,
     }).lean();
 
-    if (checkPreviousResult.length === 0) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 400,
-          message: 'Result not found',
-          data: null,
-        },
-        400,
-      );
-    }
+    isExistCheck(checkPreviousResult.length, 'Result not found');
 
     const isExist = await Winner.findOne({
       title: checkPreviousResult.title,
     });
 
-    if (!isExist) {
-      return sendResponse(
-        {
-          success: false,
-          statusCode: 400,
-          message: 'Result not found',
-          data: null,
-        },
-        400,
-      );
-    }
+    isExistCheck(isExist, 'Result not found');
 
-    if (body?.resultId && body.userId === 'system') {
+    const isSystemUserUpdatingResult =
+      body?.resultId && body.userId === 'system';
+    if (isSystemUserUpdatingResult) {
       const checkPreviousResult = await Result.findOne({
         _id: body.resultId,
       });
-
       const updateResultImage = await Winner.findOneAndUpdate(
         {
           _id: isExist?._id,
@@ -415,7 +359,6 @@ export async function PATCH(req) {
           new: true,
         },
       );
-
       return sendResponse(
         {
           success: true,

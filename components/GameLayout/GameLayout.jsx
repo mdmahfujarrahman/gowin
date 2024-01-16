@@ -21,21 +21,19 @@ const GameLayout = ({ gameData, winnerInfo, contactInfo }) => {
     <>
       {status === 'running' ? (
         <div className="flex items-center flex-col mb-5 py-18">
-          <>
-            {' '}
-            <h1 className="text-4xl md:text-6xl text-center font-extrabold text-transparent  bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-3 mb-3">
-              Game Winning Ticket
-            </h1>
-            <p className="text-xl md:text-3xl text-center text-primary-yellow font-bold">
-              Any Time you can get your winning number
-            </p>
-            <CustomButton
-              handleClick={handleOpen}
-              btnClass="py-3 px-3 h-22 mt-5 rounded text-white text-xl bg-primary-green"
-            >
-              Contact Imo & Whatsapp
-            </CustomButton>
-          </>
+          {' '}
+          <h1 className="text-4xl md:text-6xl text-center font-extrabold text-transparent  bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-3 mb-3">
+            Game Winning Ticket
+          </h1>
+          <p className="text-xl md:text-3xl text-center text-primary-yellow font-bold">
+            Any Time you can get your winning number
+          </p>
+          <CustomButton
+            handleClick={handleOpen}
+            btnClass="py-3 px-3 h-22 mt-5 rounded text-white text-xl bg-primary-green"
+          >
+            Contact Imo & Whatsapp
+          </CustomButton>
         </div>
       ) : (
         <ResultCardHeading

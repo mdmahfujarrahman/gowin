@@ -2,8 +2,6 @@
 'use client';
 import { Table } from 'antd';
 import { useState } from 'react';
-import PendingUserMultiUserAction from '../PendingUserTable/PendingUserMultiUserAction';
-import ActiveUserMultiUserAction from '../ActiveUserTable/ActiveUserMultiUserAction';
 
 const CustomTable = ({
   tableHead,
@@ -14,9 +12,7 @@ const CustomTable = ({
   setSelectedRowKeys,
   loading,
 }) => {
-  const [selectedRows, setSelectedRows] = useState([]);
   const onSelectChange = (keys, record) => {
-    setSelectedRows(record);
     setSelectedRowKeys(keys);
   };
   const rowSelection = {

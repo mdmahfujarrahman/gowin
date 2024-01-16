@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import { gowinImages } from '../../public/assets';
 // components
 import Login from '../Login/Login';
-// import ForgetPassword from '../ForgetPassword/ForgetPassword';
 // store
 import { store } from '../../store/store';
 import { manageAuthRoute } from '../../store/slices/authSlice/authSlice';
@@ -19,9 +18,9 @@ const AuthLayout = async () => {
     } else {
       if (session.user.role === 'admin') {
         redirect('/dashboard');
-      } else {
-        redirect('/results');
+        return;
       }
+      redirect('/results');
     }
   }
 

@@ -104,8 +104,6 @@ body {
  .cssProgress-bar {
   display: block;
   float: left;
-  width: 0%;
-  height: 100%;
   background: var(--primaryBlue);
   box-shadow: inset 0px -1px 2px rgba(0,0,0,0.1);
   -webkit-transition: width 0.8s ease-in-out;
@@ -246,11 +244,11 @@ body {
 
 
 .moon {
-  /* background: url('../public/assets/admin/utils/night-sky.jpg') linear-gradient(to right, transparent, rgb(89 89 89 / 70%)); */
+  
   background-size: cover !important;
 }
 .sun{
-  /* background: url('../public/assets/admin/utils/sun.jpg'), linear-gradient(to left, transparent, rgb(89 89 89 / 70%)), ;; */
+  
   background-size: cover !important;
 }
 
@@ -301,11 +299,6 @@ body {
 
 /* Confetti animation */
 .confetti-container {
-  /* width: 100vw; */
-  /* height: 100vh; */
-  /* background: #ffffff; */
-  /* border:1px solid white; */
-  /* display:fixed; */
   top:0px;
 }
 .confetti {

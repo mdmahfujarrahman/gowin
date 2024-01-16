@@ -31,6 +31,12 @@ export const items = [
           });
           Cookies.remove('user');
         }}
+        onKeyDown={() => {
+          signOut({
+            callbackUrl: `/`,
+          });
+          Cookies.remove('user');
+        }}
       >
         <Image
           src={gowinImages.logout}

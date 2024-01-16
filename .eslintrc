@@ -17,6 +17,7 @@
     "no-undef": "error",
     "no-unused-expressions": "error",
     "no-unreachable": "error",
+    "react/prop-types": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"]
   },
   "env": {

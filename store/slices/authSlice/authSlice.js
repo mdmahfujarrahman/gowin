@@ -150,7 +150,6 @@ export const authSlice = createSlice({
           message: 'Too many request, please try again later',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/invalid-phone-number') {
         notification('error', 'Invalid phone number');
         state.error = {
@@ -158,7 +157,6 @@ export const authSlice = createSlice({
           message: 'Invalid phone number',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/missing-phone-number') {
         notification('error', 'Please enter your phone number');
         state.error = {
@@ -166,7 +164,6 @@ export const authSlice = createSlice({
           message: 'Please enter your phone number',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/quota-exceeded') {
         notification('error', 'Quota exceeded, please try again later');
         state.error = {
@@ -174,7 +171,6 @@ export const authSlice = createSlice({
           message: 'Quota exceeded',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/user-disabled') {
         notification('error', 'User disabled');
         state.error = {
@@ -182,7 +178,6 @@ export const authSlice = createSlice({
           message: 'User disabled',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/operation-not-allowed') {
         notification('error', 'Operation not allowed');
         state.error = {
@@ -190,7 +185,6 @@ export const authSlice = createSlice({
           message: 'Operation not allowed',
         };
         state.isLoading = false;
-        return;
       } else {
         notification('error', 'Something went wrong');
         state.error = {
@@ -198,7 +192,6 @@ export const authSlice = createSlice({
           message: 'Something went wrong',
         };
         state.isLoading = false;
-        return;
       }
     });
     // Verify otp with firebase
@@ -240,7 +233,6 @@ export const authSlice = createSlice({
           message: 'Invalid verification code',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/missing-verification-code') {
         notification('error', 'Missing verification code');
         state.error = {
@@ -248,7 +240,6 @@ export const authSlice = createSlice({
           message: 'Missing verification code',
         };
         state.isLoading = false;
-        return;
       } else if (action.payload.code === 'auth/code-expired') {
         notification('error', 'Code expired, Please try again');
         state.error = {
@@ -256,7 +247,6 @@ export const authSlice = createSlice({
           message: 'Code expired',
         };
         state.isLoading = false;
-        return;
       }
     });
     // Sign up

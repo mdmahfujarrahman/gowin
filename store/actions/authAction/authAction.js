@@ -138,10 +138,8 @@ export const verifyOtpThunk = createAsyncThunk(
           console.log(error);
         }
       } else {
-        if (res.user.accessToken) {
-          // call sign up thunk
-          thunkAPI.dispatch(signUpThunk(payloadData));
-        }
+        // call sign up thunk
+        thunkAPI.dispatch(signUpThunk(payloadData));
       }
       return thunkAPI.fulfillWithValue({
         ...res,

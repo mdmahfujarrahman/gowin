@@ -1,5 +1,4 @@
 import mongoose, { Schema, model } from 'mongoose';
-// import ApiError from '../../helper/customError/ApiError';
 
 const ClockSchema = new Schema(
   {

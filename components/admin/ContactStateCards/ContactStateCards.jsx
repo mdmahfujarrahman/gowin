@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { useDispatch, useSelector } from 'react-redux';
 import { FcSettings } from 'react-icons/fc';
@@ -13,11 +12,11 @@ import { updateContactState } from '../../../store/slices/dashboardSlice/dashboa
 const ContactStateCards = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const handleOpen = () => setIsModalOpen(true);
-  const handleClose = () => setIsModalOpen(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
   const dashboard = useSelector(state => state?.dashboard);
-  const [inputData, setInputdata] = useState(dashboard?.contactState);
-  const [modalOpen, setIsModalOpen] = useState(false);
+  const [inputData, setInputData] = useState(dashboard?.contactState);
 
   const handleEdit = async () => {
     if (inputData[0].data === '') {
@@ -52,7 +51,7 @@ const ContactStateCards = () => {
       }
       return item;
     });
-    setInputdata(newData);
+    setInputData(newData);
   };
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const ContactStateCards = () => {
       !dashboard?.isLoading &&
       inputData?.length === 0
     ) {
-      setInputdata(dashboard?.contactState);
+      setInputData(dashboard?.contactState);
     }
   }, [dashboard]);
 
@@ -75,6 +74,7 @@ const ContactStateCards = () => {
         <p className="text-xl text-white">Contact Info</p>
         <div
           onClick={dashboard?.isLoading ? null : handleOpen}
+          onKeyDown={dashboard?.isLoading ? null : handleOpen}
           title={dashboard?.isLoading ? 'Please for loading data' : null}
           className="bg-[#cfffdb] md:hover:bg-[#b9f7c8]  h-10 w-10 cursor-pointer rounded-full flexCenter"
         >

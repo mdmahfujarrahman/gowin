@@ -37,13 +37,13 @@ const RejectedAccount = () => {
         <div className="w-full md:w-5/6 flex items-center flex-col relative"></div>
         <div className="flex items-center justify-center">
           <p className="text-white text-sm">
-            Back to&nbsp;&nbsp;
+            Back to
             <span
               onClick={() => {
                 router.push('/');
                 dispatch(manageResetRoute('reset'));
               }}
-              className="text-primary-blue cursor-pointer"
+              className="text-primary-blue cursor-pointer ms-2"
             >
               Login
             </span>

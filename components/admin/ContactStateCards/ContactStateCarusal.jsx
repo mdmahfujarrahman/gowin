@@ -3,15 +3,16 @@ import { Carousel } from 'antd';
 import Image from 'next/image';
 import React from 'react';
 import { contactIcon } from '../../../constant';
-import ContactStateBig from '../../../ui/SkeletonLoder/admin/Dashboard/ContactState/ContactStateLoder';
-import { ContactStateLoderSmall } from '../../../ui/SkeletonLoder/admin/Dashboard/ContactState/ContactStateLoder';
+import ContactStateBig, {
+  ContactStateLoderSmall,
+} from '../../../ui/SkeletonLoder/admin/Dashboard/ContactState/ContactStateLoder';
 
 const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
   return (
     <div className="w-full flex justify-center md:justify-start items-center mt-5">
       {isLoading ? (
         <ContactStateBig />
-      ) : contactInfoData?.length === 0 ? (
+      ) : contactInfoData?.length ? (
         <ContactStateBig />
       ) : (
         <div className="hidden md:flex lg:flex w-full flex-col gap-4">
@@ -65,7 +66,7 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
       <div className="block md:hidden lg:hidden">
         {isLoading ? (
           <ContactStateLoderSmall />
-        ) : contactInfoData?.length === 0 ? (
+        ) : contactInfoData?.length ? (
           <ContactStateLoderSmall />
         ) : (
           <Carousel autoplay className="max-w-[325px] flex">

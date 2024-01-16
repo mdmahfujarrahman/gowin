@@ -1,7 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose';
 
-// import ApiError from '../../helper/customError/ApiError';
-
 const WinnerSchema = new Schema(
   {
     winners: {

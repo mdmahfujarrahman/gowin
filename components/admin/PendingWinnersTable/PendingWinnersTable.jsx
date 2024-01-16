@@ -45,7 +45,6 @@ const PendingWinnersTable = () => {
 
   const handleDelete = (isMulti, userData) => {
     if (isMulti) {
-      // handleMultiUserDelete(userData);
       return;
     }
 
@@ -92,38 +91,36 @@ const PendingWinnersTable = () => {
             dataIndex: 'action',
             render: (text, record) => {
               return (
-                <>
-                  <div className="flex items-center">
-                    <Button
-                      onClick={() =>
-                        router.push(`/pending-winner/view/${record._id}`)
-                      }
-                      type="primary"
-                      className="mr-3"
-                      style={{
-                        backgroundColor: '#46D39D',
-                      }}
-                    >
-                      View
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        router.push(`/pending-winner/edit/${record._id}`)
-                      }
-                      type="primary"
-                      className="mr-3"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      onClick={() => handleUserAction('delete', record)}
-                      type="primary"
-                      danger
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </>
+                <div className="flex items-center">
+                  <Button
+                    onClick={() =>
+                      router.push(`/pending-winner/view/${record._id}`)
+                    }
+                    type="primary"
+                    className="mr-3"
+                    style={{
+                      backgroundColor: '#46D39D',
+                    }}
+                  >
+                    View
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      router.push(`/pending-winner/edit/${record._id}`)
+                    }
+                    type="primary"
+                    className="mr-3"
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => handleUserAction('delete', record)}
+                    type="primary"
+                    danger
+                  >
+                    Delete
+                  </Button>
+                </div>
               );
             },
           },

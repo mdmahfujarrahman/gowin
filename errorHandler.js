@@ -26,7 +26,6 @@ export default async function errorHandler(error) {
   let errorMessages = [];
 
   if (error.name === 'ValidationError') {
-    statusCode = 400;
     message = 'ValidationError';
     // convert mongoose validation error to array
     errorMessages = Object.values(error.errors).map(err => {
@@ -36,7 +35,6 @@ export default async function errorHandler(error) {
       };
     });
   } else if (error instanceof ZodError) {
-    statusCode = 400;
     message = 'Validation Error';
     // convert zod validation error to array
     errorMessages = error.issues.map(i => {

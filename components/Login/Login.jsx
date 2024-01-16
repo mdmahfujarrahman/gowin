@@ -23,7 +23,7 @@ import Link from 'next/link';
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [loading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [passShow, setPassShow] = useState(false);
   const [inputData, setInputData] = useState({
@@ -43,9 +43,9 @@ const Login = () => {
 
   const handleLogin = async e => {
     e.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
     if (!inputData.phoneNumber || !inputData.password) {
-      setIsLoading(false);
+      setLoading(false);
       notification('error', 'Please enter Phone Number and password');
       return;
     }
@@ -56,7 +56,7 @@ const Login = () => {
       redirect: false,
     });
     if (res.error) {
-      setIsLoading(false);
+      setLoading(false);
       const errors = JSON.parse(res.error);
       if (errors.message === 'Your account is not verified yet') {
         dispatch(manageAuthRoute('pending'));
@@ -65,7 +65,7 @@ const Login = () => {
         dispatch(manageAuthRoute('rejected'));
         router.push('/signup');
       } else {
-        setIsLoading(false);
+        setLoading(false);
         notification('error', errors.message);
       }
     } else {
@@ -73,11 +73,11 @@ const Login = () => {
       notification('success', 'Login Successfull');
       if (sessions?.user?.role === 'admin') {
         router.push('/dashboard');
-        setIsLoading(false);
+        setLoading(false);
         return;
       } else {
         router.push('/results');
-        setIsLoading(false);
+        setLoading(false);
       }
     }
   };

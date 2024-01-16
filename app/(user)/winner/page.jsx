@@ -19,7 +19,7 @@ const Winner = async req => {
     redirect('/results');
   }
 
-  const id = winnerId ? winnerId : resultId;
+  const id = winnerId || resultId;
   const type = winnerId ? 'winner' : 'result';
 
   const winnerDeatils = await getWinnerPageData(userInfo, id, type);

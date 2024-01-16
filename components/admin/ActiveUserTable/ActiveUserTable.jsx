@@ -108,17 +108,15 @@ const ActiveUserTable = () => {
             dataIndex: 'action',
             render: (text, record) => {
               return (
-                <>
-                  <div className="flex items-center">
-                    <Button
-                      onClick={() => handleUserAction('delete', record)}
-                      type="primary"
-                      danger
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </>
+                <div className="flex items-center">
+                  <Button
+                    onClick={() => handleUserAction('delete', record)}
+                    type="primary"
+                    danger
+                  >
+                    Delete
+                  </Button>
+                </div>
               );
             },
           },

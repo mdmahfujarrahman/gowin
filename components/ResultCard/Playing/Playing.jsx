@@ -21,7 +21,6 @@ const Playing = ({ handleOpen }) => {
             <p className="fontDejavu text-white text-sm md:text-3xl mb-1 tracking-[-2px] font-extrabold">
               {moment(today).format('LL')}
             </p>
-            {/* <div className="cssProgress-bar cssProgress-success cssProgress-active"></div> */}
           </div>
           <Image
             src={gowinImages.logoSmall}

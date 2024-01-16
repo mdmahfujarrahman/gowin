@@ -8,8 +8,8 @@ scanner(
     password: 'admin3',
     options: {
       'sonar.login': 'admin',
-      'sonar.password': 'admin3',
-      'sonar.sources': './src',
+      'sonar.password': '45373766',
+      'sonar.sources': './',
     },
   },
   () => process.exit(),

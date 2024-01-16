@@ -1,6 +1,7 @@
 import CustomModal from '../../ui/CustomModal/CustomModal';
 import Image from 'next/image';
 import { contactIcon } from '../../constant';
+import { getURL } from '../../helper/utils/index';
 
 const ContactModal = async ({ open, handleClose, contactInfo }) => {
   // ['playing', 'result', "cancel"]
@@ -21,16 +22,7 @@ const ContactModal = async ({ open, handleClose, contactInfo }) => {
                 src={contactIcon[item.type]}
                 alt={item.data}
               />
-              <a
-                href={
-                  item.type === 'email'
-                    ? `mailto:${item.data}`
-                    : item.type === 'whatsapp'
-                    ? `https://wa.me/${item.data}`
-                    : `tel:${item.data}`
-                }
-                className="text-sm md:text-xl"
-              >
+              <a href={getURL(item)} className="text-sm md:text-xl">
                 {item.data}
               </a>
             </div>

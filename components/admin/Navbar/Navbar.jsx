@@ -8,6 +8,7 @@ const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
   return (
     <nav className="bg-primaryBlue h-full flex justify-between items-center px-3">
       <div
+        onKeyDown={() => setIsSidebarOpen(!isSidebarOpen)}
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="w-14 h-9 flex md:hidden lg:hidden flex-col justify-around  "
       >

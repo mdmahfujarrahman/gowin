@@ -13,6 +13,7 @@ const DashboardStateCard = ({
   return (
     <div
       onClick={() => router.push(route)}
+      onKeyDown={() => router.push(route)}
       className="flex rounded-md shadow-xl p-4 w-full md:w-[31%] lg:w-[31%] cursor-pointer"
     >
       <div className={`h-14 w-14 mr-4 rounded-full  flexCenter ${bgColor}`}>

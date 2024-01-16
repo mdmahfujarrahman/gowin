@@ -150,15 +150,11 @@ const updateResultIfNeed = async (status, info, timeData) => {
   );
 
   const bdTime = new Date().toLocaleString('en-US', {
-    timeZone: timeData?.timeZone || 'Asia/Dhaka',
+    timeZone: timeData?.timeZone,
   });
   const collectDate = new Date(bdTime);
   const startCollect = new Date(collectDate);
-  startCollect.setHours(
-    start.hours || 11,
-    start.minutes || 11,
-    start.seconds || 0,
-  ); // 5:00 PM
+  startCollect.setHours(start.hours, start.minutes, start.seconds); // 5:00 PM
   const endCollect = new Date(collectDate);
   endCollect.setHours(end.hours || 11, end.minutes || 30, end.seconds || 0);
   if (collectDate >= startCollect && collectDate <= endCollect) {
@@ -183,15 +179,15 @@ const updateResultIfNeed = async (status, info, timeData) => {
         );
         const updateStartCollect = new Date(updateLocalDate);
         updateStartCollect.setHours(
-          updateStart.hours || 11,
-          updateStart.minutes || 11,
-          updateStart.seconds || 0,
+          updateStart.hours,
+          updateStart.minutes,
+          updateStart.seconds,
         );
         const updateEndCollect = new Date(updateLocalDate);
         updateEndCollect.setHours(
-          updateEnd.hours || 11,
-          updateEnd.minutes || 25,
-          updateEnd.seconds || 0,
+          updateEnd.hours,
+          updateEnd.minutes,
+          updateEnd.seconds,
         );
 
         if (
@@ -290,7 +286,7 @@ const checkWinner = (winnerData, winnerType, userId) => {
     : null;
 };
 
-const setWinner = (winnerType, resultInfor) => {
+const setWinner = winnerType => {
   const status = {
     isCadiate: true,
     isWinner: !!winnerType,
@@ -299,21 +295,20 @@ const setWinner = (winnerType, resultInfor) => {
     winnerType: winnerType || '',
   };
 
-  resultInfor = status;
-  return resultInfor;
+  return status;
 };
 
-const checkAndSetWinner = (winderData, userId, resultInfor) => {
+const checkAndSetWinner = (winderData, userId) => {
   const { superSix, funFour, luckeyThree } = winderData;
   const winnerType =
     checkWinner(superSix, 'Super Six', userId) ||
     checkWinner(funFour, 'Fun Four', userId) ||
     checkWinner(luckeyThree, 'Luckey Three', userId);
-  const updateStatus = setWinner(winnerType, resultInfor);
-  return (resultInfor = updateStatus);
+  const updateStatus = setWinner(winnerType);
+  return updateStatus;
 };
 
-export const getWinnerData = async (resultId, userId, resultInfor) => {
+export const getWinnerData = async (resultId, userId) => {
   try {
     const response = await fetch(
       `${envConfig.serverUrl}/admin/winner?resultId=${resultId}&type=single`,
@@ -327,8 +322,8 @@ export const getWinnerData = async (resultId, userId, resultInfor) => {
         isUpdate: true,
         winnerType: null,
       };
-      resultInfor = status;
-      return resultInfor;
+
+      return status;
     }
     const checkIsCaditaes = data?.data?.data?.canditates
       .map(item => item?.toString())
@@ -341,81 +336,14 @@ export const getWinnerData = async (resultId, userId, resultInfor) => {
         isUpdate: true,
         winnerType: null,
       };
-      resultInfor = status;
 
-      return resultInfor;
+      return status;
     }
 
-    const updateStatus = checkAndSetWinner(
-      data?.data?.data?.winners,
-      userId,
-      resultInfor,
-    );
+    const updateStatus = checkAndSetWinner(data?.data?.data?.winners, userId);
 
-    return (resultInfor = updateStatus);
+    return updateStatus;
   } catch (error) {
     console.log(error);
   }
 };
-
-// const getWinner = async (info, type) => {
-//   let data;
-//   const payload = {
-//     resultId: info?.result?._id,
-//     userId: 'system',
-//   };
-
-//   if (type === 'update') {
-//     const res = await fetch(`${envConfig.serverUrl}/admin/winner`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(payload),
-//     });
-//     data = await res?.json();
-//   }
-
-//   const updateInfo = {
-//     timing: info?.timing,
-//     result: {
-//       ...info?.result,
-//       winner: data?.data?.data,
-//     },
-//   };
-//   return updateInfo;
-// };
-
-// const startCountdown = async (status, info) => {
-//   const timeData = await info?.timing;
-//   // collect  result and update bangladesh time
-//   const bdTime = new Date().toLocaleString('en-US', {
-//     timeZone: timeData?.timeZone || 'Asia/Dhaka',
-//   });
-
-//   // collect  result and update at 11:11 PM to 11:25 PM
-//   const countdownDate = new Date(bdTime);
-//   const startCountdownTime = new Date(countdownDate);
-//   startCountdownTime.setHours(
-//     timeData?.startCountdown.start.hours || 17,
-//     timeData?.startCountdown.start.minutes || 0,
-//     timeData?.startCountdown.start.seconds || 0,
-//   ); // 5:00 PM
-//   const endCountdownTime = new Date(countdownDate);
-//   endCountdownTime.setHours(
-//     timeData?.startCountdown?.end?.hours || 17,
-//     timeData?.startCountdown?.end?.minutes || 10,
-//     timeData?.startCountdown?.end?.seconds || 0,
-//   ); // 5:10 PM
-//   // start running at 11:00 PM to 11:10 PM
-//   if (
-//     countdownDate >= startCountdownTime &&
-//     countdownDate <= endCountdownTime
-//   ) {
-//     const updateData = await updateStatus(status, info);
-
-//     return updateData;
-//   }
-
-//   return info;
-// };

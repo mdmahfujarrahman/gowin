@@ -6,3 +6,24 @@ export const getCountryName = countryCode => {
   );
   return country.countryName.toUpperCase();
 };
+
+export const getURL = item => {
+  if (item?.type === 'email') {
+    return `mailto:${item?.data}`;
+  } else if (item?.type === 'whatsapp') {
+    return `https://wa.me/${item?.data}`;
+  } else {
+    return `tel:${item.data}`;
+  }
+};
+
+export const checkUploadOptions = (isUploading, percentUpload, inputData) => {
+  if (isUploading) {
+    return percentUpload;
+  } else {
+    if (inputData) {
+      return 'Upload Again';
+    }
+    return 'Upload';
+  }
+};

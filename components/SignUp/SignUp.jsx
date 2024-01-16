@@ -37,7 +37,6 @@ const SignUp = () => {
     const { name, value, code } = e.target;
     if (code) {
       setInputData({ ...inputData, [name]: value, countryCode: code });
-      return;
     } else {
       setInputData({ ...inputData, [name]: value });
     }

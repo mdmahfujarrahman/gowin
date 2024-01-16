@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
 import uploadImage from '../../helper/upload/upload';
+import { checkUploadOptions } from '../../helper/utils';
 
 const ImageUpload = ({ inputData, setInputData }) => {
   const imgref = useRef(null);
@@ -26,13 +27,13 @@ const ImageUpload = ({ inputData, setInputData }) => {
       <label
         onClick={() => imgref.current.click()}
         className="py-1 px-3 w-[120px] h-10 border-none bg-primary-blue text-white rounded-[2px] cursor-pointer flexCenter"
+        onKeyDown={() => imgref.current.click()}
       >
-        {' '}
-        {isUploading
-          ? percentUpload
-          : inputData?.profilePicture
-          ? 'Upload Again'
-          : 'Upload'}
+        {checkUploadOptions(
+          isUploading,
+          percentUpload,
+          inputData?.profilePicture,
+        )}
       </label>
       <input
         accept="image/*"

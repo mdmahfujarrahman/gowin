@@ -39,7 +39,7 @@ export const pendingUserSlice = createSlice({
       };
     });
     builder.addCase(getPendingUserThunk.fulfilled, (state, action) => {
-      if (action?.payload?.payload === 'rejected') {
+      if (action?.payload?.payload == 'rejected') {
         const formatData = action.payload?.data?.data?.data?.map(item => {
           return {
             ...item,

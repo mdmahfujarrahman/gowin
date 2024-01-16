@@ -1,3 +1,5 @@
+import sendResponse from '../../../../helper/sendResponse/sendResponse';
+
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 0;
@@ -50,4 +52,25 @@ export const filterWinners = (payloadWinners, previousWinners, canditates) => {
   };
 
   return updatedWinners;
+};
+
+export const isExistCheck = (payload, message) => {
+  if (!payload)
+    return sendResponse(
+      {
+        success: false,
+        statusCode: 400,
+        message: message,
+        data: null,
+      },
+      400,
+    );
+};
+
+export const bodyWinnerArrayLengthCheck = winners => {
+  return (
+    winners?.superSix.length > 0 ||
+    winners?.funFour.length > 0 ||
+    winners?.luckeyThree.length > 0
+  );
 };

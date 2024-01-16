@@ -187,35 +187,33 @@ const PendingUserTable = () => {
             dataIndex: 'action',
             render: (text, record) => {
               return (
-                <>
-                  <div className="flex items-center">
-                    <Button
-                      onClick={() => handleUserAction('approve', record)}
-                      className="mr-3  bg-primary-green"
-                      type="primary"
-                      style={{ backgroundColor: '#46D39D' }}
-                    >
-                      Approve
-                    </Button>
+                <div className="flex items-center">
+                  <Button
+                    onClick={() => handleUserAction('approve', record)}
+                    className="mr-3  bg-primary-green"
+                    type="primary"
+                    style={{ backgroundColor: '#46D39D' }}
+                  >
+                    Approve
+                  </Button>
 
-                    {record.status !== 'rejected' && (
-                      <Button
-                        onClick={() => handleUserAction('reject', record)}
-                        type="primary"
-                      >
-                        Reject
-                      </Button>
-                    )}
+                  {record.status !== 'rejected' && (
                     <Button
-                      onClick={() => handleUserAction('delete', record)}
+                      onClick={() => handleUserAction('reject', record)}
                       type="primary"
-                      className="ml-3"
-                      danger
                     >
-                      Delete
+                      Reject
                     </Button>
-                  </div>
-                </>
+                  )}
+                  <Button
+                    onClick={() => handleUserAction('delete', record)}
+                    type="primary"
+                    className="ml-3"
+                    danger
+                  >
+                    Delete
+                  </Button>
+                </div>
               );
             },
           },

@@ -35,6 +35,12 @@ const ClaimPrizeStepOne = ({ winnerDeatils, type }) => {
           className={`flex w-4/6 md:w-fit h-8 p-5 items-center justify-center rounded-sm mb-4 md:mb-0 md:me-3   cursor-pointer ${
             selected === 'bank' ? 'bg-green-500' : 'bg-primaryLightBlue'
           }`}
+          tabIndex={0}
+          onKeyDown={event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              setSelected('bank');
+            }
+          }}
         >
           <Image
             width={30}
@@ -49,6 +55,12 @@ const ClaimPrizeStepOne = ({ winnerDeatils, type }) => {
           className={`flex w-4/6 md:w-fit h-8 p-5 items-center justify-center rounded-sm mb-4 md:mb-0 md:me-3   cursor-pointer ${
             selected === 'wire' ? 'bg-green-500' : 'bg-primaryLightBlue'
           }`}
+          tabIndex={0}
+          onKeyDown={event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              setSelected('wire');
+            }
+          }}
         >
           <Image
             width={30}

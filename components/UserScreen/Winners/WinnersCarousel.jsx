@@ -14,10 +14,10 @@ const WinnersCarousel = ({ winnerData }) => {
   };
 
   return (
-    <div clasName="flex items-center">
+    <div className="flex items-center">
       <Slider {...settings} className="w-[300px] md:w-[700px]  h-auto">
-        {winnerData.map((winner, index) => (
-          <div className="" key={index}>
+        {winnerData.map(winner => (
+          <div className="" key={winner?.winnerAlt}>
             <Image
               width={700}
               height={700}

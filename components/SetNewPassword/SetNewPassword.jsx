@@ -149,9 +149,12 @@ const SetNewPassword = () => {
         </div>
         <div className="flex items-center justify-center">
           <p className="text-white text-sm">
-            Back to&nbsp;&nbsp;
-            <Link className="text-primary-blue cursor-pointer" href="/">
-              <span onClick={() => dispatch(manageResetRoute('reset'))}>
+            Back to
+            <Link className="text-primary-blue cursor-pointer ms-2" href="/">
+              <span
+                onKeyDown={() => dispatch(manageResetRoute('reset'))}
+                onClick={() => dispatch(manageResetRoute('reset'))}
+              >
                 Login
               </span>
             </Link>
