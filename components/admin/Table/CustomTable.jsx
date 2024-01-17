@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { Table } from 'antd';
-import { useState } from 'react';
 
 const CustomTable = ({
   tableHead,

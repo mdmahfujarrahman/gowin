@@ -91,7 +91,7 @@ export async function PATCH(req) {
         httpStatus.NOT_FOUND,
       );
     }
-    if (!body.userId === 'system') {
+    if (!body.userId == 'system') {
       const user = await User.getSingleUser(body.userId);
 
       if (user.role !== 'admin') {
