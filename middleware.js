@@ -5,7 +5,7 @@ import { envConfig } from './lib/config';
 
 const authenticatedRoutes = ['/dashboard', '/results'];
 
-const accessCountry = ['Bangladesh', 'Malaysia', 'United Arab Emirates'];
+const accessCountry = ['Malaysia', 'United Arab Emirates'];
 
 const checkIP = async request => {
   const ip = request.headers.get('x-forwarded-for');
