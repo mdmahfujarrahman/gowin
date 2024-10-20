@@ -13,8 +13,6 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
       {isLoading ? (
         <ContactStateBig />
       ) : contactInfoData?.length ? (
-        <ContactStateBig />
-      ) : (
         <div className="hidden md:flex lg:flex w-full flex-col gap-4">
           <div className="flex flex-wrap gap-4 justify-between">
             <div>
@@ -62,13 +60,13 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
             </div>
           )}
         </div>
+      ) : (
+        <p> No data found</p>
       )}
       <div className="block md:hidden lg:hidden">
         {isLoading ? (
           <ContactStateLoderSmall />
         ) : contactInfoData?.length ? (
-          <ContactStateLoderSmall />
-        ) : (
           <Carousel autoplay className="max-w-[325px] flex">
             {contactInfoData
               ?.filter(contact => contact?.data !== '')
@@ -88,6 +86,8 @@ const ContactStateCarusal = ({ contactInfoData, isLoading }) => {
                 </div>
               ))}
           </Carousel>
+        ) : (
+          <p> No data found</p>
         )}
       </div>
     </div>
